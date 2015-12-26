@@ -5,5 +5,5 @@ agilisales-client/node_modules/
 agilisales-client/platforms/
 agilisales-client/plugins/
 agilisales-client/.DS_STORE
-.idea/
+.idea
 .DS_STORE
