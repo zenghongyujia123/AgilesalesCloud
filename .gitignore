@@ -1,0 +1,7 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+agilisales-client/node_modules/
+agilisales-client/platforms/
+agilisales-client/plugins/
+.idea/
