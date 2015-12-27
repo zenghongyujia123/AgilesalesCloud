@@ -1,4 +1,4 @@
-angular.module('controllers', [])
+angular.module('agilisales')
 
   .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
