@@ -24,8 +24,6 @@ angular.module('agilisales').directive('agMapPanel', function () {
       function hide() {
         $element.removeClass('show');
       }
-
-      console.log('haha');
     }
   };
 });
