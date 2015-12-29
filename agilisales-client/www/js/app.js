@@ -66,7 +66,24 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
             controller: 'PlaylistCtrl'
           }
         }
+      })
+      .state('home.punch', {
+        url: '/punch',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/punch.client.view.html'
+          }
+        }
+      })
+      .state('home.punch_detail', {
+        url: '/punch_detail',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/punch_detail.client.view.html'
+          }
+        }
       });
+
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/home/playlists');
   });
