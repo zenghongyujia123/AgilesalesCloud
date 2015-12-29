@@ -1,6 +1,4 @@
-angular.module('agilisales')
-
-  .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+angular.module('agilisales').controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -41,7 +39,7 @@ angular.module('agilisales')
     };
   })
 
-  .controller('PlaylistsCtrl', function($scope) {
+  .controller('PlaylistsCtrl', ['$scope','$rootScope',function($scope,$rootScope) {
     $scope.playlists = [
       { title: 'Reggae', id: 1 },
       { title: 'Chill', id: 2 },
@@ -50,7 +48,15 @@ angular.module('agilisales')
       { title: 'Rap', id: 5 },
       { title: 'Cowbell', id: 6 }
     ];
-  })
+
+    $scope.showMap = function(){
+      $rootScope.$broadcast('show.mapPanel');
+    }
+  }])
 
   .controller('PlaylistCtrl', function($scope, $stateParams) {
-  });
+
+  })
+  .controller('IndexCtrl',['$scope','$rootScope',function($scope,$rootScope){
+
+  }]);

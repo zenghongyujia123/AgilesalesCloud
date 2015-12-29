@@ -1,10 +1,11 @@
 var gulp = require('gulp');
 //var gutil = require('gulp-util');
 //var bower = require('bower');
+var less = require('gulp-less');
 var concat = require('gulp-concat');
 //var sass = require('gulp-sass');
 //var minifyCss = require('gulp-minify-css');
-//var rename = require('gulp-rename');
+var rename = require('gulp-rename');
 //var sh = require('shelljs');
 //
 //var paths = {
@@ -53,10 +54,22 @@ var concat = require('gulp-concat');
 gulp.task('js-concat', function () {
   return gulp.src([
       'www/js/app.js',
+      'www/directives/**/*.js',
       'www/controllers/**/*.js'
     ])
     .pipe(concat('agilisales.js'))
     .pipe(gulp.dest('www/dist/js'))
 });
+
+gulp.task('less-concat', function () {
+  return gulp.src('www/lesses/index.client.style.less')
+    .pipe(less())
+    .pipe(rename(function (path) {
+      path.basename = 'agilisales';
+    }))
+    .pipe(gulp.dest('www/dist/css'));
+});
+
+gulp.task('app', ['js-concat', 'less-concat']);
 
 
