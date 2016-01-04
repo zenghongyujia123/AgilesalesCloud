@@ -25,14 +25,21 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
-      .state('home', {
-        url: '/home',
+      .state('menu', {
+        url: '/menu',
         abstract: true,
-        templateUrl: 'templates/home.client.view.html',
-        controller: 'HomeCtrl'
+        templateUrl: 'templates/menu.client.view.html',
+        controller: 'MenuCtrl'
       })
-
-      .state('home.dashboard', {
+      .state('menu.home', {
+        url: '/home',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/home.client.view.html'
+          }
+        }
+      })
+      .state('menu.dashboard', {
         url: '/dashboard',
         views: {
           'menuContent': {
@@ -41,7 +48,7 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
         }
       })
 
-      .state('home.nearby', {
+      .state('menu.nearby', {
         url: '/nearby',
         views: {
           'menuContent': {
@@ -49,7 +56,7 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
-      .state('home.setting', {
+      .state('menu.setting', {
         url: '/setting',
         views: {
           'menuContent': {
@@ -58,7 +65,7 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
         }
       })
 
-      .state('home.photos', {
+      .state('menu.photos', {
         url: '/photos',
         views: {
           'menuContent': {
@@ -67,7 +74,7 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
-      .state('home.punch', {
+      .state('menu.punch', {
         url: '/punch',
         views: {
           'menuContent': {
@@ -75,7 +82,7 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
-      .state('home.punch_detail', {
+      .state('menu.punch_detail', {
         url: '/punch_detail',
         views: {
           'menuContent': {
@@ -85,5 +92,5 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
       });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/home/photos');
+    $urlRouterProvider.otherwise('/menu/home');
   });

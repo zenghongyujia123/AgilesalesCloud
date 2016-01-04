@@ -1,4 +1,4 @@
-angular.module('agilisales').controller('HomeCtrl', function($scope, $ionicModal, $timeout) {
+angular.module('agilisales').controller('MenuCtrl', function($scope, $ionicModal, $timeout) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
