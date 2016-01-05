@@ -84,6 +84,23 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
+      .state('menu.punch_detail', {
+        url: '/punch_detail',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/punch_detail.client.view.html'
+          }
+        }
+      })
+      .state('menu.punch_submit', {
+        url: '/punch_submit',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/punch_submit.client.view.html',
+            controller: 'PunchSubmitCtrl'
+          }
+        }
+      })
       .state('menu.inform', {
         url: '/inform',
         views: {
@@ -99,14 +116,6 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           'menuContent': {
             templateUrl: 'templates/inform_list.client.view.html',
             controller: 'InformListCtrl'
-          }
-        }
-      })
-      .state('menu.punch_detail', {
-        url: '/punch_detail',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/punch_detail.client.view.html'
           }
         }
       });
