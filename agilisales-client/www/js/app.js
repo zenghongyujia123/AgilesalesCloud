@@ -79,7 +79,8 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
         url: '/punch',
         views: {
           'menuContent': {
-            templateUrl: 'templates/punch.client.view.html'
+            templateUrl: 'templates/punch.client.view.html',
+            controller: 'PunchCtrl'
           }
         }
       })
