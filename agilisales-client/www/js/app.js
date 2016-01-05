@@ -84,6 +84,24 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
+      .state('menu.inform', {
+        url: '/inform',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/inform.client.view.html',
+            controller: 'InformCtrl'
+          }
+        }
+      })
+      .state('menu.inform_list', {
+        url: '/inform_list',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/inform_list.client.view.html',
+            controller: 'InformListCtrl'
+          }
+        }
+      })
       .state('menu.punch_detail', {
         url: '/punch_detail',
         views: {
