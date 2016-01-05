@@ -4,12 +4,12 @@
       通知
     </button>
   </ion-nav-buttons>
-  <ion-content ng-click="showMap()" class="sm-home-page">
+  <ion-content class="sm-home-page">
     <div class="theme-container">
-      <div class="theme-item oringe">上班打卡</div>
-      <div class="theme-item right blue">拜访计划</div>
-      <div class="theme-item green">发现新店</div>
-      <div class="theme-item right purple">日/周/月报</div>
+      <a class="theme-item oringe" href="#/menu/punch">上班打卡</a>
+      <a class="theme-item right blue">拜访计划</a>
+      <a class="theme-item green">发现新店</a>
+      <a class="theme-item right purple" ng-click="showMap()">日/周/月报</a>
     </div>
   </ion-content>
 </ion-view>
