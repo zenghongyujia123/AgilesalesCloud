@@ -35,7 +35,8 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
         url: '/home',
         views: {
           'menuContent': {
-            templateUrl: 'templates/home.client.view.html'
+            templateUrl: 'templates/home.client.view.html',
+            controller: 'HomeCtrl'
           }
         }
       })
