@@ -54,7 +54,7 @@ angular.module('agilisales').controller('MenuCtrl', function($scope, $ionicModal
     }
   }])
 
-  .controller('PlaylistCtrl', function($scope, $stateParams) {
+  .controller('PhotosCtrl', function($scope, $stateParams) {
 
   })
   .controller('IndexCtrl',['$scope','$rootScope',function($scope,$rootScope){

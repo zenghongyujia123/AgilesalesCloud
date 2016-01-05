@@ -70,7 +70,7 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
         views: {
           'menuContent': {
             templateUrl: 'templates/photos.client.view.html',
-            controller: 'PlaylistCtrl'
+            controller: 'PhotosCtrl'
           }
         }
       })
