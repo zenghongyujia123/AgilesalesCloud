@@ -53,7 +53,10 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
           initIosLocation();
         }
       }
+
+      var androidLocationMk = null;
       function initAndroidLocation() {
+
         window.plugins.AMapLocationService.getCurrentPosition(function (result) {
           console.log(result);
           if (result.position && result.position.lng) {
