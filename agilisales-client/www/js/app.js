@@ -89,11 +89,11 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
         url: '/setting',
         views: {
           'menuContent': {
-            templateUrl: 'templates/setting.client.view.html'
+            templateUrl: 'templates/setting.client.view.html',
+            controller: 'SettingCtrl'
           }
         }
       })
-
       .state('menu.photos', {
         url: '/photos',
         views: {
