@@ -2,7 +2,7 @@
  * Created by zenghong on 16/1/6.
  */
 angular.module('agilisales')
-  .controller('CameraCtrl', function ($scope, $cordovaCamera) {
+  .controller('CameraCtrl', ['$scope', '$cordovaCamera', '$rootScope', function ($scope, $cordovaCamera, $rootScope) {
     var options = {
       quality: 50,
       destinationType: Camera.DestinationType.DATA_URL,
@@ -16,7 +16,7 @@ angular.module('agilisales')
       correctOrientation: true
     };
 
-    //
+
     //document.addEventListener("deviceready", function () {
     //
     //}, false);
@@ -29,7 +29,10 @@ angular.module('agilisales')
         $scope.info.src = "data:image/jpeg;base64," + imageData;
       }, function (err) {
         console.log(err);
-        // error
       });
+    };
+
+    $scope.showMap = function () {
+      $rootScope.$broadcast('show.mapPanel');
     }
-  });
+  }]);
