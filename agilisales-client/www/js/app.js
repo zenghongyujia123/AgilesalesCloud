@@ -101,12 +101,12 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
-      .state('menu.plan_self', {
-        url: '/plan_self',
+      .state('menu.plan', {
+        url: '/plan',
         views: {
           'menuContent': {
-            templateUrl: 'templates/plan_self.client.view.html',
-            controller: 'PlanSelfCtrl'
+            templateUrl: 'templates/plan.client.view.html',
+            controller: 'PlanCtrl'
           }
         }
       })
@@ -125,6 +125,33 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           'menuContent': {
             templateUrl: 'templates/plan_create.client.view.html',
             controller: 'PlanCreateCtrl'
+          }
+        }
+      })
+      .state('menu.shop', {
+        url: '/shop',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/shop.client.view.html',
+            controller: 'ShopCtrl'
+          }
+        }
+      })
+      .state('menu.shop_create', {
+        url: '/shop_create',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/shop_create.client.view.html',
+            controller: 'ShopCreateCtrl'
+          }
+        }
+      })
+      .state('menu.shop_list', {
+        url: '/shop_list',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/shop_list.client.view.html',
+            controller: 'ShopListCtrl'
           }
         }
       })
