@@ -38,9 +38,6 @@ angular.module('agilisales').controller('MenuCtrl', function ($scope, $ionicModa
       }, 1000);
     };
   })
-  .controller('PhotosCtrl', function ($scope, $stateParams) {
-
-  })
   .controller('HomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
     $scope.showMap = function () {
       $rootScope.$broadcast('show.mapPanel');
