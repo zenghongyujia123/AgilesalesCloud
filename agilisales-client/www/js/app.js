@@ -101,6 +101,33 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
+      .state('menu.plan_self', {
+        url: '/plan_self',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/plan_self.client.view.html',
+            controller: 'PlanSelfCtrl'
+          }
+        }
+      })
+      .state('menu.plan_list', {
+        url: '/plan_list',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/plan_list.client.view.html',
+            controller: 'PlanListCtrl'
+          }
+        }
+      })
+      .state('menu.plan_create', {
+        url: '/plan_create',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/plan_create.client.view.html',
+            controller: 'PlanCreateCtrl'
+          }
+        }
+      })
       .state('menu.inform', {
         url: '/inform',
         views: {
