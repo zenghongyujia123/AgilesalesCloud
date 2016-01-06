@@ -67,12 +67,21 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
-
+      .state('menu.nearby_shop_list', {
+        url: '/nearby_shop_list',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/nearby_shop_list.client.view.html',
+            controller: 'NearbyShopListCtrl'
+          }
+        }
+      })
       .state('menu.nearby_shop', {
         url: '/nearby_shop',
         views: {
           'menuContent': {
-            templateUrl: 'templates/nearby_shop.client.view.html'
+            templateUrl: 'templates/nearby_shop.client.view.html',
+            controller: 'NearbyShopCtrl'
           }
         }
       })
