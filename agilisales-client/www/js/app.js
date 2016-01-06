@@ -209,6 +209,15 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
             controller: 'DailyListCtrl'
           }
         }
+      })
+      .state('menu.camera', {
+        url: '/camera',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/camera.client.view.html',
+            controller: 'CameraCtrl'
+          }
+        }
       });
 
     // if none of the above states are matched, use this as the fallback
