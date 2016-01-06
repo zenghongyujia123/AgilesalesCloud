@@ -16,44 +16,36 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
       var map;
       var selfLocation = {};
       var geolocation;
-      initMap();
 
+      initMap();
       $scope.$on('show.mapPanel', function () {
         show();
       });
-
       $scope.hide = function () {
         hide();
       };
-
+      $scope.moveToSelf = function () {
+        setCenter(selfLocation.lng, selfLocation.lat);
+      };
+      $ionicPlatform.ready(function () {
+        initLocation();
+      });
       function show() {
         $element.addClass('show');
       }
-
       function hide() {
         $element.removeClass('show');
       }
-
       function setCenter(lng, lat) {
         if (lng && lat)
           map.setCenter(new AMap.LngLat(lng, lat));
       }
-
       function initMap() {
         map = new AMap.Map('gd-map-container', {
           resizeEnable: true,
           zoom: 15
         });
       }
-
-      $scope.moveToSelf = function () {
-        setCenter(selfLocation.lng, selfLocation.lat);
-      };
-
-      $ionicPlatform.ready(function () {
-        initLocation();
-      });
-
       function initLocation() {
         if ($ionicPlatform.is('android')) {
           initAndroidLocation();
@@ -61,7 +53,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
           initIosLocation();
         }
       }
-
       function initAndroidLocation() {
         window.plugins.AMapLocationService.getCurrentPosition(function (result) {
           console.log(result);
@@ -73,7 +64,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
           console.log(err);
         });
       }
-
       function initIosLocation() {
         map.plugin('AMap.Geolocation', function () {
           geolocation = new AMap.Geolocation({
