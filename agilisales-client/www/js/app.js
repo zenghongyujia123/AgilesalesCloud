@@ -155,6 +155,33 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
+      .state('menu.daily', {
+        url: '/daily',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/daily.client.view.html',
+            controller: 'DailyCtrl'
+          }
+        }
+      })
+      .state('menu.daily_create', {
+        url: '/daily_create',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/daily_create.client.view.html',
+            controller: 'DailyCreateCtrl'
+          }
+        }
+      })
+      .state('menu.daily_list', {
+        url: '/daily_list',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/daily_list.client.view.html',
+            controller: 'DailyListCtrl'
+          }
+        }
+      })
       .state('menu.inform', {
         url: '/inform',
         views: {
