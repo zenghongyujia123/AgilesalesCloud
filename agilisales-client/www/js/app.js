@@ -40,20 +40,39 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           }
         }
       })
+      .state('menu.inform', {
+        url: '/inform',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/inform.client.view.html',
+            controller: 'InformCtrl'
+          }
+        }
+      })
+      .state('menu.inform_list', {
+        url: '/inform_list',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/inform_list.client.view.html',
+            controller: 'InformListCtrl'
+          }
+        }
+      })
       .state('menu.dashboard', {
         url: '/dashboard',
         views: {
           'menuContent': {
-            templateUrl: 'templates/dashboard.client.view.html'
+            templateUrl: 'templates/dashboard.client.view.html',
+            controller: 'DashboardCtrl'
           }
         }
       })
 
-      .state('menu.nearby', {
-        url: '/nearby',
+      .state('menu.nearby_shop', {
+        url: '/nearby_shop',
         views: {
           'menuContent': {
-            templateUrl: 'templates/nearby.client.view.html'
+            templateUrl: 'templates/nearby_shop.client.view.html'
           }
         }
       })
@@ -179,24 +198,6 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
           'menuContent': {
             templateUrl: 'templates/daily_list.client.view.html',
             controller: 'DailyListCtrl'
-          }
-        }
-      })
-      .state('menu.inform', {
-        url: '/inform',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/inform.client.view.html',
-            controller: 'InformCtrl'
-          }
-        }
-      })
-      .state('menu.inform_list', {
-        url: '/inform_list',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/inform_list.client.view.html',
-            controller: 'InformListCtrl'
           }
         }
       });
