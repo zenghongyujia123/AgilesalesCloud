@@ -50,16 +50,5 @@ angular.module('agilisales')
           // An error occurred
           alert(JSON.stringify(error));
         });
-
-
-      //// NOTE: encoding not functioning yet
-      //$cordovaBarcodeScanner
-      //  .encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com")
-      //  .then(function (success) {
-      //    alert(success);
-      //  }, function (error) {
-      //    alert(error);
-      //    // An error occurred
-      //  });
     };
   }]);
