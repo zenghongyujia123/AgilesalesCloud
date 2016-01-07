@@ -96,7 +96,7 @@ module.exports = function () {
   });
 
   // Globbing routing files
-  config.getGlobbedFiles('./agilisales/routes/**/**/*.js').forEach(function (routePath) {
+  config.getGlobbedFiles('./routes/**/**/*.js').forEach(function (routePath) {
     require(path.resolve(routePath))(app);
   });
 
@@ -107,7 +107,7 @@ module.exports = function () {
 
   // Assume 404 since no middleware responded
   app.use(function (req, res, next) {
-    console.log('404');
+    return next();
   });
 
   return app;
