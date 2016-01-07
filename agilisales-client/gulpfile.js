@@ -54,6 +54,7 @@ var rename = require('gulp-rename');
 gulp.task('js-concat', function () {
   return gulp.src([
       'www/js/app.js',
+      'www/tools/**/*.js',
       'www/directives/**/*.js',
       'www/controllers/**/*.js'
     ])

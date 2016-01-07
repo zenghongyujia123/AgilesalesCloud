@@ -44,4 +44,5 @@ angular.module('agilisales').controller('MenuCtrl', function ($scope, $ionicModa
     }
   }])
   .controller('IndexCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
+
   }]);

@@ -2,7 +2,7 @@
  * Created by zenghong on 16/1/6.
  */
 angular.module('agilisales')
-  .controller('CameraCtrl', ['$scope', '$cordovaCamera', '$rootScope', function ($scope, $cordovaCamera, $rootScope) {
+  .controller('CameraCtrl', ['$scope', '$cordovaCamera', '$rootScope', 'NetworkTool', function ($scope, $cordovaCamera, $rootScope, NetworkTool) {
     var options = {
       quality: 50,
       destinationType: Camera.DestinationType.DATA_URL,
@@ -34,5 +34,9 @@ angular.module('agilisales')
 
     $scope.showMap = function () {
       $rootScope.$broadcast('show.mapPanel');
-    }
+    };
+
+    $scope.isOnline = function () {
+      alert(NetworkTool.isOnline());
+    };
   }]);

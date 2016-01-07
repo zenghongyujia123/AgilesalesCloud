@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('agilisales', ['ionic', 'flexcalendar', 'flexcalendar.defaultTranslation', 'ngCordova'])
-  .run(function ($ionicPlatform) {
+  .run(function ($ionicPlatform,$rootScope) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -18,6 +18,16 @@ angular.module('agilisales', ['ionic', 'flexcalendar', 'flexcalendar.defaultTran
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+
+      $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+        console.log(event);
+        console.log(networkState);
+      });
+
+      $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+        console.log(event);
+        console.log(networkState);
+      });
     });
   })
 
