@@ -9,8 +9,6 @@
 
 'use strict';
 
-require('oneapm');
-
 var init = require('./config/init')(),
   config = require('./config/config'),
   setup = require('./config/setup')(),
