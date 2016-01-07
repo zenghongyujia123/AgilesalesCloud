@@ -2,7 +2,7 @@
  * Created by zenghong on 16/1/6.
  */
 angular.module('agilisales')
-  .controller('CameraCtrl', ['$scope', '$cordovaCamera', '$rootScope', 'NetworkTool', function ($scope, $cordovaCamera, $rootScope, NetworkTool) {
+  .controller('CameraCtrl', ['$scope', '$cordovaCamera', '$cordovaBarcodeScanner', '$rootScope', 'NetworkTool', function ($scope, $cordovaCamera, $cordovaBarcodeScanner, $rootScope, NetworkTool) {
     var options = {
       quality: 50,
       destinationType: Camera.DestinationType.DATA_URL,
@@ -38,5 +38,28 @@ angular.module('agilisales')
 
     $scope.isOnline = function () {
       alert(NetworkTool.isOnline());
+    };
+
+    $scope.getBarCode = function () {
+      $cordovaBarcodeScanner
+        .scan()
+        .then(function (barcodeData) {
+          // Success! Barcode data is here
+          alert(JSON.stringify(barcodeData));
+        }, function (error) {
+          // An error occurred
+          alert(JSON.stringify(error));
+        });
+
+
+      //// NOTE: encoding not functioning yet
+      //$cordovaBarcodeScanner
+      //  .encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com")
+      //  .then(function (success) {
+      //    alert(success);
+      //  }, function (error) {
+      //    alert(error);
+      //    // An error occurred
+      //  });
     };
   }]);
