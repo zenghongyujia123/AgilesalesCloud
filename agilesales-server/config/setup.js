@@ -6,8 +6,7 @@
 
 'use strict';
 
-var typeExtend = require('../libraries/type_extend'),
-  config = require('./config');
+var config = require('./config');
 
 module.exports = function () {
 
@@ -16,8 +15,7 @@ module.exports = function () {
   }
 
   process.env.appDb = config.appDb;
-  process.env.logDb = config.logDb;
 
-  var mongo = require('../libraries/mongoose');
-  require('../models/all')(mongo.appDb, mongo.logDb);
+  var mongo = {} || require('../libraries/mongoose');
+  //require('../models/all')(mongo.appDb, mongo.logDb);
 };
