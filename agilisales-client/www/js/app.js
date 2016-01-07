@@ -4,8 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('agilisales', ['ionic', 'ngCordova'])
-
+angular.module('agilisales', ['ionic', 'flexcalendar', 'flexcalendar.defaultTranslation', 'ngCordova'])
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -22,9 +21,77 @@ angular.module('agilisales', ['ionic', 'ngCordova'])
     });
   })
 
-  .config(function ($stateProvider, $urlRouterProvider) {
-    $stateProvider
+  .config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
+    $translateProvider.translations('en', {
+      JANUARY: 'January',
+      FEBRUARY: 'February',
+      MARCH: 'March',
+      APRIL: 'April',
+      MAI: 'Mai',
+      JUNE: 'June',
+      JULY: 'July',
+      AUGUST: 'August',
+      SEPTEMBER: 'September',
+      OCTOBER: 'October',
+      NOVEMBER: 'November',
+      DECEMBER: 'December',
 
+      SUNDAY: 'Sunday',
+      MONDAY: 'Monday',
+      TUESDAY: 'Tuesday',
+      WEDNESDAY: 'Wednesday',
+      THURSDAY: 'Thurday',
+      FRIDAY: 'Friday',
+      SATURDAY: 'Saturday'
+    });
+    $translateProvider.translations('fr', {
+      JANUARY: 'Janvier',
+      FEBRUARY: 'Févier',
+      MARCH: 'Mars',
+      APRIL: 'Avril',
+      MAI: 'Mai',
+      JUNE: 'Juin',
+      JULY: 'Juillet',
+      AUGUST: 'Août',
+      SEPTEMBER: 'Septembre',
+      OCTOBER: 'Octobre',
+      NOVEMBER: 'Novembre',
+      DECEMBER: 'Décembre',
+
+      SUNDAY: 'Dimanche',
+      MONDAY: 'Lundi',
+      TUESDAY: 'Mardi',
+      WEDNESDAY: 'Mercredi',
+      THURSDAY: 'Jeudi',
+      FRIDAY: 'Vendredi',
+      SATURDAY: 'Samedi'
+    });
+    $translateProvider.translations('pt', {
+      JANUARY: 'Janeiro',
+      FEBRUARY: 'Fevereiro',
+      MARCH: 'Março',
+      APRIL: 'Abril',
+      MAI: 'Maio',
+      JUNE: 'Junho',
+      JULY: 'Julho',
+      AUGUST: 'Agosto',
+      SEPTEMBER: 'Setembro',
+      OCTOBER: 'Outubro',
+      NOVEMBER: 'Novembro',
+      DECEMBER: 'Dezembro',
+
+      SUNDAY: 'Domingo',
+      MONDAY: 'Segunda',
+      TUESDAY: 'Terça',
+      WEDNESDAY: 'Quarta',
+      THURSDAY: 'Quinta',
+      FRIDAY: 'Sexta',
+      SATURDAY: 'Sábado'
+    });
+    $translateProvider.preferredLanguage('fr');
+
+
+    $stateProvider
       .state('menu', {
         url: '/menu',
         abstract: true,
