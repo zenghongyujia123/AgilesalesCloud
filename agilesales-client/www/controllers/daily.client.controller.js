@@ -18,7 +18,7 @@ angular.module('agilisales')
       },
       filteredEventsChange: function(filteredEvents) {
         console.log(filteredEvents);
-      },
+      }
     };
 
     $scope.events = [

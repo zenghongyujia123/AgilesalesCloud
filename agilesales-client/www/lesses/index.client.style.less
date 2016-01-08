@@ -1,14 +1,14 @@
-a{
+a {
   text-decoration: none;
 }
 
-.ag-panel{
+.ag-panel {
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: yellow;
-  left:100%;
-  top:0px;
+  left: 100%;
+  top: 0px;
 
   -webkit-transition: -webkit-transform .2s ease;
   -webkit-transform: translate3d(0, 0, 0);
@@ -16,17 +16,38 @@ a{
   &.show {
     -webkit-transform: translate3d(-100%, 0, 0);
   }
-  .ag-panel-header{
+  .ag-panel-header {
     position: absolute;
     left: 0px;
-    top:0px;
-    height:60px;
-    width:100%;
+    top: 0px;
+    height: 60px;
+    width: 100%;
     background-color: #0a9dc7;
     z-index: 1;
+    color: white;
+    .left {
+      position: absolute;
+      left: 10px;
+      top: 0px;
+      line-height: 60px;
+      font-size: 16px;
+    }
+
+    .center {
+      text-align: center;
+      font-size: 18px;
+      line-height: 60px;
+    }
+
+    .right {
+      position: absolute;
+      right: 10px;
+      top: 0px;
+      line-height: 60px;
+      font-size: 16px;
+    }
   }
 }
-
 
 /*.bar-header {
   height: 60px;

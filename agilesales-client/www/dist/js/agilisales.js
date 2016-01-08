@@ -273,31 +273,6 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPhotoPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/photo_panel/photo.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.photoPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -396,22 +371,47 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
 }]);
 
 /**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agPhotoPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/photo_panel/photo.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.photoPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
  * Created by zenghong on 16/1/6.
  */
 angular.module('agilisales')
   .controller('CameraCtrl', ['$scope', '$cordovaCamera', '$cordovaBarcodeScanner', '$rootScope', 'NetworkTool', function ($scope, $cordovaCamera, $cordovaBarcodeScanner, $rootScope, NetworkTool) {
-    var options = {
-      quality: 50,
-      destinationType: Camera.DestinationType.DATA_URL,
-      sourceType: Camera.PictureSourceType.CAMERA,
-      allowEdit: true,
-      encodingType: Camera.EncodingType.JPEG,
-      targetWidth: 100,
-      targetHeight: 100,
-      popoverOptions: CameraPopoverOptions,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    };
+    //var options = {
+    //  quality: 50,
+    //  destinationType: Camera.DestinationType.DATA_URL,
+    //  sourceType: Camera.PictureSourceType.CAMERA,
+    //  allowEdit: true,
+    //  encodingType: Camera.EncodingType.JPEG,
+    //  targetWidth: 100,
+    //  targetHeight: 100,
+    //  popoverOptions: CameraPopoverOptions,
+    //  saveToPhotoAlbum: false,
+    //  correctOrientation: true
+    //};
 
 
     //document.addEventListener("deviceready", function () {
@@ -422,11 +422,11 @@ angular.module('agilisales')
       src: ''
     };
     $scope.getPicture = function () {
-      $cordovaCamera.getPicture(options).then(function (imageData) {
-        $scope.info.src = "data:image/jpeg;base64," + imageData;
-      }, function (err) {
-        console.log(err);
-      });
+      //$cordovaCamera.getPicture(options).then(function (imageData) {
+      //  $scope.info.src = "data:image/jpeg;base64," + imageData;
+      //}, function (err) {
+      //  console.log(err);
+      //});
     };
 
     $scope.showMapPanel = function () {
@@ -474,7 +474,7 @@ angular.module('agilisales')
       },
       filteredEventsChange: function(filteredEvents) {
         console.log(filteredEvents);
-      },
+      }
     };
 
     $scope.events = [

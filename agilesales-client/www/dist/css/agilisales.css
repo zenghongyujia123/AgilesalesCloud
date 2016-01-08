@@ -23,6 +23,26 @@ a {
   width: 100%;
   background-color: #0a9dc7;
   z-index: 1;
+  color: white;
+}
+.ag-panel .ag-panel-header .left {
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  line-height: 60px;
+  font-size: 16px;
+}
+.ag-panel .ag-panel-header .center {
+  text-align: center;
+  font-size: 18px;
+  line-height: 60px;
+}
+.ag-panel .ag-panel-header .right {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  line-height: 60px;
+  font-size: 16px;
 }
 /*.bar-header {
   height: 60px;
