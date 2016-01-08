@@ -5,9 +5,9 @@ a {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: yellow;
   left: 100%;
   top: 0px;
+  background-color: #f8f8f8;
   -webkit-transition: -webkit-transform 0.2s ease;
   -webkit-transform: translate3d(0, 0, 0);
   z-index: 4;
@@ -21,7 +21,6 @@ a {
   top: 0px;
   height: 60px;
   width: 100%;
-  background-color: #0a9dc7;
   z-index: 1;
   color: white;
 }
@@ -109,6 +108,56 @@ a {
   width: 100%;
   background-color: #0a9dc7;
   z-index: 1;
+}
+.ag-photo-panel .photo-title {
+  padding: 20px 10px;
+}
+.ag-photo-panel .photo-title .number {
+  color: #74b44d;
+}
+.ag-photo-panel .photo-container {
+  overflow: hidden;
+}
+.ag-photo-panel .photo-container .photo-item {
+  width: 25%;
+  float: left;
+  height: 100px;
+}
+.ag-photo-panel .photo-container .photo-item .item {
+  width: 100%;
+  height: 100%;
+  padding: 1px;
+}
+.ag-photo-panel .camera-entrance {
+  position: absolute;
+  text-align: center;
+  background-color: white;
+  height: 80px;
+  bottom: 60px;
+  color: #fc9e5e;
+  width: 100%;
+  border-top: 1px solid #b2b2b2;
+}
+.ag-photo-panel .camera-entrance .camera {
+  line-height: 80px;
+  font-size: 18px;
+}
+.ag-photo-panel .camera-entrance .number {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #74b44d;
+}
+.ag-photo-panel .camera-submit {
+  position: absolute;
+  bottom: 0px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  background-color: #74b44d;
+  width: 100%;
 }
 .menu {
   background-color: #6e7fa6;

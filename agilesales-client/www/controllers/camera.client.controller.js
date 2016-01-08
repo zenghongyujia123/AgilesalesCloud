@@ -25,11 +25,7 @@ angular.module('agilisales')
       src: ''
     };
     $scope.getPicture = function () {
-      //$cordovaCamera.getPicture(options).then(function (imageData) {
-      //  $scope.info.src = "data:image/jpeg;base64," + imageData;
-      //}, function (err) {
-      //  console.log(err);
-      //});
+
     };
 
     $scope.showMapPanel = function () {

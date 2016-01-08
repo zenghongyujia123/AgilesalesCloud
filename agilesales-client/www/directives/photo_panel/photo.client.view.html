@@ -1,7 +1,24 @@
 <div class="ag-panel">
   <div class="bar-stable bar bar-header">
-    <div class="left" ng-click="hide()">返回</div>
-    <div class="center">拍照</div>
+    <div class="button back-button buttons  button-clear header-item" ng-click="hide()">返回</div>
+    <div class="title title-center header-item">拍照</div>
     <div class="right"></div>
   </div>
+  <ion-content class="has-header ag-photo-panel">
+    <div class="photo-title">
+      <span class="descrip">陈列拍照</span>
+      <span class="number">3/4</span>
+    </div>
+    <div class="photo-container">
+      <div class="photo-item" ng-repeat="photo in photos">
+        <img ng-src="{{photo.value}}" class="item">
+      </div>
+    </div>
+    <div class="camera-entrance">
+      <div class="camera" ng-click="getPicture()">陈列拍照</div>
+
+      <div class="number">4/3</div>
+    </div>
+    <div class="camera-submit">确认</div>
+  </ion-content>
 </div>
