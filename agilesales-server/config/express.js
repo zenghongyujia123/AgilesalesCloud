@@ -29,7 +29,7 @@ module.exports = function () {
   // Should be placed before express.static
   app.use(compress({
     filter: function (req, res) {
-      return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
+      return (/json|text|javascript|apk|css/).test(res.getHeader('Content-Type'));
     },
     level: 9
   }));
@@ -70,7 +70,7 @@ module.exports = function () {
   });
 
   // Setting the app router and static folder
-  app.use(express.static(path.resolve('./web')));
+  app.use(express.static(path.resolve('./static')));
 
   app.use(function (req, res, next) {
 

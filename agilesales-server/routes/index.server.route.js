@@ -6,4 +6,5 @@ var indexCtrl = require('../controllers/index');
 
 module.exports = function (app) {
   app.route('/').get(indexCtrl.index);
+  app.route('/download').get(indexCtrl.download);
 };
