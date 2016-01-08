@@ -4,7 +4,7 @@
 angular.module('agilisales').directive('agPhotoPanel', [function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/map_panel/map.client.view.html',
+    templateUrl: 'directives/photo_panel/photo.client.view.html',
     replace: true,
     scope: {},
     controller: function ($scope, $element) {
