@@ -263,13 +263,6 @@ angular.module('agilisales', ['ionic', 'flexcalendar', 'flexcalendar.defaultTran
  * Created by zenghong on 16/1/7.
  */
 angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function ($cordovaNetwork) {
-  return {};
-}]);
-
-/**
- * Created by zenghong on 16/1/7.
- */
-angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function ($cordovaNetwork) {
   return {
     isOnline: function () {
       return $cordovaNetwork.isOnline();
@@ -278,14 +271,28 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
 }]);
 
 /**
- * Created by zenghong on 16/1/7.
+ * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function ($cordovaNetwork) {
+angular.module('agilisales').directive('agPhotoPanel', [function () {
   return {
-    isOnline: function () {
-      return $cordovaNetwork.isOnline();
+    restrict: 'AE',
+    templateUrl: 'directives/map_panel/map.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.photoPanel', function () {
+        $scope.show();
+      });
     }
-  }
+  };
 }]);
 
 /**
@@ -422,8 +429,12 @@ angular.module('agilisales')
       });
     };
 
-    $scope.showMap = function () {
+    $scope.showMapPanel = function () {
       $rootScope.$broadcast('show.mapPanel');
+    };
+
+    $scope.showPhotoPanel = function () {
+      $rootScope.$broadcast('show.photoPanel');
     };
 
     $scope.isOnline = function () {
@@ -440,17 +451,6 @@ angular.module('agilisales')
           // An error occurred
           alert(JSON.stringify(error));
         });
-
-
-      //// NOTE: encoding not functioning yet
-      //$cordovaBarcodeScanner
-      //  .encode(BarcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com")
-      //  .then(function (success) {
-      //    alert(success);
-      //  }, function (error) {
-      //    alert(error);
-      //    // An error occurred
-      //  });
     };
   }]);
 

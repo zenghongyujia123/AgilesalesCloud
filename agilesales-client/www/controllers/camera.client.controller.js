@@ -32,8 +32,12 @@ angular.module('agilisales')
       });
     };
 
-    $scope.showMap = function () {
+    $scope.showMapPanel = function () {
       $rootScope.$broadcast('show.mapPanel');
+    };
+
+    $scope.showPhotoPanel = function () {
+      $rootScope.$broadcast('show.photoPanel');
     };
 
     $scope.isOnline = function () {
