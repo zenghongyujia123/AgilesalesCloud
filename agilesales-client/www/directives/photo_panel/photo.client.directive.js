@@ -16,7 +16,9 @@ angular.module('agilisales').directive('agPhotoPanel', [function () {
         $element.removeClass('show');
       };
 
-
+      $scope.$on('show.photoPanel', function () {
+        $scope.show();
+      });
     }
   };
 }]);
