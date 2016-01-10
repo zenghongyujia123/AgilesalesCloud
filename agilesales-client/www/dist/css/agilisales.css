@@ -43,6 +43,9 @@ a {
   line-height: 60px;
   font-size: 16px;
 }
+.bar-stable.bar.bar-header {
+  border-bottom: 1px solid #e5e5e5;
+}
 /*.bar-header {
   height: 60px;
 }
@@ -175,14 +178,14 @@ a {
 }
 .ag-filtrate-panel .filtrate-title {
   line-height: 50px;
-  border-bottom: 1px solid #b2b2b2;
+  border-bottom: 1px solid #e5e5e5;
   padding-left: 20px;
-  background-color: #f8f8f8;
+  background-color: #fafafa;
 }
 .ag-filtrate-panel .filtrate-value {
   background-color: white;
   line-height: 50px;
-  border-bottom: 1px solid #b2b2b2;
+  border-bottom: 1px solid #e5e5e5;
   padding-left: 60px;
 }
 .menu {
@@ -288,7 +291,7 @@ a {
 }
 .ag-time-filtrate {
   position: relative;
-  border-bottom: 1px solid #b2b2b2;
+  border-bottom: 1px solid #e5e5e5;
 }
 .ag-time-filtrate .title {
   padding-top: 20px;
