@@ -3,5 +3,7 @@
  */
 angular.module('agilisales')
   .controller('DashboardSingleCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
-
+    $scope.showFiltrate = function () {
+      $rootScope.$broadcast('show.filtratePanel');
+    };
   }]);
