@@ -37,6 +37,18 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', functi
         $scope.show();
       });
 
+      $scope.$on('show.photoBroswerPanel', function () {
+        $scope.showBrowserPanel()
+      });
+
+      $scope.showBrowserPanel = function () {
+        $element.find('.ag-photo-broswer-panel').addClass('show');
+      };
+
+      $scope.hideBrowserPanel = function () {
+        $element.find('.ag-photo-broswer-panel').removeClass('show');
+      };
+
       $scope.photos = [];
 
       $scope.getPicture = function () {
