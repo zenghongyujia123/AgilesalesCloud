@@ -3,5 +3,4 @@
  */
 angular.module('agilisales')
   .controller('DailyCtrl', ['$scope', '$state', function ($scope, $state) {
-
   }]);

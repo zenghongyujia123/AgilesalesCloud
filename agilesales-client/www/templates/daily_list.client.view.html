@@ -1,5 +1,69 @@
-<ion-view view-title="报列表">
+<ion-view view-title="报表" class="ag-daily-list-page">
   <ion-content>
+    <div class="title-container">
+      <div class="title left" ng-class="{select:info.curIndex===0}" ng-click="showPage(0)">日报</div>
+      <div class="title center"  ng-class="{select:info.curIndex===1}" ng-click="showPage(1)">周报</div>
+      <div class="title right" ng-class="{select:info.curIndex===2}" ng-click="showPage(2)">月报</div>
+    </div>
+    <ion-slide-box on-slide-changed="slideHasChanged($index)" style="height: 100%;;">
+      <ion-slide>
+        <div class="box blue">
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box yellow">
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box pink">
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+          <div class="ag-row-item">
+            今天拜访了什么什么什么
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
     <h1>报列表</h1>
     <button class="button" ui-sref="menu.daily_create">新建日报</button>
     <button class="button" ui-sref="menu.daily">报详情</button>

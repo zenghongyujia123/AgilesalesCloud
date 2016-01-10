@@ -384,6 +384,32 @@ a {
 .ag-dashboard-result .result-item .name {
   padding-right: 10px;
 }
+.ag-daily-list-page .title-container {
+  border-bottom: 1px solid #e5e5e5;
+  overflow: hidden;
+}
+.ag-daily-list-page .title-container .title {
+  line-height: 30px;
+  float: left;
+  text-align: center;
+}
+.ag-daily-list-page .title-container .title.left {
+  width: 33%;
+}
+.ag-daily-list-page .title-container .title.center {
+  width: 34%;
+}
+.ag-daily-list-page .title-container .title.right {
+  width: 33%;
+}
+.ag-daily-list-page .title-container .title.select {
+  color: #a077d7;
+  border-bottom: 3px solid #a077d7;
+}
+.ag-daily-list-page .ag-row-item {
+  line-height: 50px;
+  padding: 0px 10px;
+}
 .flex-calendar .days .day.selected .number {
   background-color: red;
 }

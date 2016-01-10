@@ -616,7 +616,6 @@ angular.module('agilisales')
  */
 angular.module('agilisales')
   .controller('DailyCtrl', ['$scope', '$state', function ($scope, $state) {
-
   }]);
 
 /**
@@ -632,7 +631,16 @@ angular.module('agilisales')
  */
 angular.module('agilisales')
   .controller('DailyListCtrl', ['$scope', '$state', function ($scope, $state) {
+    $scope.info = {
+      curIndex: 0
+    };
+    $scope.slideHasChanged = function (index) {
+      $scope.info.curIndex = index;
+    };
 
+    $scope.showPage = function (index) {
+      $scope.info.curIndex = index;
+    };
   }]);
 
 /**
