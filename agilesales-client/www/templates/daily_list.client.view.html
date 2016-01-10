@@ -2,7 +2,7 @@
   <ion-content>
     <div class="title-container">
       <div class="title left" ng-class="{select:info.curIndex===0}" ng-click="showPage(0)">日报</div>
-      <div class="title center"  ng-class="{select:info.curIndex===1}" ng-click="showPage(1)">周报</div>
+      <div class="title center" ng-class="{select:info.curIndex===1}" ng-click="showPage(1)">周报</div>
       <div class="title right" ng-class="{select:info.curIndex===2}" ng-click="showPage(2)">月报</div>
     </div>
     <ion-slide-box active-slide="info.curIndex" on-slide-changed="slideHasChanged($index)" style="height: 100%;;">
@@ -68,4 +68,8 @@
     <button class="button" ui-sref="menu.daily_create">新建日报</button>
     <button class="button" ui-sref="menu.daily">报详情</button>
   </ion-content>
+  <div class="ag-footer" ng-click="showDailyCreate()">
+    添加新报表
+  </div>
+
 </ion-view>
