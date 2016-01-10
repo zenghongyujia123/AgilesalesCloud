@@ -291,6 +291,31 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agFiltratePanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.filtratePanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -594,7 +619,10 @@ angular.module('agilisales')
  */
 angular.module('agilisales')
   .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
-    $scope.goSingle = function(){
+    $scope.showFiltrate = function () {
+      $rootScope.$broadcast('show.filtratePanel');
+    };
+    $scope.goSingle = function () {
       $state.go('menu.dashboard_single');
     }
   }]);
