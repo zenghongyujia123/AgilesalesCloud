@@ -89,6 +89,10 @@ a {
 .bar .button.button-clear .icon:before, .bar .button.button-clear.icon:before, .bar .button.button-clear.icon-left:before, .bar .button.button-clear.icon-right:before, .bar button.button-clear .icon:before, .bar button.button-clear.icon:before, .bar button.button-clear.icon-left:before, .bar button.button-clear.icon-right:before{
   line-height: 48px;
 }*/
+.ag-row-item {
+  border-bottom: 1px solid #e5e5e5;
+  background-color: white;
+}
 .ag-map-panel {
   position: absolute;
   width: 100%;
@@ -139,7 +143,7 @@ a {
   bottom: 60px;
   color: #fc9e5e;
   width: 100%;
-  border-top: 1px solid #b2b2b2;
+  border-top: 1px solid #e5e5e5;
 }
 .ag-photo-panel .camera-entrance .camera {
   line-height: 80px;
@@ -187,6 +191,19 @@ a {
   line-height: 50px;
   border-bottom: 1px solid #e5e5e5;
   padding-left: 60px;
+}
+.ag-events-select-panel .ag-row-item {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 5px 20px;
+  background-color: white;
+}
+.ag-events-select-panel .ag-row-item .title {
+  line-height: 30px;
+  font-size: 16px;
+}
+.ag-events-select-panel .ag-row-item .content {
+  color: #e5e5e5;
+  font-size: 14px;
 }
 .menu {
   background-color: #6e7fa6;
@@ -291,7 +308,7 @@ a {
   margin-top: -200px;
 }
 .ag-punch-page .footer {
-  border-top: 1px solid #b2b2b2;
+  border-top: 1px solid #e5e5e5;
   position: absolute;
   left: 0px;
   bottom: 0px;
@@ -305,7 +322,7 @@ a {
   color: #fc9e5e;
 }
 .ag-punch-page .footer .punch-item.left {
-  border-right: 1px solid #b2b2b2;
+  border-right: 1px solid #e5e5e5;
   text-align: center;
   line-height: 80px;
 }

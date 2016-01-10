@@ -291,6 +291,31 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agEventsSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/events_panel/events_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.eventsSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agFiltratePanel', [function () {
   return {
     restrict: 'AE',
@@ -309,6 +334,74 @@ angular.module('agilisales').directive('agFiltratePanel', [function () {
       $scope.$on('show.filtratePanel', function () {
         $scope.show();
       });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', function ($cordovaCamera) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/photo_panel/photo.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      var options;
+      document.addEventListener("deviceready", function () {
+        options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          //allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 100,
+          targetHeight: 100,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation: true
+        };
+      }, false);
+
+
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.photoPanel', function () {
+        $scope.show();
+      });
+
+      $scope.$on('show.photoBroswerPanel', function () {
+        $scope.showBrowserPanel()
+      });
+
+      $scope.showBrowserPanel = function () {
+        $element.find('.ag-photo-broswer-panel').addClass('show');
+      };
+
+      $scope.hideBrowserPanel = function () {
+        $element.find('.ag-photo-broswer-panel').removeClass('show');
+      };
+
+      $scope.photos = [];
+
+      $scope.getPicture = function () {
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+
+          $scope.photos.push({
+            key: $scope.photos.length + 1,
+            value: "data:image/jpeg;base64," + imageData
+          });
+        }, function (err) {
+          console.log(err);
+        });
+      }
     }
   };
 }]);
@@ -408,74 +501,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
           console.log(data);
         }
         geolocation.watchPosition();
-      }
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
-angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', function ($cordovaCamera) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/photo_panel/photo.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      var options;
-      document.addEventListener("deviceready", function () {
-        options = {
-          quality: 50,
-          destinationType: Camera.DestinationType.DATA_URL,
-          sourceType: Camera.PictureSourceType.CAMERA,
-          //allowEdit: true,
-          encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 100,
-          targetHeight: 100,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-          correctOrientation: true
-        };
-      }, false);
-
-
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.photoPanel', function () {
-        $scope.show();
-      });
-
-      $scope.$on('show.photoBroswerPanel', function () {
-        $scope.showBrowserPanel()
-      });
-
-      $scope.showBrowserPanel = function () {
-        $element.find('.ag-photo-broswer-panel').addClass('show');
-      };
-
-      $scope.hideBrowserPanel = function () {
-        $element.find('.ag-photo-broswer-panel').removeClass('show');
-      };
-
-      $scope.photos = [];
-
-      $scope.getPicture = function () {
-        $cordovaCamera.getPicture(options).then(function (imageData) {
-
-          $scope.photos.push({
-            key: $scope.photos.length + 1,
-            value: "data:image/jpeg;base64," + imageData
-          });
-        }, function (err) {
-          console.log(err);
-        });
       }
     }
   };
@@ -708,21 +733,21 @@ angular.module('agilisales')
  * Created by zenghong on 16/1/5.
  */
 angular.module('agilisales')
-  .controller('PlanCtrl', ['$scope', '$state', function ($scope, $state) {
+  .controller('PlanCtrl', ['$scope', '$state', '$rootScope', function ($scope, $state, $rootScope) {
     $scope.options = {
       defaultDate: new Date(),
       dayNamesLength: 1, // 1 for "M", 2 for "Mo", 3 for "Mon"; 9 will show full day names. Default is 1.
       mondayIsFirstDay: true,//set monday as first day of week. Default is false
-      eventClick: function(date) { // called before dateClick and only if clicked day has events
+      eventClick: function (date) { // called before dateClick and only if clicked day has events
         console.log(date);
       },
-      dateClick: function(date) { // called every time a day is clicked
+      dateClick: function (date) { // called every time a day is clicked
         console.log(date);
       },
-      changeMonth: function(month, year) {
+      changeMonth: function (month, year) {
         console.log(month, year);
       },
-      filteredEventsChange: function(filteredEvents) {
+      filteredEventsChange: function (filteredEvents) {
         console.log(filteredEvents);
       }
     };
@@ -731,6 +756,10 @@ angular.module('agilisales')
       {foo: 'bar', eventClass: 'expired', date: "2015-08-18"}, //value of eventClass will be added to CSS class of the day element
       {foo: 'bar', date: "2015-08-20"}
     ];
+
+    $scope.goEventsCreate = function () {
+      $rootScope.$broadcast('show.eventsSelectPanel');
+    }
   }]);
 
 
