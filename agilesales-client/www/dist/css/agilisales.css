@@ -248,6 +248,30 @@ a {
 .sm-home-page .theme-container .theme-item.purple {
   color: #a077d7;
 }
+.ag-plan-page {
+  font-size: 20px;
+}
+.ag-plan-page .events-panel .events-item {
+  line-height: 50px;
+  height: 50px;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: white;
+}
+.ag-plan-page .events-panel .events-item.none {
+  text-align: center;
+  color: #e5e5e5;
+}
+.ag-plan-page .footer {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  line-height: 50px;
+  height: 50px;
+  border-top: 1px solid #ededed;
+  background-color: #f8f8f8;
+  text-align: center;
+  width: 100%;
+}
 .ag-punch-page .center {
   position: absolute;
   top: 0px;
