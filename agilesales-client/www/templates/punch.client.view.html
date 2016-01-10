@@ -1,12 +1,25 @@
-<ion-view view-title="上班">
+<ion-view view-title="考勤打卡" class="ag-punch-page">
   <ion-nav-buttons side="right">
     <button class="button" ng-click="goDetail()">
-      查看详情
+      考勤统计
     </button>
   </ion-nav-buttons>
   <ion-content>
-    <button class="button" ng-click="goSubmit()">
-      打卡提交
-    </button>
+    <div class="center">
+      <div class="time-icon">
+
+      </div>
+      <div class="time-text">
+
+      </div>
+    </div>
+    <div class="footer">
+      <div class="punch-item left" ng-click="showPhotoPanel()">
+        上班打卡
+      </div>
+      <div class="punch-item right" ng-click="showPhotoPanel()">
+        下班打卡
+      </div>
+    </div>
   </ion-content>
 </ion-view>
