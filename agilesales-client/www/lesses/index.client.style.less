@@ -48,7 +48,7 @@ a {
   }
 }
 
-.bar-stable.bar.bar-header{
+.bar-stable.bar.bar-header {
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -96,12 +96,35 @@ a {
   line-height: 48px;
 }*/
 
-.ag-row-item{
+.ag-row-item {
   border-bottom: 1px solid #e5e5e5;
   background-color: white;
 }
 
-.ag-footer{
+.ag-row-multi-item {
+  border-bottom: 1px solid #e5e5e5;
+  background-color: white;
+  padding:0px 20px;
+  .title {
+    line-height: 30px;
+    font-size: 16px;
+  }
+  .content {
+    line-height: 30px;
+    font-size: 14px;
+    overflow: hidden;
+    .left {
+      color: #efefef;
+      float: left;
+    }
+    .right {
+      color: #e3e3e3;
+      float: right;
+    }
+  }
+}
+
+.ag-footer {
   position: absolute;
   left: 0px;
   bottom: 0px;
@@ -110,7 +133,7 @@ a {
   border-top: 1px solid #ededed;
   background-color: #f8f8f8;
   text-align: center;
-  width:100%;
+  width: 100%;
 }
 
 @import "../directives/map_panel/map.client.style.less";

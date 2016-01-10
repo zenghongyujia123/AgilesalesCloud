@@ -93,6 +93,28 @@ a {
   border-bottom: 1px solid #e5e5e5;
   background-color: white;
 }
+.ag-row-multi-item {
+  border-bottom: 1px solid #e5e5e5;
+  background-color: white;
+  padding: 0px 20px;
+}
+.ag-row-multi-item .title {
+  line-height: 30px;
+  font-size: 16px;
+}
+.ag-row-multi-item .content {
+  line-height: 30px;
+  font-size: 14px;
+  overflow: hidden;
+}
+.ag-row-multi-item .content .left {
+  color: #efefef;
+  float: left;
+}
+.ag-row-multi-item .content .right {
+  color: #e3e3e3;
+  float: right;
+}
 .ag-footer {
   position: absolute;
   left: 0px;
