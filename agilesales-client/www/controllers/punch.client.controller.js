@@ -7,8 +7,8 @@ angular.module('agilisales')
       $state.go('menu.punch_detail');
     };
 
-    $scope.goSubmit = function () {
-      $state.go('menu.punch_submit');
+    $scope.goDashboard = function () {
+      $state.go('menu.dashboard_multi');
     };
 
     $scope.showPhotoPanel = function () {

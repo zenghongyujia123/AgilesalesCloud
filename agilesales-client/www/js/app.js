@@ -76,6 +76,24 @@ angular.module('agilisales', ['ionic', 'flexcalendar', 'flexcalendar.defaultTran
           }
         }
       })
+      .state('menu.dashboard_multi', {
+        url: '/dashboard_multi',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/dashboard_multi.client.view.html',
+            controller: 'DashboardMultiCtrl'
+          }
+        }
+      })
+      .state('menu.dashboard_single', {
+        url: '/dashboard_single',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/dashboard_single.client.view.html',
+            controller: 'DashboardSingleCtrl'
+          }
+        }
+      })
       .state('menu.nearby_shop_list', {
         url: '/nearby_shop_list',
         views: {
