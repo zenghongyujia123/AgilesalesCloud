@@ -294,6 +294,9 @@ a {
   width: 50px;
   top: 50%;
   right: 20px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
   color: #b2b2b2;
   margin-top: -25px;
 }
