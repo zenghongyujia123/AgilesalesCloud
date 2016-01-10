@@ -291,31 +291,6 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agFiltratePanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.filtratePanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -484,6 +459,31 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', functi
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agFiltratePanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.filtratePanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agStatisticsPanel', [function () {
   return {
     restrict: 'AE',
@@ -566,28 +566,7 @@ angular.module('agilisales')
  */
 angular.module('agilisales')
   .controller('DailyCtrl', ['$scope', '$state', function ($scope, $state) {
-    $scope.options = {
-      defaultDate: new Date(),
-      dayNamesLength: 1, // 1 for "M", 2 for "Mo", 3 for "Mon"; 9 will show full day names. Default is 1.
-      mondayIsFirstDay: true,//set monday as first day of week. Default is false
-      eventClick: function(date) { // called before dateClick and only if clicked day has events
-        console.log(date);
-      },
-      dateClick: function(date) { // called every time a day is clicked
-        console.log(date);
-      },
-      changeMonth: function(month, year) {
-        console.log(month, year);
-      },
-      filteredEventsChange: function(filteredEvents) {
-        console.log(filteredEvents);
-      }
-    };
 
-    $scope.events = [
-      {foo: 'bar', eventClass: 'expired', date: "2015-08-18"}, //value of eventClass will be added to CSS class of the day element
-      {foo: 'bar', date: "2015-08-20"}
-    ];
   }]);
 
 /**
@@ -730,7 +709,28 @@ angular.module('agilisales')
  */
 angular.module('agilisales')
   .controller('PlanCtrl', ['$scope', '$state', function ($scope, $state) {
+    $scope.options = {
+      defaultDate: new Date(),
+      dayNamesLength: 1, // 1 for "M", 2 for "Mo", 3 for "Mon"; 9 will show full day names. Default is 1.
+      mondayIsFirstDay: true,//set monday as first day of week. Default is false
+      eventClick: function(date) { // called before dateClick and only if clicked day has events
+        console.log(date);
+      },
+      dateClick: function(date) { // called every time a day is clicked
+        console.log(date);
+      },
+      changeMonth: function(month, year) {
+        console.log(month, year);
+      },
+      filteredEventsChange: function(filteredEvents) {
+        console.log(filteredEvents);
+      }
+    };
 
+    $scope.events = [
+      {foo: 'bar', eventClass: 'expired', date: "2015-08-18"}, //value of eventClass will be added to CSS class of the day element
+      {foo: 'bar', date: "2015-08-20"}
+    ];
   }]);
 
 
