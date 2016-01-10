@@ -384,6 +384,33 @@ a {
 .ag-dashboard-result .result-item .name {
   padding-right: 10px;
 }
+.ag-daily-page {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.ag-daily-page .daily-item .time {
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+}
+.ag-daily-page .daily-item .content {
+  line-height: 50px;
+  padding-left: 20px;
+}
+.ag-daily-page .comment {
+  line-height: 50px;
+  padding-left: 20px;
+  color: #a077d7;
+}
+.ag-daily-page .comment .time {
+  margin-right: 10px;
+}
+.ag-daily-page .comment .name {
+  margin-right: 10px;
+}
+.ag-daily-page .comment .content {
+  margin-right: 10px;
+}
 .ag-daily-list-page .title-container {
   border-bottom: 1px solid #e5e5e5;
   overflow: hidden;

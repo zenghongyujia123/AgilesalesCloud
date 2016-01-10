@@ -1,28 +1,29 @@
-.ag-daily-list-page {
-  .title-container{
-    border-bottom: 1px solid #e5e5e5;
-    overflow: hidden;
-    .title {
-      line-height: 30px;
-      float: left;
+.ag-daily-page {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  .daily-item {
+    .time {
       text-align: center;
-      &.left {
-        width: 33%;
-      }
-      &.center {
-        width: 34%;
-      }
-      &.right {
-        width: 33%;
-      }
-      &.select {
-        color: #a077d7;
-        border-bottom: 3px solid #a077d7;
-      }
+      font-size: 14px;
+      color: #999;
+    }
+    .content {
+      line-height: 50px;
+      padding-left: 20px;
     }
   }
-  .ag-row-item {
+  .comment {
     line-height: 50px;
-    padding: 0px 10px;
+    padding-left: 20px;
+    color: #a077d7;
+    .time {
+      margin-right: 10px;
+    }
+    .name {
+      margin-right: 10px;
+    }
+    .content {
+      margin-right: 10px;
+    }
   }
 }
