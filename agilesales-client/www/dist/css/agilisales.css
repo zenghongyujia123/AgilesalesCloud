@@ -274,6 +274,29 @@ a {
   text-align: center;
   line-height: 80px;
 }
+.ag-time-filtrate {
+  position: relative;
+  border-bottom: 1px solid #b2b2b2;
+}
+.ag-time-filtrate .title {
+  padding-top: 20px;
+  text-align: center;
+}
+.ag-time-filtrate .value {
+  line-height: 60px;
+  color: #fc9e5e;
+  text-align: center;
+  font-size: 30px;
+}
+.ag-time-filtrate .arrow {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  top: 50%;
+  right: 20px;
+  color: #b2b2b2;
+  margin-top: -25px;
+}
 .flex-calendar .days .day.selected .number {
   background-color: red;
 }
