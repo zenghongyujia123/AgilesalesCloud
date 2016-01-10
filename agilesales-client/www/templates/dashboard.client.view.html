@@ -1,5 +1,19 @@
-<ion-view view-title="数据统计">
+<ion-view view-title="数据统计" class="ag-dashboard-page">
   <ion-content>
-    <h1>数据统计</h1>
+    <div class="dashboard-title">业务员</div>
+    <div class="dashboard-container">
+      <div class="dashboard-item green left" ng-click="goMuti()">考勤统计</div>
+      <div class="dashboard-item blue right" ng-click="goMuti()">店内停留时间</div>
+      <div class="dashboard-item oringe left" ng-click="goMuti()">拜访门店数</div>
+      <div class="dashboard-item reddep left"></div>
+    </div>
+    <div class="dashboard-title">促销员</div>
+    <div class="dashboard-container">
+      <div class="dashboard-item green left" ng-click="goMuti()">考勤统计</div>
+      <div class="dashboard-item purple right" ng-click="goMuti()">当前是否在岗</div>
+      <div class="dashboard-item reddep left" ng-click="goMuti()">销量统计</div>
+      <div class="dashboard-item reddep left"></div>
+    </div>
+
   </ion-content>
 </ion-view>
