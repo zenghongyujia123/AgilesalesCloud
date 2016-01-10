@@ -509,6 +509,31 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', functi
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agShopCreatePanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/shop_panel/shop_create.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.shopCreatePanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agStatisticsPanel', [function () {
   return {
     restrict: 'AE',
@@ -835,8 +860,10 @@ angular.module('agilisales')
  * Created by zenghong on 16/1/6.
  */
 angular.module('agilisales')
-  .controller('ShopListCtrl', ['$scope', '$state', function ($scope, $state) {
-
+  .controller('ShopListCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
+    $scope.goShopCreate = function () {
+      $rootScope.$broadcast('show.shopCreatePanel');
+    }
   }]);
 
 /**
