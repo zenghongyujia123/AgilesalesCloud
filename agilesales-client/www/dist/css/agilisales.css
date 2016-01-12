@@ -461,6 +461,12 @@ a {
   line-height: 40px;
   padding: 0px 20px;
 }
+.ag-inform-page .time {
+  line-height: 50px;
+  font-size: 14px;
+  color: #b2b2b2;
+  text-align: center;
+}
 .ag-daily-page {
   margin-top: 20px;
   margin-bottom: 40px;
