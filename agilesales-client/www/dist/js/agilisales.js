@@ -291,31 +291,6 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agDailyCreatePanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/daily_panel/daily_create.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.dailyCreatePanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agEventsSelectPanel', [function () {
   return {
     restrict: 'AE',
@@ -332,6 +307,31 @@ angular.module('agilisales').directive('agEventsSelectPanel', [function () {
       };
 
       $scope.$on('show.eventsSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agDailyCreatePanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/daily_panel/daily_create.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.dailyCreatePanel', function () {
         $scope.show();
       });
     }
@@ -534,7 +534,7 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', functi
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', function ($cordovaCamera) {
+angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', '$rootScope',function ($cordovaCamera,$rootScope) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/photo_panel/photo_select.client.view.html',
@@ -552,6 +552,10 @@ angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', 
       $scope.$on('show.photoSelectPanel', function () {
         $scope.show();
       });
+
+      $scope.showMultiSelectPanel = function(){
+        $rootScope.$broadcast('show.multiSelectPanel');
+      }
     }
   };
 }]);
@@ -600,6 +604,31 @@ angular.module('agilisales').directive('agStatisticsPanel', [function () {
       };
 
       $scope.$on('show.statisticsPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agMultiSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/questions/multi_select_panel/multi_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.multiSelectPanel', function () {
         $scope.show();
       });
     }

@@ -1,7 +1,7 @@
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', function ($cordovaCamera) {
+angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', '$rootScope',function ($cordovaCamera,$rootScope) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/photo_panel/photo_select.client.view.html',
@@ -19,6 +19,10 @@ angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', 
       $scope.$on('show.photoSelectPanel', function () {
         $scope.show();
       });
+
+      $scope.showMultiSelectPanel = function(){
+        $rootScope.$broadcast('show.multiSelectPanel');
+      }
     }
   };
 }]);
