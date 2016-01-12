@@ -6,7 +6,9 @@ angular.module('agilisales')
     $scope.showFiltrate = function () {
       $rootScope.$broadcast('show.filtratePanel');
     };
+
     $scope.goSingle = function () {
-      $state.go('menu.dashboard_single');
+      $rootScope.$broadcast('show.peopleSelectPanel');
+      //$state.go('menu.dashboard_single');
     }
   }]);

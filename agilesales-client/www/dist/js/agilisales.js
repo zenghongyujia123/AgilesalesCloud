@@ -291,31 +291,6 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agEventsSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/events_panel/events_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.eventsSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agDailyCreatePanel', [function () {
   return {
     restrict: 'AE',
@@ -332,6 +307,31 @@ angular.module('agilisales').directive('agDailyCreatePanel', [function () {
       };
 
       $scope.$on('show.dailyCreatePanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agEventsSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/events_panel/events_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.eventsSelectPanel', function () {
         $scope.show();
       });
     }
@@ -459,6 +459,31 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
         }
         geolocation.watchPosition();
       }
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.peopleSelectPanel', function () {
+        $scope.show();
+      });
     }
   };
 }]);
@@ -744,8 +769,10 @@ angular.module('agilisales')
     $scope.showFiltrate = function () {
       $rootScope.$broadcast('show.filtratePanel');
     };
+
     $scope.goSingle = function () {
-      $state.go('menu.dashboard_single');
+      $rootScope.$broadcast('show.peopleSelectPanel');
+      //$state.go('menu.dashboard_single');
     }
   }]);
 
