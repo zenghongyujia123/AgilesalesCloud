@@ -341,31 +341,6 @@ angular.module('agilisales').directive('agEventsSelectPanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agFiltratePanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.filtratePanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -466,6 +441,31 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agFiltratePanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.filtratePanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', function ($cordovaCamera) {
   return {
     restrict: 'AE',
@@ -527,6 +527,31 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', functi
           console.log(err);
         });
       }
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', function ($cordovaCamera) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/photo_panel/photo_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.photoSelectPanel', function () {
+        $scope.show();
+      });
     }
   };
 }]);
@@ -794,8 +819,10 @@ angular.module('agilisales')
  * Created by zenghong on 16/1/6.
  */
 angular.module('agilisales')
-  .controller('PhotosCtrl', ['$scope', '$state', function ($scope, $state) {
-
+  .controller('PhotosCtrl', ['$scope', '$state', '$rootScope', function ($scope, $state, $rootScope) {
+    $scope.showPhotoSelectPanel = function () {
+      $rootScope.$broadcast('show.photoSelectPanel');
+    }
   }]);
 
 
