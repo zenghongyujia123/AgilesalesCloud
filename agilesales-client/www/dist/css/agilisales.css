@@ -279,7 +279,7 @@ a {
   font-size: 14px;
 }
 .menu {
-  background-color: #6e7fa6;
+  background-color: #90695d;
 }
 .menu a {
   color: white;
@@ -289,21 +289,29 @@ a {
 }
 .menu .sm-menu-header {
   display: block;
-  height: 100px;
-  margin: 0px 30px;
-  border-bottom: 1px solid #8b99b8;
-  padding-left: 80px;
+  height: 200px;
   position: relative;
-  line-height: 100px;
+  background-color: #301e2e ;
 }
 .menu .sm-menu-header .photo {
   position: absolute;
-  height: 60px;
-  width: 60px;
-  left: 0px;
-  top: 20px;
+  height: 80px;
+  width: 80px;
+  left: 50%;
+  top: 50%;
+  margin-left: -40px;
+  margin-top: -40px;
   border-radius: 90px;
   background-color: white;
+}
+.menu .sm-menu-header .name {
+  line-height: 60px;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  color: white;
+  text-align: center;
+  font-size: 20px;
 }
 .menu .sm-menu-item {
   line-height: 50px;
