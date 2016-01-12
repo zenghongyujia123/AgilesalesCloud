@@ -457,6 +457,10 @@ a {
 .ag-dashboard-result .result-item .name {
   padding-right: 10px;
 }
+.ag-inform-list-page .ag-row-item {
+  line-height: 40px;
+  padding: 0px 20px;
+}
 .ag-daily-page {
   margin-top: 20px;
   margin-bottom: 40px;
