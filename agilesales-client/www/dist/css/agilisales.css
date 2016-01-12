@@ -89,9 +89,17 @@ a {
 .bar .button.button-clear .icon:before, .bar .button.button-clear.icon:before, .bar .button.button-clear.icon-left:before, .bar .button.button-clear.icon-right:before, .bar button.button-clear .icon:before, .bar button.button-clear.icon:before, .bar button.button-clear.icon-left:before, .bar button.button-clear.icon-right:before{
   line-height: 48px;
 }*/
-.ag-row-item {
+.ag-row-container .ag-row-title {
   border-bottom: 1px solid #e5e5e5;
+  line-height: 40px;
+  padding: 0px 10px;
+  background-color: #f8f8f8;
+}
+.ag-row-container .ag-row-item {
   background-color: white;
+  line-height: 40px;
+  padding: 0px 10px;
+  border-bottom: 1px solid #e5e5e5;
 }
 .ag-row-multi-item {
   border-bottom: 1px solid #e5e5e5;

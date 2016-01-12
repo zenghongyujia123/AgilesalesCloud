@@ -316,31 +316,6 @@ angular.module('agilisales').directive('agDailyCreatePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agEventsSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/events_panel/events_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.eventsSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -441,31 +416,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agFiltratePanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.filtratePanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', function ($cordovaCamera) {
   return {
     restrict: 'AE',
@@ -550,6 +500,56 @@ angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', 
       };
 
       $scope.$on('show.photoSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agEventsSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/events_panel/events_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.eventsSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agFiltratePanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.filtratePanel', function () {
         $scope.show();
       });
     }
