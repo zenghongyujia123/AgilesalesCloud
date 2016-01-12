@@ -89,6 +89,9 @@ a {
 .bar .button.button-clear .icon:before, .bar .button.button-clear.icon:before, .bar .button.button-clear.icon-left:before, .bar .button.button-clear.icon-right:before, .bar button.button-clear .icon:before, .bar button.button-clear.icon:before, .bar button.button-clear.icon-left:before, .bar button.button-clear.icon-right:before{
   line-height: 48px;
 }*/
+.ag-row-container {
+  overflow: hidden;
+}
 .ag-row-container .ag-row-title {
   border-bottom: 1px solid #e5e5e5;
   line-height: 40px;
@@ -96,10 +99,39 @@ a {
   background-color: #f8f8f8;
 }
 .ag-row-container .ag-row-item {
-  background-color: white;
+  position: relative;
   line-height: 40px;
   padding: 0px 10px;
   border-bottom: 1px solid #e5e5e5;
+  background-color: white;
+  overflow: hidden;
+}
+.ag-row-container .ag-row-item .arrow {
+  position: absolute;
+  top: 0px;
+  display: none;
+  right: 20px;
+  height: 100%;
+  width: 40px;
+}
+.ag-row-container .ag-row-item.has-arrow .arrow {
+  display: block;
+}
+.ag-row-container .ag-row-item.has-child {
+  overflow: hidden;
+  padding: 0px;
+}
+.ag-row-container .ag-row-item.has-child .ag-row-left-item {
+  float: left;
+  width: 50%;
+  border-right: 1px solid #e5e5e5;
+  margin-right: -1px;
+  text-align: center;
+}
+.ag-row-container .ag-row-item.has-child .ag-row-left-item {
+  text-align: center;
+  width: 50%;
+  float: right;
 }
 .ag-row-multi-item {
   border-bottom: 1px solid #e5e5e5;

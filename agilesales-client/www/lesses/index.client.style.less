@@ -101,23 +101,51 @@ a {
 }
 
 .ag-row-container {
+  overflow: hidden;
   .ag-row-title {
     border-bottom: 1px solid #e5e5e5;
     line-height: 40px;
-    padding:0px 10px;
+    padding: 0px 10px;
     background-color: #f8f8f8;
   }
   .ag-row-item {
-    background-color: white;
+    position: relative;
     line-height: 40px;
-    padding:0px 10px;
+    padding: 0px 10px;
     border-bottom: 1px solid #e5e5e5;
-  }
-  .ag-row-left-item {
+    background-color: white;
+    overflow: hidden;
 
-  }
-  .ag-row-left-item {
+    .arrow{
+      position: absolute;
+      top:0px;
+      display: none;
+      right:20px;
+      height:100%;
+      width:40px;
+    }
 
+    &.has-arrow{
+      .arrow{
+        display: block;
+      }
+    }
+    &.has-child{
+      overflow: hidden;
+      padding:0px;
+      .ag-row-left-item {
+        float: left;
+        width: 50%;
+        border-right: 1px solid #e5e5e5;
+        margin-right: -1px ;
+        text-align: center;
+      }
+      .ag-row-left-item {
+        text-align: center;
+        width: 50%;
+        float: right;
+      }
+    }
   }
 }
 
