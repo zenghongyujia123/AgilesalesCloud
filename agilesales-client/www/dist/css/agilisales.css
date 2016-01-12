@@ -507,6 +507,9 @@ a {
   color: #b2b2b2;
   text-align: center;
 }
+.ag-inform-page .content {
+  padding: 0px 10px;
+}
 .ag-daily-page {
   margin-top: 20px;
   margin-bottom: 40px;
