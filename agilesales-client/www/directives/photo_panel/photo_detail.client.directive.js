@@ -16,7 +16,22 @@ angular.module('agilisales').directive('agPhotoDetailPanel', [function () {
         $element.removeClass('show');
       };
 
-      $scope.$on('show.photoDetailPanel', function () {
+      $scope.photos = [{
+        key:1,
+        value:1
+      }];
+
+      $scope.info = {
+        curIndex:0
+      };
+
+      $scope.slideHasChanged = function (index) {
+        console.log(index);
+      };
+
+      $scope.$on('show.photoDetailPanel', function (event, photos) {
+        console.log(photos);
+        $scope.photos = photos;
         $scope.show();
       });
     }

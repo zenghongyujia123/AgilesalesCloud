@@ -38,7 +38,7 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
       });
 
       $scope.showPhotoDetailPanel = function () {
-        $rootScope.$broadcast('show.photoDetailPanel');
+        $rootScope.$broadcast('show.photoDetailPanel', $scope.photos);
       };
 
       $scope.photos = [];
