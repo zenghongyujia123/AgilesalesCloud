@@ -2,7 +2,7 @@
  * Created by zenghong on 16/1/6.
  */
 angular.module('agilisales')
-  .controller('DailyListCtrl', ['$scope','$rootScope', '$state', function ($scope, $rootScope,$state) {
+  .controller('DailyListCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
     $scope.info = {
       curIndex: 0
     };
@@ -16,5 +16,9 @@ angular.module('agilisales')
 
     $scope.showDailyCreate = function () {
       $rootScope.$broadcast('show.dailyCreatePanel');
-    }
+    };
+
+    $scope.showPeopleSelectPanel = function () {
+      $rootScope.$broadcast('show.peopleSelectPanel');
+    };
   }]);

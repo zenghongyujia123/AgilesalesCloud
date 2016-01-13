@@ -28,6 +28,10 @@ angular.module('agilisales')
 
     $scope.goEventsCreate = function () {
       $rootScope.$broadcast('show.eventsSelectPanel');
-    }
+    };
+
+    $scope.showPeopleSelectPanel = function () {
+      $rootScope.$broadcast('show.peopleSelectPanel');
+    };
   }]);
 

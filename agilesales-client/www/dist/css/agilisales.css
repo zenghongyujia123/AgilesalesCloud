@@ -108,6 +108,8 @@ a {
 }
 .ag-row-container .ag-row-item.empty {
   height: 40px;
+  text-align: center;
+  color: #e5e5e5;
 }
 .ag-row-container .ag-row-item .arrow {
   position: absolute;
