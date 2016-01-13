@@ -106,6 +106,9 @@ a {
   background-color: white;
   overflow: hidden;
 }
+.ag-row-container .ag-row-item.empty {
+  height: 40px;
+}
 .ag-row-container .ag-row-item .arrow {
   position: absolute;
   top: 0px;
@@ -504,6 +507,36 @@ a {
 }
 .ag-dashboard-result .result-item .name {
   padding-right: 10px;
+}
+.ag-people-select-panel .ag-row-container .ag-row-item {
+  position: relative;
+}
+.ag-people-select-panel .ag-row-container .ag-row-item.self {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
+}
+.ag-people-select-panel .ag-row-container .ag-row-item.other.next {
+  background-color: #f8f8f8;
+}
+.ag-people-select-panel .ag-row-container .ag-row-item .role {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: white;
+  border-radius: 90px;
+  padding: 0px 20px;
+}
+.ag-people-select-panel .ag-row-container .ag-row-item .role.manager {
+  background-color: #9569d4;
+}
+.ag-people-select-panel .ag-row-container .ag-row-item .role.promotions {
+  background-color: #fd934c;
+}
+.ag-people-select-panel .ag-row-container .ag-row-item .role.salesman {
+  background-color: #67ac3e;
 }
 .ag-inform-list-page .ag-row-item {
   line-height: 40px;

@@ -1,0 +1,39 @@
+.ag-people-select-panel {
+  .ag-row-container {
+    .ag-row-item {
+      position: relative;
+      &.self {
+        box-shadow: 0 2px 10px rgba(0,0,0,.2);
+        margin-bottom: 5px;
+      }
+      &.other {
+        &.next {
+          background-color: #f8f8f8;
+        }
+      }
+
+      .role{
+        position: absolute;
+        top:10px;
+        right:20px;
+        height:20px;
+        line-height: 20px;
+        font-size: 12px;
+        color: white;
+        border-radius: 90px;
+        padding:0px 20px;
+        &.manager{
+          background-color: #9569d4;
+        }
+        &.promotions{
+          background-color: #fd934c;
+        }
+        &.salesman{
+          background-color: #67ac3e;
+        }
+      }
+
+
+    }
+  }
+}
