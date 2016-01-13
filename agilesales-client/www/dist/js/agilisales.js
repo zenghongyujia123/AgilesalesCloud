@@ -291,31 +291,6 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agDailyCreatePanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/daily_panel/daily_create.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.dailyCreatePanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agEventsSelectPanel', [function () {
   return {
     restrict: 'AE',
@@ -332,6 +307,31 @@ angular.module('agilisales').directive('agEventsSelectPanel', [function () {
       };
 
       $scope.$on('show.eventsSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agDailyCreatePanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/daily_panel/daily_create.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.dailyCreatePanel', function () {
         $scope.show();
       });
     }
@@ -551,7 +551,7 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPhotoDetailPanel', [function () {
+angular.module('agilisales').directive('agPhotoDetailPanel', ['$ionicSlideBoxDelegate', function ($ionicSlideBoxDelegate) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/photo_panel/photo_detail.client.view.html',
@@ -566,24 +566,20 @@ angular.module('agilisales').directive('agPhotoDetailPanel', [function () {
         $element.removeClass('show');
       };
 
-      $scope.photos = [{
-        key:1,
-        value:1
-      }];
-
-      $scope.info = {
-        curIndex:0
-      };
-
-      $scope.slideHasChanged = function (index) {
-        console.log(index);
-      };
+      $scope.swiper = new Swiper('#ag-photo-swiper');
 
       $scope.$on('show.photoDetailPanel', function (event, photos) {
+        $scope.swiper.removeAllSlides();
+        appendSlides(photos);
         console.log(photos);
-        $scope.photos = photos;
         $scope.show();
       });
+
+      function appendSlides(datas) {
+        for (var i = 0; i < datas.length; i++) {
+          $scope.swiper.appendSlide('<div class="swiper-slide" style="color:white;"><img src="' + datas[i].value + '"></div>');
+        }
+      }
     }
   };
 }]);
@@ -691,6 +687,17 @@ angular.module('agilisales').directive('agMultiSelectPanel', [function () {
     }
   };
 }]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agRepeatDone', function () {
+  return function (scope, element, attrs) {
+    if (scope.$last) { // all are rendered
+      scope.$eval(attrs.repeatDone);
+    }
+  }
+});
 
 /**
  * Created by zenghong on 16/1/6.

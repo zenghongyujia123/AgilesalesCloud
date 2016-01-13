@@ -282,6 +282,9 @@ a {
 .ag-photo-detail-panel .slider {
   height: 100%;
 }
+.ag-photo-detail-panel .slider .slider-slide {
+  position: absolute;
+}
 .ag-filtrate-panel .filtrate-title {
   line-height: 50px;
   border-bottom: 1px solid #e5e5e5;

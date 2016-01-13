@@ -1,7 +1,7 @@
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPhotoDetailPanel', [function () {
+angular.module('agilisales').directive('agPhotoDetailPanel', ['$ionicSlideBoxDelegate', function ($ionicSlideBoxDelegate) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/photo_panel/photo_detail.client.view.html',
@@ -16,24 +16,20 @@ angular.module('agilisales').directive('agPhotoDetailPanel', [function () {
         $element.removeClass('show');
       };
 
-      $scope.photos = [{
-        key:1,
-        value:1
-      }];
-
-      $scope.info = {
-        curIndex:0
-      };
-
-      $scope.slideHasChanged = function (index) {
-        console.log(index);
-      };
+      $scope.swiper = new Swiper('#ag-photo-swiper');
 
       $scope.$on('show.photoDetailPanel', function (event, photos) {
+        $scope.swiper.removeAllSlides();
+        appendSlides(photos);
         console.log(photos);
-        $scope.photos = photos;
         $scope.show();
       });
+
+      function appendSlides(datas) {
+        for (var i = 0; i < datas.length; i++) {
+          $scope.swiper.appendSlide('<div class="swiper-slide" style="color:white;"><img src="' + datas[i].value + '"></div>');
+        }
+      }
     }
   };
 }]);
