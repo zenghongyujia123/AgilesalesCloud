@@ -1,7 +1,7 @@
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', function ($cordovaCamera) {
+angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$rootScope', function ($cordovaCamera, $rootScope) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/photo_panel/photo.client.view.html',
@@ -37,16 +37,8 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', functi
         $scope.show();
       });
 
-      $scope.$on('show.photoBroswerPanel', function () {
-        $scope.showBrowserPanel()
-      });
-
-      $scope.showBrowserPanel = function () {
-        $element.find('.ag-photo-broswer-panel').addClass('show');
-      };
-
-      $scope.hideBrowserPanel = function () {
-        $element.find('.ag-photo-broswer-panel').removeClass('show');
+      $scope.showPhotoDetailPanel = function () {
+        $rootScope.$broadcast('show.photoDetailPanel');
       };
 
       $scope.photos = [];
