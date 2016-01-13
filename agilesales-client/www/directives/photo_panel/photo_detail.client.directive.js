@@ -27,7 +27,7 @@ angular.module('agilisales').directive('agPhotoDetailPanel', ['$ionicSlideBoxDel
 
       function appendSlides(datas) {
         for (var i = 0; i < datas.length; i++) {
-          $scope.swiper.appendSlide('<div class="swiper-slide" style="color:white;"><img src="' + datas[i].value + '"></div>');
+          $scope.swiper.appendSlide('<div class="swiper-slide"><div class="slide-photo" style="background-image:url(' + datas[i].value + ')"></div></div>');
         }
       }
     }
