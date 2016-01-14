@@ -8,7 +8,8 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
     template: ' <div class="ag-row-container ag-single-select-question"> \
                   <div class="ag-row-item">\
                     <div class="left">主陈列形式</div> \
-                    <select class="right">\
+                    <select class="right" placeho>\
+                      <option value="" disabled="true">请选择</option>\
                       <option ng-repeat="option in options">{{option}}</option> \
                     </select>\
                   </div> \
