@@ -294,6 +294,23 @@ a {
   color: #e5e5e5;
   font-size: 14px;
 }
+.ag-single-select-question .ag-row-item {
+  overflow: hidden;
+}
+.ag-single-select-question .ag-row-item .left {
+  height: 100%;
+  float: left;
+  width: 40%;
+}
+.ag-single-select-question .ag-row-item .right {
+  float: left;
+  width: 60%;
+  line-height: 40px;
+  border: none;
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+}
 .menu {
   background-color: #90695d;
 }
