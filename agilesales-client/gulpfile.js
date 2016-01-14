@@ -3,53 +3,10 @@ var gulp = require('gulp');
 //var bower = require('bower');
 var less = require('gulp-less');
 var concat = require('gulp-concat');
+var angularTemplateCache = require('gulp-angular-templatecache');
 //var sass = require('gulp-sass');
 //var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
-//var sh = require('shelljs');
-//
-//var paths = {
-//  sass: ['./scss/**/*.scss']
-//};
-//
-//gulp.task('default', ['sass']);
-//
-//gulp.task('sass', function(done) {
-//  gulp.src('./scss/ionic.app.scss')
-//    .pipe(sass())
-//    .on('error', sass.logError)
-//    .pipe(gulp.dest('./www/css/'))
-//    .pipe(minifyCss({
-//      keepSpecialComments: 0
-//    }))
-//    .pipe(rename({ extname: '.min.css' }))
-//    .pipe(gulp.dest('./www/css/'))
-//    .on('end', done);
-//});
-//
-//gulp.task('watch', function() {
-//  gulp.watch(paths.sass, ['sass']);
-//});
-//
-//gulp.task('install', ['git-check'], function() {
-//  return bower.commands.install()
-//    .on('log', function(data) {
-//      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
-//    });
-//});
-//
-//gulp.task('git-check', function(done) {
-//  if (!sh.which('git')) {
-//    console.log(
-//      '  ' + gutil.colors.red('Git is not installed.'),
-//      '\n  Git, the version control system, is required to download Ionic.',
-//      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-//      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
-//    );
-//    process.exit(1);
-//  }
-//  done();
-//});
 
 gulp.task('js-concat', function () {
   return gulp.src([
@@ -71,6 +28,15 @@ gulp.task('less-concat', function () {
     .pipe(gulp.dest('www/dist/css'));
 });
 
-gulp.task('app', ['js-concat', 'less-concat']);
+gulp.task('template-concat', function () {
+  return gulp.src([
+      'www/templates/*.html'
+    ])
+    .pipe(angularTemplateCache())
+    .pipe(concat('agilisales.templates.js'))
+    .pipe(gulp.dest('www/dist/js'));
+});
+
+gulp.task('app', ['js-concat', 'less-concat', 'template-concat']);
 
 
