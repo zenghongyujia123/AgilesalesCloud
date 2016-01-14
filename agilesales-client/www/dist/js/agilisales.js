@@ -467,31 +467,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.peopleSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$rootScope', function ($cordovaCamera, $rootScope) {
   return {
     restrict: 'AE',
@@ -617,6 +592,31 @@ angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', 
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.peopleSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agShopCreatePanel', [function () {
   return {
     restrict: 'AE',
@@ -664,6 +664,44 @@ angular.module('agilisales').directive('agStatisticsPanel', [function () {
   };
 }]);
 
+angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-multi-select-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">请选择</div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $element.click(function () {
+        $rootScope.$broadcast('show.multiSelectPanel');
+      });
+    }
+  };
+}]);
+
+angular.module('agilisales').directive('agBlankQuestion', [function () {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-blank-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">\
+                      <input type="text" placeholder="请输入">\
+                    </div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  };
+}]);
+
 /**
  * Created by zenghong on 15/12/27.
  */
@@ -685,25 +723,6 @@ angular.module('agilisales').directive('agMultiSelectPanel', [function () {
       $scope.$on('show.multiSelectPanel', function () {
         $scope.show();
       });
-    }
-  };
-}]);
-
-angular.module('agilisales').directive('agBlankQuestion', [function () {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-blank-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">\
-                      <input type="text" placeholder="请输入">\
-                    </div>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
     }
   };
 }]);
@@ -733,25 +752,6 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
   };
 }]);
 
-
-angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-multi-select-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">请选择</div>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $element.click(function () {
-        $rootScope.$broadcast('show.multiSelectPanel');
-      });
-    }
-  };
-}]);
 
 angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
   return {
