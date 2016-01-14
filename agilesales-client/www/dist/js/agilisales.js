@@ -317,31 +317,6 @@ angular.module('agilisales').directive('agDailyCreatePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agEventsSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/events_panel/events_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.eventsSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agFiltratePanel', [function () {
   return {
     restrict: 'AE',
@@ -460,6 +435,31 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
         }
         geolocation.watchPosition();
       }
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agEventsSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/events_panel/events_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.eventsSelectPanel', function () {
+        $scope.show();
+      });
     }
   };
 }]);
@@ -664,6 +664,25 @@ angular.module('agilisales').directive('agStatisticsPanel', [function () {
   };
 }]);
 
+angular.module('agilisales').directive('agBlankQuestion', [function () {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-blank-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">\
+                      <input type="text" placeholder="请输入">\
+                    </div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  };
+}]);
+
 /**
  * Created by zenghong on 15/12/27.
  */
@@ -685,6 +704,30 @@ angular.module('agilisales').directive('agMultiSelectPanel', [function () {
       $scope.$on('show.multiSelectPanel', function () {
         $scope.show();
       });
+    }
+  };
+}]);
+
+angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-true-false-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">是否符合标准</div> \
+                    <div class="right">\
+                    <label>\
+                    <input type="checkbox">\
+                    <div class="ag-track">\
+                        <div class="ag-handle"></div> \
+                      </div> \
+                    </div> \
+                    </label>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
     }
   };
 }]);
@@ -714,30 +757,6 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-true-false-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">是否符合标准</div> \
-                    <div class="right">\
-                    <label>\
-                    <input type="checkbox">\
-                    <div class="ag-track">\
-                        <div class="ag-handle"></div> \
-                      </div> \
-                    </div> \
-                    </label>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.options = $attrs.options || ['货架', '货架1'];
-      console.log($attrs);
-    }
-  };
-}]);
 
 /**
  * Created by zenghong on 15/12/27.

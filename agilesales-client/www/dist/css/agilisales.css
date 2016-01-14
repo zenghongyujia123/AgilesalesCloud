@@ -294,23 +294,6 @@ a {
   color: #e5e5e5;
   font-size: 14px;
 }
-.ag-single-select-question .ag-row-item {
-  overflow: hidden;
-}
-.ag-single-select-question .ag-row-item .left {
-  height: 100%;
-  float: left;
-  width: 40%;
-}
-.ag-single-select-question .ag-row-item .right {
-  float: left;
-  width: 60%;
-  line-height: 40px;
-  border: none;
-  background-color: white;
-  appearance: none;
-  -webkit-appearance: none;
-}
 .ag-true-false-question .ag-row-item {
   overflow: hidden;
 }
@@ -360,6 +343,41 @@ a {
 }
 .ag-true-false-question .ag-row-item .right label input:checked + .ag-track .ag-handle {
   transform: translate3d(59px, 0, 0);
+}
+.ag-single-select-question .ag-row-item {
+  overflow: hidden;
+}
+.ag-single-select-question .ag-row-item .left {
+  height: 100%;
+  float: left;
+  width: 40%;
+}
+.ag-single-select-question .ag-row-item .right {
+  float: left;
+  width: 60%;
+  line-height: 40px;
+  border: none;
+  background-color: white;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.ag-blank-question .ag-row-item {
+  overflow: hidden;
+}
+.ag-blank-question .ag-row-item .left {
+  height: 100%;
+  float: left;
+  width: 40%;
+}
+.ag-blank-question .ag-row-item .right {
+  float: left;
+  width: 60%;
+  height: 40px;
+  border: none;
+  background-color: white;
+}
+.ag-blank-question .ag-row-item .right input {
+  height: 40px;
 }
 .menu {
   background-color: #90695d;
