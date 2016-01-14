@@ -17,9 +17,9 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
-
       $scope.options = $attrs.options || ['货架', '货架1'];
       console.log($attrs);
     }
   };
 }]);
+

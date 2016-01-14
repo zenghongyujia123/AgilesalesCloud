@@ -311,6 +311,56 @@ a {
   appearance: none;
   -webkit-appearance: none;
 }
+.ag-true-false-question .ag-row-item {
+  overflow: hidden;
+}
+.ag-true-false-question .ag-row-item .left {
+  height: 100%;
+  float: left;
+  width: 40%;
+}
+.ag-true-false-question .ag-row-item .right {
+  float: left;
+  width: 60%;
+  height: 40px;
+  border: none;
+  background-color: white;
+}
+.ag-true-false-question .ag-row-item .right label {
+  margin-right: 20px;
+  float: right;
+  position: relative;
+  width: 100px;
+  height: 40px;
+}
+.ag-true-false-question .ag-row-item .right label input {
+  width: 100px;
+  height: 40px;
+  display: none;
+}
+.ag-true-false-question .ag-row-item .right label .ag-track {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100px;
+  height: 40px;
+  border-radius: 90px;
+  background-color: green;
+}
+.ag-true-false-question .ag-row-item .right label .ag-track .ag-handle {
+  border-radius: 90px;
+  width: 37px;
+  height: 37px;
+  position: absolute;
+  top: 2px;
+  left: 1px;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  -webkit-transform: translate3d(1px, 0, 0);
+  background-color: white;
+}
+.ag-true-false-question .ag-row-item .right label input:checked + .ag-track .ag-handle {
+  transform: translate3d(59px, 0, 0);
+}
 .menu {
   background-color: #90695d;
 }
