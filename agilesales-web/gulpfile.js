@@ -8,22 +8,20 @@ var concat = require('gulp-concat');
 //var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 //
-//gulp.task('js-concat', function () {
-//  return gulp.src([
-//      'www/js/app.js',
-//      'www/tools/**/*.js',
-//      'www/directives/**/*.js',
-//      'www/controllers/**/*.js'
-//    ])
-//    .pipe(concat('agilisales.js'))
-//    .pipe(gulp.dest('www/dist/js'))
-//});
+gulp.task('js-concat', function () {
+  return gulp.src([
+      'webapp/app/**.js',
+      'webapp/controllers/**/*.js'
+    ])
+    .pipe(concat('agilesales-web.js'))
+    .pipe(gulp.dest('webapp/dist/js'))
+});
 
 gulp.task('less-concat', function () {
   return gulp.src('webapp/lesses/index.client.style.less')
     .pipe(less())
     .pipe(rename(function (path) {
-      path.basename = 'agilesales';
+      path.basename = 'agilesales-web';
     }))
     .pipe(gulp.dest('webapp/dist/css'));
 });
@@ -37,6 +35,6 @@ gulp.task('less-concat', function () {
 //    .pipe(gulp.dest('www/dist/js'));
 //});
 
-gulp.task('web', ['less-concat']);
+gulp.task('web', ['js-concat','less-concat']);
 
 
