@@ -1,8 +1,22 @@
 .ag-table {
   .ag-table-header {
+    border-bottom:1px solid #d2d2d2;
+    height:60px;
+    overflow: hidden;
     .ag-table-col {
+      float: left;
+      line-height: 60px;
       width:120px;
-      board-right:1px solid #b2b2b2;
+      padding:0px 20px;
+      border-right:1px solid #d2d2d2;
+    }
+
+    .ag-btn{
+      &.gray{
+        float: left;
+        margin-top: 10px;
+        margin-left: 10px;
+      }
     }
   }
   .ag-table-body {
@@ -11,15 +25,5 @@
 
       }
     }
-  }
-}
-
-.basedata-area-page {
-  height: 100%;
-  .basedata-area-header {
-
-  }
-  .basedata-area-body {
-
   }
 }

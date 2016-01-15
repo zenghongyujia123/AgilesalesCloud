@@ -123,3 +123,20 @@ body {
 .ag-basedata-home-page .center-area .right .ag-basedata-home-view {
   height: 100%;
 }
+.ag-table .ag-table-header {
+  border-bottom: 1px solid #d2d2d2;
+  height: 60px;
+  overflow: hidden;
+}
+.ag-table .ag-table-header .ag-table-col {
+  float: left;
+  line-height: 60px;
+  width: 120px;
+  padding: 0px 20px;
+  border-right: 1px solid #d2d2d2;
+}
+.ag-table .ag-table-header .ag-btn.gray {
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+}
