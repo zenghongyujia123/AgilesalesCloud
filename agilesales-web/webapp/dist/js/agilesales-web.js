@@ -20,6 +20,31 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
       templateUrl: 'templates/basedata_home.client.view.html',
       controller: "BasedataHomeCtrl"
     })
+    .state('basedata_home.basedata_address', {
+      url: '/basedata_address',
+      templateUrl: 'templates/basedata_address.client.view.html',
+      controller: "BasedataAddressCtrl"
+    })
+    .state('basedata_home.basedata_customer', {
+      url: '/basedata_customer',
+      templateUrl: 'templates/basedata_customer.client.view.html',
+      controller: "BasedataCustomerCtrl"
+    })
+    .state('basedata_home.basedata_people', {
+      url: '/basedata_people',
+      templateUrl: 'templates/basedata_people.client.view.html',
+      controller: "BasedataPeopleCtrl"
+    })
+    .state('basedata_home.basedata_shop', {
+      url: '/basedata_shop',
+      templateUrl: 'templates/basedata_shop.client.view.html',
+      controller: "BasedataShopCtrl"
+    })
+    .state('basedata_home.basedata_sku', {
+      url: '/basedata_sku',
+      templateUrl: 'templates/basedata_sku.client.view.html',
+      controller: "BasedataSkuCtrl"
+    })
     .state('card_home', {
       url: '/card_home',
       templateUrl: 'templates/card_home.client.view.html',
@@ -177,7 +202,37 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
 /**
  * Created by zenghong on 16/1/15.
  */
+angular.module('agilesales-web').controller('BasedataAddressCtrl', function () {
+
+});
+/**
+ * Created by zenghong on 16/1/15.
+ */
+angular.module('agilesales-web').controller('BasedataCustomerCtrl', function () {
+
+});
+/**
+ * Created by zenghong on 16/1/15.
+ */
 angular.module('agilesales-web').controller('BasedataHomeCtrl', function () {
+
+});
+/**
+ * Created by zenghong on 16/1/15.
+ */
+angular.module('agilesales-web').controller('BasedataPeopleCtrl', function () {
+
+});
+/**
+ * Created by zenghong on 16/1/15.
+ */
+angular.module('agilesales-web').controller('BasedataShopCtrl', function () {
+
+});
+/**
+ * Created by zenghong on 16/1/15.
+ */
+angular.module('agilesales-web').controller('BasedataSkuCtrl', function () {
 
 });
 /**
