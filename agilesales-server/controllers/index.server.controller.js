@@ -4,7 +4,11 @@
 var path = require('path');
 'use strict';
 exports.index = function (req, res, next) {
-  return res.send({version: '1000'});
+  return res.sendfile(path.join(__dirname, '../../agilesales-web/homepage/index.html'));
+};
+
+exports.webAppIndex = function (req, res, next) {
+  return res.sendfile(path.join(__dirname, '../../agilesales-web/webapp/index.html'));
 };
 
 exports.download = function (req, res, next) {

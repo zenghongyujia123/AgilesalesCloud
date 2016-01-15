@@ -70,7 +70,7 @@ module.exports = function () {
   });
 
   // Setting the app router and static folder
-  app.use(express.static(path.resolve('./static')));
+  app.use('/webapp',express.static(path.resolve('./../agilesales-web/webapp')));
 
   app.use(function (req, res, next) {
 
