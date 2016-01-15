@@ -211,11 +211,11 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', function () {
 angular.module('agilesales-web').controller('BasedataCustomerCtrl',[ '$scope',function ($scope) {
   $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   $scope.values = [
-    '人员编号', '工号', '姓名',
-    '岗位', '职务', '电话号码',
-    '邮箱', '性别', '上级领导编号',
-    '上级领导姓名', '常驻城市', '辖区',
-    '帐号开通日期', '在职状态', '人员类型'
+    '客户编码', '客户等级', '客户名称',
+    '客户简称', '客户性质', '渠道类型',
+    '所辖区域', '省份', '城市',
+    '地址', '送货地址', '电话',
+    '联系人', '负责人编号', '负责人姓名'
   ];
 }]);
 /**
@@ -243,11 +243,11 @@ angular.module('agilesales-web').controller('BasedataPeopleCtrl', ['$scope', fun
 angular.module('agilesales-web').controller('BasedataShopCtrl', ['$scope',function ($scope) {
   $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   $scope.values = [
-    '人员编号', '工号', '姓名',
-    '岗位', '职务', '电话号码',
-    '邮箱', '性别', '上级领导编号',
-    '上级领导姓名', '常驻城市', '辖区',
-    '帐号开通日期', '在职状态', '人员类型'
+    '门店编码', '门店名称', '门店等级',
+    '所属区域', '所属城市', '地址',
+    '渠道类型', '门店类型', '渠道',
+    '所属客户', '业务人员', '促销人员',
+    '月拜访频次', '门店状态', '品牌','经度','纬度'
   ];
 
 }]);
@@ -257,11 +257,12 @@ angular.module('agilesales-web').controller('BasedataShopCtrl', ['$scope',functi
 angular.module('agilesales-web').controller('BasedataSkuCtrl', ['$scope',function ($scope) {
   $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   $scope.values = [
-    '人员编号', '工号', '姓名',
-    '岗位', '职务', '电话号码',
-    '邮箱', '性别', '上级领导编号',
-    '上级领导姓名', '常驻城市', '辖区',
-    '帐号开通日期', '在职状态', '人员类型'
+    '产品编号', '产品条码', '产品名称',
+    '产品简介', '品牌', '系列',
+    '大类', '小类', '包装单位',
+    '规格', '系统供价', '价格',
+    '产品等级', '是否新品', '是否重点产品',
+    '是否档期促销'
   ];
 
 }]);
