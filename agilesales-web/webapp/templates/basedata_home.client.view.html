@@ -5,11 +5,17 @@
     </div>
   </div>
 
-  this is basedata home page
-  <div ui-sref="basedata_home.basedata_address">地区</div>
-  <div ui-sref="basedata_home.basedata_people">人员</div>
-  <div ui-sref="basedata_home.basedata_shop">门店</div>
-  <div ui-sref="basedata_home.basedata_customer">客户经销商</div>
-  <div ui-sref="basedata_home.basedata_sku">sku</div>
-  <ui-view class="ag-basedata-home-view"></ui-view>
+  <div class="center-area">
+    <div class="left">
+      <div class="left-header ">基础数据</div>
+      <div class="left-item select" ui-sref="basedata_home.basedata_address">地区</div>
+      <div class="left-item" ui-sref="basedata_home.basedata_people">人员</div>
+      <div class="left-item" ui-sref="basedata_home.basedata_shop">门店</div>
+      <div class="left-item" ui-sref="basedata_home.basedata_customer">客户经销商</div>
+      <div class="left-item" ui-sref="basedata_home.basedata_sku">sku</div>
+    </div>
+    <div class="right">
+      <ui-view class="ag-basedata-home-view"></ui-view>
+    </div>
+  </div>
 </div>

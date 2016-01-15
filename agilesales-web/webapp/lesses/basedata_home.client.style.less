@@ -1,6 +1,49 @@
-.ag-basedata-home-page{
-  .header{
-    height:50px;
+.ag-basedata-home-page {
+  .header {
+    height: 50px;
     border-bottom: 1px solid #d2d2d2;
+    .ag-center-area {
+      .ag-back {
+
+      }
+    }
+  }
+  .center-area {
+    background-color: white;
+    border: 1px solid #d2d2d2;
+    position: relative;
+    margin: 10px;
+    padding-left: 200px;
+    .left {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 200px;
+      .left-header {
+        line-height: 60px;
+        padding: 0px 20px;
+        border-bottom: 1px solid #d2d2d2;
+      }
+      .left-item {
+        line-height: 70px;
+        padding: 0px 20px;
+        &:hover {
+          background-color: #037dff;
+          color:white;
+        }
+        &.select{
+          background-color: #037dff;
+          color:white;
+        }
+      }
+    }
+    .right {
+      border-left: 1px solid #d2d2d2;
+      min-height: 500px;
+      position: relative;
+      .ag-basedata-home-view{
+        height:100%;
+      }
+    }
   }
 }

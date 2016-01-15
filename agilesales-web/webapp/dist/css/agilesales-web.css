@@ -18,12 +18,12 @@ body {
   width: 120px;
   text-align: center;
 }
-.ag-center-area {
+.ag-home-area {
   margin: auto;
   overflow: hidden;
   max-width: 1200px;
 }
-.ag-center-area .ag-back {
+.ag-home-area .ag-back {
   float: left;
   line-height: 50px;
 }
@@ -60,4 +60,42 @@ body {
 .ag-basedata-home-page .header {
   height: 50px;
   border-bottom: 1px solid #d2d2d2;
+}
+.ag-basedata-home-page .center-area {
+  background-color: white;
+  border: 1px solid #d2d2d2;
+  position: relative;
+  margin: 10px;
+  padding-left: 200px;
+}
+.ag-basedata-home-page .center-area .left {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 200px;
+}
+.ag-basedata-home-page .center-area .left .left-header {
+  line-height: 60px;
+  padding: 0px 20px;
+  border-bottom: 1px solid #d2d2d2;
+}
+.ag-basedata-home-page .center-area .left .left-item {
+  line-height: 70px;
+  padding: 0px 20px;
+}
+.ag-basedata-home-page .center-area .left .left-item:hover {
+  background-color: #037dff;
+  color: white;
+}
+.ag-basedata-home-page .center-area .left .left-item.select {
+  background-color: #037dff;
+  color: white;
+}
+.ag-basedata-home-page .center-area .right {
+  border-left: 1px solid #d2d2d2;
+  min-height: 500px;
+  position: relative;
+}
+.ag-basedata-home-page .center-area .right .ag-basedata-home-view {
+  height: 100%;
 }
