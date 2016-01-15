@@ -20,10 +20,10 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
       templateUrl: 'templates/basedata_home.client.view.html',
       controller: "BasedataHomeCtrl"
     })
-    .state('basedata_home.basedata_address', {
-      url: '/basedata_address',
-      templateUrl: 'templates/basedata_address.client.view.html',
-      controller: "BasedataAddressCtrl"
+    .state('basedata_home.basedata_area', {
+      url: '/basedata_area',
+      templateUrl: 'templates/basedata_area.client.view.html',
+      controller: "BasedataAreaCtrl"
     })
     .state('basedata_home.basedata_customer', {
       url: '/basedata_customer',
@@ -202,7 +202,7 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('BasedataAddressCtrl', function () {
+angular.module('agilesales-web').controller('BasedataAreaCtrl', function () {
 
 });
 /**
