@@ -1,13 +1,20 @@
 <!doctype html>
-<html ng-app="agilesales" lang="en">
+<html ng-app="agilesales-web" lang="en">
 <head>
   <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
   <meta charset="UTF-8">
+
+  <script src="../libraries/angular/angular.min.js"></script>
+  <script src="../libraries/angular-ui-router/release/angular-ui-router.min.js"></script>
+
   <link rel="stylesheet" href="dist/css/agilesales.css">
   <script src="dist/js/agilesales-web.js"></script>
   <title>柱柱签收控制台</title>
 </head>
 <body ng-controller="IndexCtrl">
+<div class="ag-header">
 
+</div>
+<div ui-view></div>
 </body>
 </html>

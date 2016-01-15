@@ -3,12 +3,12 @@
  */
 'use strict';
 
-var zhuzhuqs = angular.module('agilesales-web', [
-  'ui.router',
-  'LocalStorageModule'
+var agilesales = angular.module('agilesales-web', [
+  'ui.router'
+//  'LocalStorageModule'
 ]);
 
-zhuzhuqs.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
       url: '/',
@@ -19,9 +19,9 @@ zhuzhuqs.config(['$stateProvider', '$urlRouterProvider', function ($stateProvide
 }]);
 
 
-zhuzhuqs.config(['localStorageServiceProvider', function (localStorageServiceProvider) {
-  localStorageServiceProvider.setPrefix('ag-web');
-}]);
+//zhuzhuqs.config(['localStorageServiceProvider', function (localStorageServiceProvider) {
+//  localStorageServiceProvider.setPrefix('ag-web');
+//}]);
 
 //zhuzhuqs.config(['$httpProvider', function ($httpProvider) {
 //  $httpProvider.interceptors.push('PublicInterceptor');
