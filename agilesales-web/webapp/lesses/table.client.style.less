@@ -1,0 +1,41 @@
+.ag-table {
+  overflow-x: scroll;
+  min-height: 500px;
+  .ag-table-header {
+    border-bottom:1px solid #d2d2d2;
+    height:60px;
+    overflow: hidden;
+    .ag-table-col {
+      float: left;
+      line-height: 60px;
+      width:140px;
+      padding:0px 20px;
+      border-right:1px solid #d2d2d2;
+    }
+
+    .ag-btn{
+      &.gray{
+        float: left;
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .ag-table-body {
+    height:440px;
+    overflow-y: auto;
+    .ag-table-row {
+      border-bottom:1px solid #d2d2d2;
+      height:30px;
+      overflow: hidden;
+      .ag-table-col {
+        float: left;
+        line-height: 30px;
+        width:140px;
+        padding:0px 20px;
+        border-right:1px solid #d2d2d2;
+
+      }
+    }
+  }
+}

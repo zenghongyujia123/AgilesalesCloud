@@ -1,4 +1,13 @@
 <div class="basedata_shop_page">
-  this is basedata shop page
-
+  <div class="ag-table">
+    <div class="ag-table-header" ng-style="{width:(17*141)+'px'}">
+      <div class="ag-table-col" ng-repeat="v in values">{{v}}</div>
+    </div>
+    <div class="ag-table-body" ng-style="{width:(17*141)+'px'}">
+      <div class="ag-table-row" ng-repeat="p in peoples">
+        <div class="ag-table-col" ng-repeat="v in values">{{v}}</div>
+        <div class="ag-table-col">删除</div>
+      </div>
+    </div>
+  </div>
 </div>
