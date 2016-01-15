@@ -14,7 +14,18 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
       url: '/',
       templateUrl: 'templates/home.client.view.html',
       controller: "HomeCtrl"
-    });
+    })
+    .state('basedata_home', {
+      url: '/basedata_home',
+      templateUrl: 'templates/basedata_home.client.view.html',
+      controller: "BasedataHomeCtrl"
+    })
+    .state('card_home', {
+      url: '/card_home',
+      templateUrl: 'templates/card_home.client.view.html',
+      controller: "CardHomeCtrl"
+    })
+  ;
   $urlRouterProvider.otherwise('/');
 }]);
 
