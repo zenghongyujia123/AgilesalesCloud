@@ -286,6 +286,21 @@ body {
   background-color: #f6f6f6;
   overflow: hidden;
 }
+.ag-card-config-page {
+  background-color: white;
+}
+.ag-card-config-page .card-config-title {
+  line-height: 80px;
+  text-align: center;
+  color: #037dff;
+}
+.ag-card-config-page .card-config-base {
+  width: 600px;
+  margin: auto;
+}
+.ag-card-config-page .ag-table {
+  border-top: 1px solid #d2d2d2;
+}
 .ag-basedata-home-page .header {
   overflow: hidden;
   height: 60px;
