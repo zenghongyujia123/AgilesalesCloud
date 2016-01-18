@@ -421,14 +421,18 @@ body {
   top: 0px;
   width: 100%;
   height: 100%;
+  display: none;
+}
+.ag-dialog.show {
+  display: block;
 }
 .ag-dialog .ag-mask {
   position: absolute;
   left: 0px;
   top: 0px;
-  background-color: black;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .ag-dialog .ag-dialog-panel {
   background-color: white;
@@ -479,12 +483,14 @@ body {
   width: 100px;
   border-radius: 5px;
   text-align: center;
+  cursor: pointer;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-footer .ag-footer-right {
   color: white;
   border-radius: 5px;
   line-height: 40px;
   text-align: center;
+  cursor: pointer;
   float: right;
   width: 100px;
 }

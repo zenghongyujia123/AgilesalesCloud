@@ -8,25 +8,22 @@
       <div class="left-header">
         美赞成业务拜访卡
       </div>
-      <div class="left-item">拜访卡配置</div>
+      <div class="left-item" ui-sref="card_edit.card_config" ng-class="{select:location.hash==='#/card_edit/card_config'}">拜访卡配置</div>
       <div class="card-paper-title">
         <div class="title">拜访卡试卷</div>
-        <div class="add-paper-entrance">添加试卷</div>
+        <div class="add-paper-entrance" ng-click="addPaper()">添加试卷</div>
       </div>
-      <div class="left-item">陈列检查报告</div>
-      <div class="left-item">分销检查报告</div>
-      <div class="left-item">价格检查报告</div>
-      <div class="left-item">人员检查报告</div>
-      <div class="left-item">精品检查报告</div>
-      <div class="left-item">订单</div>
+      <div class="left-item" ui-sref="card_edit.card_preview">陈列检查报告</div>
+      <div class="left-item" ui-sref="card_edit.card_preview">分销检查报告</div>
+      <div class="left-item" ui-sref="card_edit.card_preview">价格检查报告</div>
+      <div class="left-item" ui-sref="card_edit.card_preview">人员检查报告</div>
+      <div class="left-item" ui-sref="card_edit.card_preview">精品检查报告</div>
+      <div class="left-item" ui-sref="card_edit.card_preview">订单</div>
     </div>
     <div class="right">
+      <ui-view>
 
-      <ag-question-single></ag-question-single>
-      <ag-question-blank></ag-question-blank>
-      <ag-question-true-false></ag-question-true-false>
-      <ag-question-table></ag-question-table>
-      <ag-dialog-input></ag-dialog-input>
+      </ui-view>
     </div>
   </div>
 </div>
