@@ -423,3 +423,7 @@ body {
   width: 100%;
   overflow: hidden;
 }
+.ag-question-container .ag-question-true-false {
+  width: 100%;
+  overflow: hidden;
+}
