@@ -415,6 +415,85 @@ body {
   float: left;
   margin: 30px;
 }
+.ag-dialog {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+.ag-dialog .ag-mask {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+}
+.ag-dialog .ag-dialog-panel {
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  width: 600px;
+  overflow: hidden;
+  left: 50%;
+  top: 50%;
+  margin-top: -200px;
+  margin-left: -300px;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-header {
+  color: white;
+  height: 60px;
+  line-height: 60px;
+  padding: 0px 30px;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-row {
+  height: 80px;
+  overflow: hidden;
+  border-bottom: 1px solid #d2d2d2;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-left {
+  background-color: white;
+  height: 80px;
+  line-height: 80px;
+  width: 50%;
+  padding: 0px 30px;
+  float: left;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right {
+  float: left;
+  width: 50%;
+  height: 80px;
+  line-height: 80px;
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 0px 30px;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-footer {
+  height: 80px;
+  padding: 20px;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-footer .ag-footer-left {
+  line-height: 40px;
+  float: right;
+  width: 100px;
+  border-radius: 5px;
+  text-align: center;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-footer .ag-footer-right {
+  color: white;
+  border-radius: 5px;
+  line-height: 40px;
+  text-align: center;
+  float: right;
+  width: 100px;
+}
+.ag-dialog .ag-dialog-panel.blue .ag-dialog-header {
+  background-color: #1b8bfb;
+}
+.ag-dialog .ag-dialog-panel.blue .ag-dialog-footer .ag-footer-right {
+  background-color: #1b8bfb;
+}
 .ag-question-container .ag-question-single {
   width: 100%;
   overflow: hidden;
