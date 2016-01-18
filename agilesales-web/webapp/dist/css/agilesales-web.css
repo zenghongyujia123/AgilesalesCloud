@@ -224,6 +224,66 @@ body {
   line-height: 60px;
   position: absolute;
 }
+.ag-card-edit-page .center-area {
+  background-color: white;
+  border: 1px solid #d2d2d2;
+  position: relative;
+  margin: 10px 10px 100px 10px;
+  padding-left: 200px;
+}
+.ag-card-edit-page .center-area .left {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 200px;
+  overflow: auto;
+}
+.ag-card-edit-page .center-area .left .left-header {
+  line-height: 60px;
+  padding: 0px 20px;
+  border-bottom: 1px solid #d2d2d2;
+}
+.ag-card-edit-page .center-area .left .card-paper-title {
+  border-bottom: 1px solid #d2d2d2;
+  border-top: 1px solid #d2d2d2;
+  overflow: hidden;
+  padding: 10px 10px;
+}
+.ag-card-edit-page .center-area .left .card-paper-title .title {
+  line-height: 30px;
+  text-align: center;
+  float: left;
+  width: 45%;
+}
+.ag-card-edit-page .center-area .left .card-paper-title .add-paper-entrance {
+  cursor: pointer;
+  line-height: 30px;
+  text-align: center;
+  background-color: #037dff;
+  color: white;
+  width: 45%;
+  border-radius: 5px;
+  float: right;
+}
+.ag-card-edit-page .center-area .left .left-item {
+  line-height: 70px;
+  padding: 0px 20px;
+  cursor: pointer;
+}
+.ag-card-edit-page .center-area .left .left-item:hover {
+  background-color: #037dff;
+  color: white;
+}
+.ag-card-edit-page .center-area .left .left-item.select {
+  background-color: #037dff;
+  color: white;
+}
+.ag-card-edit-page .center-area .right {
+  border-left: 1px solid #d2d2d2;
+  min-height: 700px;
+  position: relative;
+}
 .ag-basedata-home-page .header {
   overflow: hidden;
   height: 60px;
