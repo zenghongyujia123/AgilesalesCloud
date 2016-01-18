@@ -1,7 +1,8 @@
 .ag-question-container {
   margin: auto;
+  margin-top: 40px;
   min-width: 300px;
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   background-color: white;
   overflow: hidden;
@@ -12,15 +13,28 @@
     .ag-question-left {
       padding: 0px 30px;
       width: 50%;
+      height:50px;
       line-height: 50px;
       float: left;
     }
     .ag-question-right {
       padding: 0px 30px;
+      height:50px;
       line-height: 50px;
       width: 50%;
       float: left;
       text-align: center;
+      &.title {
+        background-color: #5b5b5b;
+        color:white;
+      }
+      &.value {
+        background-color: #f1f1f1;
+        color:#c6c6c6;
+        &.has-value {
+          color: black;
+        }
+      }
     ;
     }
     .ag-question-center {
