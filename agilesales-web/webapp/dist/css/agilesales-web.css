@@ -107,6 +107,107 @@ body {
   padding: 0px 20px;
   border-right: 1px solid #d2d2d2;
 }
+.ag-card-home-page .header {
+  overflow: hidden;
+  height: 60px;
+  border-bottom: 1px solid #d2d2d2;
+  padding: 0px 10px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 60px;
+}
+.ag-card-home-page .body {
+  padding-top: 100px;
+  margin: 20px;
+  border: 1px solid #d2d2d2;
+  background-color: white;
+  min-height: 500px;
+}
+.ag-card-home-page .body .card {
+  cursor: pointer;
+  height: 200px;
+  border: 1px solid #d2d2d2;
+  position: relative;
+  margin: 20px;
+  margin-bottom: 80px;
+}
+.ag-card-home-page .body .card .card-header {
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
+  background-color: #f8fcfe;
+  border-bottom: 1px solid #d2d2d2;
+}
+.ag-card-home-page .body .card .card-header .title {
+  line-height: 40px;
+}
+.ag-card-home-page .body .card .card-header .name {
+  font-size: 16px;
+  color: #1b8bfb;
+  line-height: 60px;
+  text-align: center;
+}
+.ag-card-home-page .body .card .card-header .photo {
+  border: 1px solid #d2d2d2;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: -40px;
+  left: 50%;
+  margin-left: -40px;
+  border-radius: 90px;
+  background-color: white;
+}
+.ag-card-home-page .body .card .card-body {
+  top: 100px;
+  left: 0px;
+  right: 0px;
+  height: 98px;
+  background-color: white;
+  position: absolute;
+  border-top: 1px solid #d2d2d2;
+  z-index: 10;
+}
+.ag-card-home-page .body .card .card-body .number {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 18px;
+  color: #1b8bfb;
+}
+.ag-card-home-page .body .card .card-body .name {
+  margin-top: 10px;
+  line-height: 20px;
+  text-align: center;
+}
+.ag-card-home-page .body .card .card-footer {
+  -webkit-transition: -webkit-transform 0.2s ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  overflow: hidden;
+  background-color: #1b8bfb;
+  color: white;
+  z-index: 0;
+  border-bottom-left-radius: 5px ;
+  border-bottom-right-radius: 5px ;
+}
+.ag-card-home-page .body .card .card-footer .left {
+  float: left;
+  text-align: center;
+  line-height: 30px;
+  width: 50%;
+  border-right: 1px solid #1674d1;
+}
+.ag-card-home-page .body .card .card-footer .right {
+  line-height: 30px;
+  float: left;
+  text-align: center;
+  width: 50%;
+}
+.ag-card-home-page .body .card:hover .card-footer {
+  -webkit-transform: translate3d(0, 30px, 0);
+}
 .ag-basedata-home-page .header {
   overflow: hidden;
   height: 60px;
