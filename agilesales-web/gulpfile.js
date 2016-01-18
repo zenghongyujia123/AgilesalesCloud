@@ -11,6 +11,7 @@ var rename = require('gulp-rename');
 gulp.task('js-concat', function () {
   return gulp.src([
       'webapp/app/**.js',
+      'webapp/directives/**/*.js',
       'webapp/controllers/**/*.js'
     ])
     .pipe(concat('agilesales-web.js'))

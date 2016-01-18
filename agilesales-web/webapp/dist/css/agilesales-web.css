@@ -341,3 +341,41 @@ body {
 .basedata_people_page {
   min-height: 500px;
 }
+.ag-question-container {
+  margin: auto;
+  min-width: 300px;
+  max-width: 500px;
+  width: 100%;
+  background-color: white;
+  overflow: hidden;
+  border: 1px solid #d2d2d2;
+}
+.ag-question-container .ag-question-row {
+  overflow: hidden;
+  border-bottom: 1px solid #d2d2d2;
+}
+.ag-question-container .ag-question-row .ag-question-left {
+  padding: 0px 30px;
+  width: 50%;
+  line-height: 50px;
+  float: left;
+}
+.ag-question-container .ag-question-row .ag-question-right {
+  padding: 0px 30px;
+  line-height: 50px;
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+.ag-question-container .ag-question-row .ag-question-center {
+  padding: 0px 30px;
+  width: 100%;
+  line-height: 50px;
+}
+.ag-question-single {
+  width: 100%;
+}
+.ag-question-single .ag-question-container .ag-question-footer .ag-question-add {
+  float: left;
+  margin: 30px;
+}
