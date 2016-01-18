@@ -284,6 +284,7 @@ body {
   min-height: 700px;
   position: relative;
   background-color: #f6f6f6;
+  overflow: hidden;
 }
 .ag-basedata-home-page .header {
   overflow: hidden;
@@ -349,6 +350,7 @@ body {
   background-color: white;
   overflow: hidden;
   border: 1px solid #d2d2d2;
+  margin-top: 20px;
 }
 .ag-question-container .ag-question-row {
   overflow: hidden;
@@ -414,6 +416,10 @@ body {
   margin: 30px;
 }
 .ag-question-container .ag-question-single {
+  width: 100%;
+  overflow: hidden;
+}
+.ag-question-container .ag-question-blank {
   width: 100%;
   overflow: hidden;
 }
