@@ -4,6 +4,7 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
   <meta charset="UTF-8">
 
+  <link rel="stylesheet" href="../libraries/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="../libraries/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../ag_libraries/animate.css">
   <script src="../libraries/jquery/dist/jquery.min.js"></script>
@@ -12,17 +13,17 @@
 
   <link rel="stylesheet" href="dist/css/agilesales-web.css">
   <script src="dist/js/agilesales-web.js"></script>
-  <title>柱柱签收控制台</title>
+  <title>销售云管理平台</title>
 </head>
 <body ng-controller="IndexCtrl" ag-global-event>
 <div class="ag-header">
   <div class="ag-center-area">
-    <div class="header-nav animated bounceInLeft" ui-sref="home" >AgileCloud</div>
-    <div class="header-nav animated bounceInLeft" ui-sref="home">快速开始</div>
-    <div class="header-nav animated bounceInLeft" ui-sref="basedata_home">基础数据</div>
-    <div class="header-nav animated bounceInRight" ui-sref="card_home">拜访卡</div>
-    <div class="header-nav animated bounceInRight" ui-sref="home">统计</div>
-    <div class="header-nav animated bounceInRight" ui-sref="home">报表</div>
+    <div class="header-nav" ui-sref="home" >AgileCloud</div>
+    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="home">快速开始</div>
+    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="basedata_home">基础数据</div>
+    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="card_home">拜访卡</div>
+    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="home">统计</div>
+    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="home">报表</div>
   </div>
 </div>
 <div ui-view class="ag-first-layer-view"></div>

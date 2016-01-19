@@ -226,6 +226,23 @@ angular.module('agilesales-web').directive('agGlobalEvent', ['$window', function
   }
 }]);
 /**
+ * Created by zenghong on 16/1/19.
+ */
+angular.module('agilesales-web').directive('agHoverShake', [function () {
+  return {
+    restrict: 'AE',
+    link: function ($scope, $element, $attrs) {
+      $element.mouseover(function () {
+
+        $element.addClass('animated ' + $attrs.agHoverShake + '');
+      });
+      $element.mouseleave(function () {
+        $element.removeClass('animated ' + $attrs.agHoverShake + '');
+      });
+    }
+  }
+}]);
+/**
  * Created by zenghong on 16/1/18.
  */
 angular.module('agilesales-web').directive('agDialogConfirm', function () {
@@ -242,10 +259,10 @@ angular.module('agilesales-web').directive('agDialogConfirm', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', function ($rootScope) {
+angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
+    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -260,14 +277,17 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', func
 
       $scope.show = function () {
         $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
       };
       $scope.hide = function () {
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $scope.submit = function(){
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $rootScope.$on('show.dialogUpload', function (event, data) {
+      $rootScope.$on('show.dialogInput', function (event, data) {
         setTheme(data);
         $scope.show();
       });
@@ -279,20 +299,6 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', func
     }
   }
 }]);
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -353,10 +359,10 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
+angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
+    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -371,17 +377,14 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
 
       $scope.show = function () {
         $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
       };
       $scope.hide = function () {
         $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $scope.submit = function(){
         $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $rootScope.$on('show.dialogInput', function (event, data) {
+      $rootScope.$on('show.dialogUpload', function (event, data) {
         setTheme(data);
         $scope.show();
       });
@@ -393,6 +396,20 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
     }
   }
 }]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -479,7 +496,7 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl',[ '$scope',fu
  */
 angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
   $scope.showUpload = function () {
-    $rootScope.$broadcast('show.dialogUpload',{
+    $rootScope.$broadcast('show.dialogUpload', {
       title: '上传地区',
       contents: [{
         key: '请选择需要上传的地区文件',
@@ -487,7 +504,7 @@ angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$roo
       }],
       color: 'blue'
     });
-  }
+  };
 }]);
 /**
  * Created by zenghong on 16/1/15.
