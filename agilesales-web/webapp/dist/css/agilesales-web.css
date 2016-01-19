@@ -488,6 +488,9 @@ body {
   text-align: center;
   padding: 0px 30px;
   position: relative;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right .ag-upload-input {
   opacity: 0;
