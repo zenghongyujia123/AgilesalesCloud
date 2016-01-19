@@ -2,14 +2,14 @@
   <div class="header">
     拜访卡
   </div>
-  <div class="card-add-btn" ng-click="showCardAdd()" ag-hover-shake>创建拜访卡</div>
+  <div class="card-add-btn" ng-click="showCardAdd()" ag-hover-shake="rubberBand">创建拜访卡</div>
   <div class="body row">
     <div class="col col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="card in cards">
       <div class="card" ng-click="goEdit()">
         <div class="card-header">
           <div class="title">默认业务员</div>
           <div class="name">默认业务员拜访卡</div>
-          <div class="photo"></div>
+          <img class="photo" src="images/salesman.png">
         </div>
         <div class="card-body">
           <div class="row">

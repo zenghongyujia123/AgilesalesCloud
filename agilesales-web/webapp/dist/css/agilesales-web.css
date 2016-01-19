@@ -172,14 +172,12 @@ body {
   text-align: center;
 }
 .ag-card-home-page .body .card .card-header .photo {
-  border: 1px solid #d2d2d2;
   position: absolute;
-  width: 80px;
-  height: 80px;
-  top: -40px;
+  width: 67px;
+  height: 67px;
+  top: -33px;
   left: 50%;
-  margin-left: -40px;
-  border-radius: 90px;
+  margin-left: -33px;
   background-color: white;
 }
 .ag-card-home-page .body .card .card-body {
