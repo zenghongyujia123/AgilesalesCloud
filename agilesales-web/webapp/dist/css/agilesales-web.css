@@ -2,6 +2,7 @@ html,
 body {
   height: 100%;
   background-color: #eeeeee;
+  font-family: PingHei, 'PingFang SC', 'Helvetica Neue', Helvetica, STHeitiSC-Light, Arial, sans-serif, '微软雅黑';
 }
 .ag-first-layer-view {
   margin-top: 60px;
@@ -40,11 +41,14 @@ body {
 .ag-home-area {
   margin: auto;
   overflow: hidden;
-  max-width: 1200px;
+  max-width: 1100px;
 }
 .ag-home-area .ag-back {
   float: left;
   line-height: 50px;
+}
+.ag-home-page {
+  overflow: hidden;
 }
 .ag-home-page .tip-title {
   font-size: 20px;
@@ -52,7 +56,7 @@ body {
   margin-top: 80px;
 }
 .ag-home-page .tip-content {
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
   margin-top: 20px;
   color: #999;
@@ -63,7 +67,7 @@ body {
   margin-top: 80px;
 }
 .ag-home-page .home-item-panel .icon {
-  height: 100px;
+  height: 128px;
   margin: auto;
   margin-bottom: 20px;
 }
@@ -71,10 +75,18 @@ body {
   margin: auto;
   text-align: center;
   width: 120px;
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
   border-radius: 90px;
   background-color: #e4e4e4;
+}
+.ag-home-page .ag-home-footer {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 40px;
 }
 .ag-table {
   overflow-x: scroll;

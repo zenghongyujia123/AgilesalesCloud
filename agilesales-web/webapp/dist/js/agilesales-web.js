@@ -399,10 +399,10 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', func
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -413,10 +413,10 @@ angular.module('agilesales-web').directive('agQuestionBlank', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
