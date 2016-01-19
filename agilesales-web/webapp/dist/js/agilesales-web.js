@@ -283,6 +283,46 @@ angular.module('agilesales-web').directive('agDialogSelect', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', function ($rootScope) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          value: '点击输入名称'
+        }],
+        color: 'blue'
+      };
+
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+      $scope.submit = function(){
+        $element.removeClass('show');
+      };
+      $rootScope.$on('show.dialogUpload', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+    }
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
@@ -339,9 +379,29 @@ angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('BasedataAreaCtrl', function () {
+angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
+  $scope.addCol = function () {
+    $rootScope.$broadcast('show.dialogInput', {
+      title: '添加列',
+      contents: [{
+        key: '请输入列的名称',
+        value: '取个名字'
+      }],
+      color: 'blue'
+    });
+  };
 
-});
+  $scope.removeCol = function () {
+    $rootScope.$broadcast('show.dialogInput', {
+      title: '删除列',
+      contents: [{
+        key: '请选择需要删除的列',
+        value: '大区'
+      }],
+      color: 'red'
+    });
+  };
+}]);
 /**
  * Created by zenghong on 16/1/15.
  */
@@ -358,9 +418,18 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl',[ '$scope',fu
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('BasedataHomeCtrl', function () {
-
-});
+angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
+  $scope.showUpload = function () {
+    $rootScope.$broadcast('show.dialogUpload',{
+      title: '上传地区',
+      contents: [{
+        key: '请选择需要上传的地区文件',
+        value: '点击选择文件'
+      }],
+      color: 'blue'
+    });
+  }
+}]);
 /**
  * Created by zenghong on 16/1/15.
  */

@@ -487,6 +487,15 @@ body {
   background-color: #f1f1f1;
   text-align: center;
   padding: 0px 30px;
+  position: relative;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right .ag-upload-input {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-footer {
   height: 80px;
@@ -514,6 +523,12 @@ body {
 }
 .ag-dialog .ag-dialog-panel.blue .ag-dialog-footer .ag-footer-right {
   background-color: #1b8bfb;
+}
+.ag-dialog .ag-dialog-panel.red .ag-dialog-header {
+  background-color: #ff6666;
+}
+.ag-dialog .ag-dialog-panel.red .ag-dialog-footer .ag-footer-right {
+  background-color: #ff6666;
 }
 .ag-question-container .ag-question-single {
   width: 100%;
