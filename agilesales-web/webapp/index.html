@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
 
   <link rel="stylesheet" href="../libraries/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../ag_libraries/animate.css">
   <script src="../libraries/jquery/dist/jquery.min.js"></script>
   <script src="../libraries/angular/angular.min.js"></script>
   <script src="../libraries/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -16,12 +17,12 @@
 <body ng-controller="IndexCtrl">
 <div class="ag-header">
   <div class="ag-center-area">
-    <div class="header-nav" ui-sref="home">AgileCloud</div>
-    <div class="header-nav">快速开始</div>
-    <div class="header-nav">基础数据</div>
-    <div class="header-nav">拜访卡</div>
-    <div class="header-nav">统计</div>
-    <div class="header-nav">报表</div>
+    <div class="header-nav animated bounce" ui-sref="home" >AgileCloud</div>
+    <div class="header-nav animated bounce" ui-sref="home">快速开始</div>
+    <div class="header-nav animated bounce" ui-sref="basedata_home">基础数据</div>
+    <div class="header-nav animated bounce" ui-sref="card_home">拜访卡</div>
+    <div class="header-nav animated bounce" ui-sref="home">统计</div>
+    <div class="header-nav animated bounce" ui-sref="home">报表</div>
   </div>
 </div>
 <div ui-view class="ag-first-layer-view"></div>
