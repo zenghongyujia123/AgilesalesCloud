@@ -12,4 +12,10 @@ angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$roo
       color: 'blue'
     });
   };
+
+  $scope.location = window.location;
+  $scope.isMenuClose = false;
+  $scope.toggleMenu = function () {
+    $scope.isMenuClose = !$scope.isMenuClose;
+  }
 }]);
