@@ -233,11 +233,10 @@ angular.module('agilesales-web').directive('agHoverShake', [function () {
     restrict: 'AE',
     link: function ($scope, $element, $attrs) {
       $element.mouseover(function () {
-
-        $element.addClass('animated ' + $attrs.agHoverShake + '');
+        $element.find('.icon').addClass('animated ' + $attrs.agHoverShake + '');
       });
       $element.mouseleave(function () {
-        $element.removeClass('animated ' + $attrs.agHoverShake + '');
+        $element.find('.icon').removeClass('animated ' + $attrs.agHoverShake + '');
       });
     }
   }
@@ -246,6 +245,20 @@ angular.module('agilesales-web').directive('agHoverShake', [function () {
  * Created by zenghong on 16/1/19.
  */
 
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agDialogConfirm', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_confirm/dialog_confirm.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -289,10 +302,10 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', func
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogConfirm', function () {
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/dialog_confirm/dialog_confirm.client.view.html',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -314,49 +327,6 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
     }
   }
 });
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          value: '点击输入名称'
-        }],
-        color: 'blue'
-      };
-
-      $scope.show = function () {
-        $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-      };
-      $scope.submit = function(){
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-      };
-      $rootScope.$on('show.dialogInput', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
-    }
-  }
-}]);
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -417,10 +387,10 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -445,17 +415,46 @@ angular.module('agilesales-web').directive('agQuestionTable', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
+angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
+    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          value: '点击输入名称'
+        }],
+        color: 'blue'
+      };
 
+      $scope.show = function () {
+        $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $scope.submit = function(){
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $rootScope.$on('show.dialogInput', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
     }
   }
-});
+}]);
 /**
  * Created by zenghong on 16/1/15.
  */

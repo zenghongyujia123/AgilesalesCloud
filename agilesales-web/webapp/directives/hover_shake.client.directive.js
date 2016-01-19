@@ -6,11 +6,10 @@ angular.module('agilesales-web').directive('agHoverShake', [function () {
     restrict: 'AE',
     link: function ($scope, $element, $attrs) {
       $element.mouseover(function () {
-
-        $element.addClass('animated ' + $attrs.agHoverShake + '');
+        $element.find('.icon').addClass('animated ' + $attrs.agHoverShake + '');
       });
       $element.mouseleave(function () {
-        $element.removeClass('animated ' + $attrs.agHoverShake + '');
+        $element.find('.icon').removeClass('animated ' + $attrs.agHoverShake + '');
       });
     }
   }
