@@ -3,7 +3,7 @@
     拜访卡
   </div>
   <div class="body row">
-    <div class="col col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="card in cards" >
+    <div class="col col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="card in cards">
       <div class="card" ng-click="goEdit()">
         <div class="card-header">
           <div class="title">默认业务员</div>
@@ -27,8 +27,8 @@
           </div>
         </div>
         <div class="card-footer">
-          <div class="left">配置拜访卡</div>
-          <div class="right">编辑拜访卡试卷</div>
+          <div class="left" ui-sref="card_edit.card_config">配置拜访卡</div>
+          <div class="right" ui-sref="card_edit.card_preview">编辑拜访卡试卷</div>
         </div>
       </div>
     </div>
