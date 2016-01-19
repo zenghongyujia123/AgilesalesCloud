@@ -59,12 +59,12 @@ body {
 }
 .ag-home-page .home-item-panel {
   cursor: pointer;
+  text-align: center;
   margin-top: 80px;
 }
 .ag-home-page .home-item-panel .icon {
   height: 100px;
-  background-color: white;
-  width: 100%;
+  margin: auto;
   margin-bottom: 20px;
 }
 .ag-home-page .home-item-panel .name {
@@ -113,6 +113,22 @@ body {
   padding: 0px 20px;
   border-right: 1px solid #d2d2d2;
 }
+.ag-card-home-page .card-add-btn {
+  position: absolute;
+  line-height: 40px;
+  height: 40px;
+  width: 200px;
+  background-color: #f8fcfe;
+  color: #1b8bfb;
+  border: 1px solid #d2d2d2;
+  left: 50%;
+  margin-left: -100px;
+  top: 80px;
+  text-align: center;
+  z-index: 10;
+  cursor: pointer;
+  border-radius: 5px;
+}
 .ag-card-home-page .header {
   overflow: hidden;
   height: 60px;
@@ -127,24 +143,9 @@ body {
   margin: 20px;
   border: 1px solid #d2d2d2;
   background-color: white;
-  height: 700px;
+  height: 650px;
   overflow-y: auto;
   position: relative;
-}
-.ag-card-home-page .body .card-add-btn {
-  position: absolute;
-  line-height: 40px;
-  height: 40px;
-  width: 200px;
-  background-color: #f8fcfe;
-  color: #1b8bfb;
-  border: 1px solid #d2d2d2;
-  left: 50%;
-  margin-left: -100px;
-  top: 0px;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
 }
 .ag-card-home-page .body .card {
   cursor: pointer;
@@ -360,6 +361,14 @@ body {
 .ag-basedata-home-page .center-area .left .left-item {
   line-height: 70px;
   padding: 0px 20px;
+  position: relative;
+  padding-left: 60px;
+}
+.ag-basedata-home-page .center-area .left .left-item .left-item-icon {
+  position: absolute;
+  width: 40px;
+  top: 13px;
+  left: 10px;
 }
 .ag-basedata-home-page .center-area .left .left-item:hover {
   background-color: #037dff;
@@ -494,8 +503,7 @@ body {
   padding: 0px 30px;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-row {
-  height: 80px;
-  overflow: hidden;
+  height: 82px;
   border-bottom: 1px solid #d2d2d2;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-left {
@@ -504,10 +512,11 @@ body {
   line-height: 80px;
   width: 50%;
   padding: 0px 30px;
-  float: left;
+  display: inline-block;
+  margin-right: -4px;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right {
-  float: left;
+  display: inline-block;
   width: 50%;
   height: 80px;
   line-height: 80px;
@@ -529,19 +538,23 @@ body {
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right .ag-row-option-container {
   display: none;
-  bottom: 0px;
+  top: 0px;
   left: 0px;
   width: 100%;
   position: absolute;
-  max-height: 240px;
-  overflow-y: scroll;
+  height: 80px;
+  overflow-y: auto;
+  z-index: 10;
+  background-color: white;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right .ag-row-option-container.show {
   display: block;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right .ag-row-option-container .ag-row-option {
-  line-height: 80px;
+  line-height: 40px;
+  border-bottom: 1px solid #d2d2d2;
   text-align: center;
+  border-left: 1px solid #d2d2d2;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-footer {
   height: 80px;
