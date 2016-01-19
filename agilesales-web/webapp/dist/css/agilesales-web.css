@@ -5,13 +5,14 @@ body {
   font-family: PingHei, 'PingFang SC', 'Helvetica Neue', Helvetica, STHeitiSC-Light, Arial, sans-serif, '微软雅黑';
 }
 .ag-first-layer-view {
-  margin-top: 60px;
+  margin-top: 50px;
   height: 100%;
+  position: relative;
 }
 .ag-btn {
   border-radius: 5px;
   padding: 0px 20px;
-  line-height: 40px;
+  line-height: 36px;
   cursor: pointer;
 }
 .ag-btn.blue {
@@ -20,6 +21,21 @@ body {
 }
 .ag-btn.gray {
   background-color: #f0f0f0;
+}
+.ag-btn.white {
+  background-color: white;
+  color: #666;
+  border: 1px solid #d2d2d2;
+}
+.ag-btn.back {
+  background-color: white;
+  color: #666;
+  padding: 0px;
+  border: 1px solid #d2d2d2;
+  width: 36px ;
+}
+.ag-btn.left {
+  float: left;
 }
 .ag-header {
   overflow: hidden;
@@ -34,7 +50,7 @@ body {
   border-bottom: 1px solid #d2d2d2;
 }
 .ag-header .header-nav {
-  color: #666;
+  color: #333;
   float: left;
   line-height: 50px;
   padding: 0px 25px;
@@ -55,8 +71,8 @@ body {
 }
 .ag-header .header-img {
   float: left;
-  height: 37px;
-  margin-top: 6px;
+  height: 33px;
+  margin-top: 8px;
   margin-left: 5px;
   margin-right: 10px;
 }
@@ -115,6 +131,9 @@ body {
   border-bottom: 1px solid #d2d2d2;
   height: 60px;
   overflow: hidden;
+  background-color: white;
+  position: relative;
+  z-index: 10;
 }
 .ag-table .ag-table-header .ag-table-col {
   float: left;
@@ -354,11 +373,18 @@ body {
 .ag-card-config-page .ag-table {
   border-top: 1px solid #d2d2d2;
 }
+.ag-basedata-home-page {
+  height: 100%;
+  position: relative;
+  z-index: 10;
+}
 .ag-basedata-home-page .header {
   overflow: hidden;
   height: 60px;
   border-bottom: 1px solid #d2d2d2;
-  padding: 0px 10px;
+  padding: 12px 10px;
+  position: relative;
+  z-index: 10;
 }
 .ag-basedata-home-page .header .ag-back {
   line-height: 60px;
@@ -366,14 +392,31 @@ body {
 }
 .ag-basedata-home-page .header .ag-btn {
   margin-left: 10px;
-  margin-top: 10px;
   float: right;
 }
+.ag-basedata-home-page .header .ag-btn.left {
+  margin-left: 0px;
+  float: left;
+}
+.ag-basedata-home-page .header .center-title {
+  position: absolute;
+  text-align: center;
+  width: 200px;
+  left: 50%;
+  top: 0px;
+  line-height: 60px;
+  font-size: 18px;
+  height: 60px;
+  margin-left: -100px;
+}
 .ag-basedata-home-page .center-area {
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  right: 10px;
+  bottom: 0px;
   background-color: white;
   border: 1px solid #d2d2d2;
-  position: relative;
-  margin: 10px 10px 100px 10px;
   padding-left: 200px;
 }
 .ag-basedata-home-page .center-area .left {
@@ -409,10 +452,16 @@ body {
 }
 .ag-basedata-home-page .center-area .right {
   border-left: 1px solid #d2d2d2;
-  min-height: 500px;
+  height: 100%;
   position: relative;
 }
 .ag-basedata-home-page .center-area .right .ag-basedata-home-view {
+  height: 100%;
+}
+.basedata-child-page {
+  height: 100%;
+}
+.basedata-child-page .ag-table {
   height: 100%;
 }
 .basedata_people_page {
