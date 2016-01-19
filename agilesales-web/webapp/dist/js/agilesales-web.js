@@ -262,10 +262,10 @@ angular.module('agilesales-web').directive('agDialogConfirm', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', function ($rootScope) {
+angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
+    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -280,14 +280,17 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', func
 
       $scope.show = function () {
         $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
       };
       $scope.hide = function () {
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $scope.submit = function(){
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $rootScope.$on('show.dialogUpload', function (event, data) {
+      $rootScope.$on('show.dialogInput', function (event, data) {
         setTheme(data);
         $scope.show();
       });
@@ -359,24 +362,10 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
+    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -391,17 +380,14 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
 
       $scope.show = function () {
         $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
       };
       $scope.hide = function () {
         $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $scope.submit = function(){
         $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $rootScope.$on('show.dialogInput', function (event, data) {
+      $rootScope.$on('show.dialogUpload', function (event, data) {
         setTheme(data);
         $scope.show();
       });
@@ -456,6 +442,20 @@ angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
   }
 });
 /**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
  * Created by zenghong on 16/1/15.
  */
 angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
@@ -485,7 +485,7 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
  * Created by zenghong on 16/1/15.
  */
 angular.module('agilesales-web').controller('BasedataCustomerCtrl',[ '$scope',function ($scope) {
-  $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+  $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,21,22,23,24,25,26,27];
   $scope.values = [
     '客户编码', '客户等级', '客户名称',
     '客户简称', '客户性质', '渠道类型',
