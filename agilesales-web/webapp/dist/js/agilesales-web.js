@@ -285,17 +285,60 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogSelect', function () {
+angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',function ($rootScope) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/dialog_select/dialog_select.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
+      $scope.options = [];
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          value: '点击输入名称'
+        }],
+        color: 'blue'
+      };
 
+      $scope.show = function () {
+        $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $scope.submit = function(){
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $scope.toggleOptions = function (index) {
+        if ($element.find('.ag-row-option-container').eq(index).hasClass('show')) {
+          $scope.hideOptions(index);
+        }
+        else {
+          $scope.showOptions(index);
+        }
+      };
+      $rootScope.$on('show.dialogSelect', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+      $scope.showOptions = function (index) {
+        $element.find('.ag-row-option-container').eq(index).addClass('show');
+      };
+      $scope.hideOptions = function (index) {
+        $element.find('.ag-row-option-container').eq(index).removeClass('show');
+      }
     }
   }
-});
+}]);
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -353,20 +396,6 @@ angular.module('agilesales-web').directive('agQuestionBlank', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agQuestionTable', function () {
   return {
     restrict: 'AE',
@@ -385,6 +414,20 @@ angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
   return {
     restrict: 'AE',
     templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -507,11 +550,28 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$state', function ($scope, $state) {
+angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
   $scope.cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   $scope.goEdit = function () {
     $state.go('card_edit');
-  }
+  };
+  $scope.showCardAdd = function () {
+    $rootScope.$broadcast('show.dialogSelect', {
+      title: '添加拜访卡',
+      contents: [{
+        key: '请输入拜访卡名称',
+        value: '点击输入名称',
+        options: ['ahha', 'jaja', 'sdfadfs']
+      },
+        {
+          key: '请输入拜访卡名称',
+          value: '点击输入名称',
+          options: ['ahha', 'jaja', 'sdfadfs']
+        }],
+      color: 'blue'
+
+    });
+  };
 }]);
 /**
  * Created by zenghong on 16/1/15.

@@ -129,6 +129,22 @@ body {
   background-color: white;
   height: 700px;
   overflow-y: auto;
+  position: relative;
+}
+.ag-card-home-page .body .card-add-btn {
+  position: absolute;
+  line-height: 40px;
+  height: 40px;
+  width: 200px;
+  background-color: #f8fcfe;
+  color: #1b8bfb;
+  border: 1px solid #d2d2d2;
+  left: 50%;
+  margin-left: -100px;
+  top: 0px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
 }
 .ag-card-home-page .body .card {
   cursor: pointer;
@@ -196,8 +212,8 @@ body {
   background-color: #1b8bfb;
   color: white;
   z-index: 0;
-  border-bottom-left-radius: 5px ;
-  border-bottom-right-radius: 5px ;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 .ag-card-home-page .body .card .card-footer .left {
   float: left;
@@ -510,6 +526,22 @@ body {
   height: 100%;
   left: 0px;
   top: 0px;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right .ag-row-option-container {
+  display: none;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  position: absolute;
+  max-height: 240px;
+  overflow-y: scroll;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right .ag-row-option-container.show {
+  display: block;
+}
+.ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right .ag-row-option-container .ag-row-option {
+  line-height: 80px;
+  text-align: center;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-footer {
   height: 80px;
