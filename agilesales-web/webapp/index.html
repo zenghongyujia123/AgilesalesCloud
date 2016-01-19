@@ -18,12 +18,12 @@
 <body ng-controller="IndexCtrl" ag-global-event>
 <div class="ag-header">
   <div class="ag-center-area">
-    <div class="header-nav" ui-sref="home" >AgileCloud</div>
-    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="home">快速开始</div>
-    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="basedata_home">基础数据</div>
-    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="card_home">拜访卡</div>
-    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="home">统计</div>
-    <div class="header-nav" ag-hover-shake="rubberBand" ui-sref="home">报表</div>
+    <img class="header-img" src="images/agilefiled.png" ui-sref="home">
+    <div class="header-nav" ng-class="{select:location.hash==='#/'}" ui-sref="home">快速开始</div>
+    <div class="header-nav" ng-class="{select:location.hash==='#/basedata_home'}" ui-sref="basedata_home">基础数据</div>
+    <div class="header-nav" ng-class="{select:location.hash==='#/card_home'}" ui-sref="card_home">拜访卡</div>
+    <div class="header-nav" ui-sref="home">统计</div>
+    <div class="header-nav" ui-sref="home">报表</div>
   </div>
 </div>
 <div ui-view class="ag-first-layer-view"></div>

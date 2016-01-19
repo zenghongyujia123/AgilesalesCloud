@@ -23,7 +23,7 @@ body {
 }
 .ag-header {
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   background-color: white;
   cursor: pointer;
   position: fixed;
@@ -31,12 +31,34 @@ body {
   left: 0px;
   z-index: 10000;
   width: 100%;
+  border-bottom: 1px solid #d2d2d2;
 }
 .ag-header .header-nav {
+  color: #666;
   float: left;
-  line-height: 60px;
-  width: 120px;
+  line-height: 50px;
+  padding: 0px 25px;
   text-align: center;
+  transition: color .5s;
+  -moz-transition: color .5s;
+  /* Firefox 4 */
+  -webkit-transition: color .5s;
+  /* Safari 和 Chrome */
+  -o-transition: color .5s;
+  /* Opera */
+}
+.ag-header .header-nav:hover {
+  color: #037dff;
+}
+.ag-header .header-nav.select {
+  background-color: #f5f5f5;
+}
+.ag-header .header-img {
+  float: left;
+  height: 37px;
+  margin-top: 6px;
+  margin-left: 5px;
+  margin-right: 10px;
 }
 .ag-home-area {
   margin: auto;
@@ -51,7 +73,7 @@ body {
   overflow: hidden;
 }
 .ag-home-page .tip-title {
-  font-size: 20px;
+  font-size: 24px;
   text-align: center;
   margin-top: 80px;
 }
@@ -61,17 +83,20 @@ body {
   margin-top: 20px;
   color: #999;
 }
-.ag-home-page .home-item-panel {
+.ag-home-page .row {
+  margin-bottom: 80px;
+}
+.ag-home-page .row .home-item-panel {
   cursor: pointer;
   text-align: center;
   margin-top: 80px;
 }
-.ag-home-page .home-item-panel .icon {
+.ag-home-page .row .home-item-panel .icon {
   height: 128px;
   margin: auto;
   margin-bottom: 20px;
 }
-.ag-home-page .home-item-panel .name {
+.ag-home-page .row .home-item-panel .name {
   margin: auto;
   text-align: center;
   width: 120px;
@@ -80,13 +105,6 @@ body {
   font-size: 16px;
   border-radius: 90px;
   background-color: #e4e4e4;
-}
-.ag-home-page .ag-home-footer {
-  margin-top: 100px;
-  text-align: center;
-  font-size: 13px;
-  color: #999;
-  margin-bottom: 40px;
 }
 .ag-table {
   overflow-x: scroll;
