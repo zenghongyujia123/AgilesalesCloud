@@ -229,20 +229,6 @@ angular.module('agilesales-web').directive('agDialogConfirm', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogSelect', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_select/dialog_select.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -261,12 +247,15 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
 
       $scope.show = function () {
         $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
       };
       $scope.hide = function () {
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $scope.submit = function(){
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $rootScope.$on('show.dialogInput', function (event, data) {
         setTheme(data);
@@ -280,6 +269,20 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
     }
   }
 }]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agDialogSelect', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_select/dialog_select.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
 /**
  * Created by zenghong on 16/1/18.
  */

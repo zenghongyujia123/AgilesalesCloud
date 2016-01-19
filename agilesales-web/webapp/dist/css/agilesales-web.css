@@ -447,6 +447,9 @@ body {
 .ag-dialog.show {
   display: block;
 }
+.ag-dialog.show .ag-dialog-panel {
+  display: block;
+}
 .ag-dialog .ag-mask {
   position: absolute;
   left: 0px;
@@ -463,6 +466,7 @@ body {
   overflow: hidden;
   left: 50%;
   top: 50%;
+  display: none;
   margin-top: -200px;
   margin-left: -300px;
 }

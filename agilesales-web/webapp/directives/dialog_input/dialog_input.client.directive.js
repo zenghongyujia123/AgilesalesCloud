@@ -19,12 +19,15 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
 
       $scope.show = function () {
         $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
       };
       $scope.hide = function () {
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $scope.submit = function(){
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $rootScope.$on('show.dialogInput', function (event, data) {
         setTheme(data);
