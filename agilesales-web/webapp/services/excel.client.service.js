@@ -161,8 +161,8 @@ angular.module('agilesales-web').factory('ExcelReaderService', function () {
     },
     getSheetData: function (workbook, headers, callback) {
       //目前只取第一个sheet的内容
-      var sheet1Name = workbook.SheetNames[0];
-      var xlsSheetArray = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet1Name]);
+      var sheet1Name = workbook.SheetNames['Sheet1'];
+      var xlsSheetArray = XLSX.utils.sheet_to_row_object_array(workbook.Sheets['Sheet1']);
       //var jsonResultString = JSON.stringify(xlsSheetArray);
 
       if (!xlsSheetArray || xlsSheetArray.length <= 0) {

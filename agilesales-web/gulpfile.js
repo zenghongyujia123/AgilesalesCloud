@@ -12,7 +12,7 @@ gulp.task('js-concat', function () {
   return gulp.src([
       'webapp/app/**.js',
       'webapp/directives/**/*.js',
-      'webapp/directives/**/*.js',
+      'webapp/services/**/*.js',
       'webapp/controllers/**/*.js'
     ])
     .pipe(concat('agilesales-web.js'))

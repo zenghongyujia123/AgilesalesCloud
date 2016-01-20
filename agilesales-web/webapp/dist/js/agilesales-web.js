@@ -248,6 +248,83 @@ angular.module('agilesales-web').directive('agHoverShake', [function () {
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          value: '点击输入名称'
+        }],
+        color: 'blue',
+        type: 'execel',
+        headers: [
+          {key: 'A1', value: '大区'},
+          {key: 'B1', value: '省区'},
+          {key: 'C1', value: '办事处'}
+        ]
+      };
+
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+      $scope.submit = function () {
+        $element.removeClass('show');
+      };
+      $rootScope.$on('show.dialogUpload', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      $scope.handleFile = function (ele) {
+        var excelReader = ExcelReaderService.getReader();
+
+        excelReader.getWorkSheet(ele, function (err, excelSheet) {
+          excelReader.checkHeader(excelSheet, $scope.info.headers, function (isOurTemplate) {
+            if (!isOurTemplate) {
+              var a = isOurTemplate;
+            }
+            excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
+              if ($scope.info.callback) {
+                return $scope.info.callback(sheetData);
+              }
+            });
+          });
+        });
+      };
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+    }
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agDialogConfirm', function () {
   return {
     restrict: 'AE',
@@ -262,50 +339,17 @@ angular.module('agilesales-web').directive('agDialogConfirm', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          tip: '点击输入名称',
-          value: ''
-        }],
-        color: 'blue'
-      };
 
-      $scope.show = function () {
-        $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-      };
-      $scope.submit = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-        if ($scope.info.callback) {
-          $scope.info.callback($scope.info);
-        }
-      };
-      $rootScope.$on('show.dialogInput', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
     }
   }
-}]);
+});
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -366,10 +410,10 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', function ($rootScope) {
+angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
+    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -377,21 +421,28 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', func
         title: '',
         contents: [{
           key: '请输入拜访卡名称',
-          value: '点击输入名称'
+          tip: '点击输入名称',
+          value: ''
         }],
         color: 'blue'
       };
 
       $scope.show = function () {
         $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
       };
       $scope.hide = function () {
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $scope.submit = function(){
+      $scope.submit = function () {
         $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+        if ($scope.info.callback) {
+          $scope.info.callback($scope.info);
+        }
       };
-      $rootScope.$on('show.dialogUpload', function (event, data) {
+      $rootScope.$on('show.dialogInput', function (event, data) {
         setTheme(data);
         $scope.show();
       });
@@ -403,34 +454,6 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', func
     }
   }
 }]);
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -458,6 +481,201 @@ angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
 
     }
   }
+});
+/**
+ * Created by zenghong on 16/1/20.
+ */
+/**
+ * Created by Wayne on 15/12/7.
+ */
+
+'use strict';
+angular.module('agilesales-web').factory('ExcelReaderService', function () {
+
+  var activeXReader = {
+    getWorkSheet: function (element, callback) {
+      var fileObject = document.getElementById('filename');
+      fileObject.select();
+      fileObject.blur();
+
+      var filePath = document.selection.createRange().text;
+      var suffix = filePath.substring(filePath.lastIndexOf('.') + 1).toLowerCase();
+
+      if (suffix !== 'xls' && suffix != 'xlsx') {
+        return callback({type: 'file_type_error', message: '选择的文件不是Excel文件'});
+      }
+
+      var excel = new ActiveXObject('Excel.Application');
+      var excel_file = excel.Workbooks.open(filePath);
+      var excelSheet = excel.Worksheets('Sheet1');
+
+      console.log(excelSheet.UsedRange.Rows.Count);
+      console.log(excelSheet.UsedRange.Columns.Count);
+
+      return callback(null, excelSheet);
+    },
+    checkHeader: function (excelSheet, headers, callback) {
+      if (!excelSheet) {
+        return callback(false);
+      }
+
+      for (var column = 0; column < headers.length; column++) {
+        if (excelSheet.Cells(1, column + 1).Value !== headers[column].value) {
+          return callback(false);
+        }
+      }
+      return callback(true);
+    },
+    isHeaderNameExist: function (excelSheet, headerColumn) {
+      if (!excelSheet) {
+        return false;
+      }
+      if (excelSheet.Cells(1, headerColumn.index + 1).Value !== headerColumn.value) {
+        return false;
+      }
+      return true;
+    },
+    getSheetData: function (excelSheet, headers, callback) {
+      var dataArray = [];
+      var columnCount = excelSheet.UsedRange.Columns.Count;
+      var data, hasValue;
+      for (var row = 2; row < columnCount; row++) {
+        data = {};
+        hasValue = false;
+        for (var column = 0; column < headers.length; column++) {
+          if (excelSheet.Cells(row, column + 1).Value != undefined) {
+            data[headers[column]] = excelSheet.Cells(row, column + 1).Value;
+            hasValue = true;
+          }
+        }
+        if (hasValue) {
+          dataArray.push(data);
+        }
+      }
+      //var jsonResultString = JSON.stringify(dataArray);
+
+      if (dataArray.length === 0) {
+        return callback({type: 'file_content_empty', message: '表格中没有数据'});
+      }
+      return callback(null, dataArray);
+    }
+  };
+
+  var otherReader = {
+    getWorkSheet: function (element, callback) {
+      var file = element.files[0];
+      var suffix = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
+      if (suffix !== 'xls' && suffix !== 'xlsx') {
+        return callback({type: 'file_type_error', message: '选择的文件不是Excel文件'});
+      }
+
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var workbook;
+        var isError = false;
+        try {
+          var binary = '';
+
+          if (reader.readAsBinaryString) {
+            binary = e.target.result;
+          }
+          else {
+            var bytes = new Uint8Array(e.target.result);
+            var length = bytes.byteLength;
+
+            for (var i = 0; i < length; i++) {
+              binary += String.fromCharCode(bytes[i]);
+            }
+          }
+
+          workbook = XLSX.read(binary, {type: 'binary'});
+          if (workbook.SheetNames.length <= 0) {
+            return callback({type: 'file_content_empty', message: '表格中没有数据'});
+          }
+        }
+        catch (ex) {
+          isError = true;
+        }
+        if (isError) {
+          return callback({type: 'file_parse_error', message: 'Excel文件解析失败'});
+        }
+        return callback(null, workbook);
+      };
+
+      if (reader.readAsBinaryString) {
+        reader.readAsBinaryString(file);
+      }
+      else {
+        reader.readAsArrayBuffer(file);
+      }
+    },
+    checkHeader: function (workbook, headers, callback) {
+      var excelSheet = workbook.Sheets.Sheet1;
+      if (!excelSheet) {
+        return callback(false);
+      }
+      for (var index = 0; index < headers.length; index++) {
+        var column = 'excelSheet.' + headers[index].key;
+
+        if (eval(column)) {
+          var columnName = column + '.v';
+          if (eval(columnName) !== headers[index].value) {
+            return callback(false);
+          }
+        }
+        else {
+          return callback(false);
+        }
+      }
+      return callback(true);
+    },
+    isHeaderNameExist: function (workbook, headerColumn) {
+      var excelSheet = workbook.Sheets.Sheet1;
+      if (!excelSheet) {
+        return false;
+      }
+      var column = 'excelSheet.' + headerColumn.key;
+      if (eval(column)) {
+        var columnName = column + '.v';
+        if (eval(columnName) === headerColumn.value) {
+          return true;
+        }
+      }
+      return false;
+    },
+    getSheetData: function (workbook, headers, callback) {
+      //目前只取第一个sheet的内容
+      var sheet1Name = workbook.SheetNames['Sheet1'];
+      var xlsSheetArray = XLSX.utils.sheet_to_row_object_array(workbook.Sheets['Sheet1']);
+      //var jsonResultString = JSON.stringify(xlsSheetArray);
+
+      if (!xlsSheetArray || xlsSheetArray.length <= 0) {
+        return callback({type: 'file_content_empty', message: '表格中没有数据'});
+      }
+      return callback(null, xlsSheetArray);
+    }
+  };
+
+  return {
+    getReader: function () {
+      if (typeof FileReader == 'undefined') {
+        return activeXReader;
+      }
+      return otherReader;
+    },
+    splitArray: function (dataArray, splitSize) {
+      var newArray = [];
+      var i = 0;
+      while (i < dataArray.length) {
+        var sliceArray = dataArray.slice(i, i + splitSize);
+        newArray.push(sliceArray);
+        i = i + splitSize;
+      }
+
+      return newArray;
+    }
+  };
+
 });
 /**
  * Created by zenghong on 16/1/15.
@@ -522,9 +740,18 @@ angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$roo
       title: '上传地区',
       contents: [{
         key: '请选择需要上传的地区文件',
-        value: '点击选择文件'
+        value: '点击选择文件',
+        tip: '点击选择文件'
       }],
-      color: 'blue'
+      color: 'blue',
+      headers: [
+        {key: 'A1', value: '大区'},
+        {key: 'B1', value: '省区'},
+        {key: 'C1', value: '办事处'}
+      ],
+      callback: function (data) {
+        console.log(data);
+      }
     });
   };
 
