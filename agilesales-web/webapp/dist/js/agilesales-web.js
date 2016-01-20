@@ -248,6 +248,67 @@ angular.module('agilesales-web').directive('agHoverShake', [function () {
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agDialogConfirm', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_confirm/dialog_confirm.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          tip: '点击输入名称',
+          value: ''
+        }],
+        color: 'blue'
+      };
+
+      $scope.show = function () {
+        $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $scope.submit = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+        if ($scope.info.callback) {
+          $scope.info.callback($scope.info);
+        }
+      };
+      $rootScope.$on('show.dialogInput', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+    }
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
   return {
     restrict: 'AE',
@@ -311,48 +372,6 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agDialogConfirm', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_confirm/dialog_confirm.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',function ($rootScope) {
   return {
     restrict: 'AE',
@@ -410,50 +429,31 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          tip: '点击输入名称',
-          value: ''
-        }],
-        color: 'blue'
-      };
 
-      $scope.show = function () {
-        $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-      };
-      $scope.submit = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-        if ($scope.info.callback) {
-          $scope.info.callback($scope.info);
-        }
-      };
-      $rootScope.$on('show.dialogInput', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
     }
   }
-}]);
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -750,7 +750,23 @@ angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$roo
         {key: 'C1', value: '办事处'}
       ],
       callback: function (data) {
-        console.log(data);
+        var areas = {};
+        data.forEach(function (item) {
+          if(item['大区']){
+            if (!areas[item['大区']]) {
+              areas[item['大区']] = {};
+            }
+
+            if (!areas[item['大区']][item['省区']]) {
+              areas[item['大区']][item['省区']] = {};
+            }
+
+            if(!areas[item['大区']][item['省区']][item['办事处']]){
+              areas[item['大区']][item['省区']][item['办事处']]={};
+            }
+          }
+        });
+        console.log(areas);
       }
     });
   };

@@ -17,7 +17,23 @@ angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$roo
         {key: 'C1', value: '办事处'}
       ],
       callback: function (data) {
-        console.log(data);
+        var areas = {};
+        data.forEach(function (item) {
+          if(item['大区']){
+            if (!areas[item['大区']]) {
+              areas[item['大区']] = {};
+            }
+
+            if (!areas[item['大区']][item['省区']]) {
+              areas[item['大区']][item['省区']] = {};
+            }
+
+            if(!areas[item['大区']][item['省区']][item['办事处']]){
+              areas[item['大区']][item['省区']][item['办事处']]={};
+            }
+          }
+        });
+        console.log(areas);
       }
     });
   };
