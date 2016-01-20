@@ -16,6 +16,6 @@ module.exports = function () {
 
   process.env.appDb = config.appDb;
 
-  var mongo = {} || require('../libraries/mongoose');
-  //require('../models/all')(mongo.appDb, mongo.logDb);
+  var mongo =  require('./../../libraries/mongoose');
+  require('./../../models/all')(mongo.appDb);
 };
