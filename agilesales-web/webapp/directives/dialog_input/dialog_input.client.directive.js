@@ -12,7 +12,8 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
         title: '',
         contents: [{
           key: '请输入拜访卡名称',
-          value: '点击输入名称'
+          tip: '点击输入名称',
+          value: ''
         }],
         color: 'blue'
       };
@@ -25,9 +26,12 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
         $element.removeClass('show');
         $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $scope.submit = function(){
+      $scope.submit = function () {
         $element.removeClass('show');
         $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+        if ($scope.info.callback) {
+          $scope.info.callback($scope.info);
+        }
       };
       $rootScope.$on('show.dialogInput', function (event, data) {
         setTheme(data);

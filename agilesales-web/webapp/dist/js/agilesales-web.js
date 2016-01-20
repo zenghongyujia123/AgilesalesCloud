@@ -273,7 +273,8 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
         title: '',
         contents: [{
           key: '请输入拜访卡名称',
-          value: '点击输入名称'
+          tip: '点击输入名称',
+          value: ''
         }],
         color: 'blue'
       };
@@ -286,9 +287,12 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
         $element.removeClass('show');
         $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $scope.submit = function(){
+      $scope.submit = function () {
         $element.removeClass('show');
         $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+        if ($scope.info.callback) {
+          $scope.info.callback($scope.info);
+        }
       };
       $rootScope.$on('show.dialogInput', function (event, data) {
         setTheme(data);
@@ -402,20 +406,6 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', func
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
@@ -430,10 +420,10 @@ angular.module('agilesales-web').directive('agQuestionBlank', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -456,30 +446,59 @@ angular.module('agilesales-web').directive('agQuestionTable', function () {
   }
 });
 /**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
  * Created by zenghong on 16/1/15.
  */
 angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
-  $scope.addCol = function () {
+  $scope.addColClick = function () {
     $rootScope.$broadcast('show.dialogInput', {
       title: '添加列',
       contents: [{
         key: '请输入列的名称',
-        value: '取个名字'
+        tip: '取个名字',
+        value: ''
       }],
-      color: 'blue'
+      color: 'blue',
+      callback: function (info) {
+        $scope.addCol(info.contents[0].value);
+      }
     });
   };
 
-  $scope.removeCol = function () {
+  $scope.removeColClick = function () {
     $rootScope.$broadcast('show.dialogInput', {
       title: '删除列',
       contents: [{
         key: '请选择需要删除的列',
         value: '大区'
       }],
-      color: 'red'
+      color: 'red',
+      callback: function () {
+
+      }
     });
   };
+
+  $scope.addCol = function (value) {
+    if ($scope.headers.indexOf(value) < 0) {
+      $scope.headers.push(value);
+    }
+  };
+  $scope.headers = [];
+
 }]);
 /**
  * Created by zenghong on 16/1/15.
