@@ -6,5 +6,6 @@ var _ = require('lodash');
 exports = _.extend(exports, {
   index: require('./index'),
   area: require('./area'),
-  company: require('./company')
+  company: require('./company'),
+  user:require('./user')
 });
