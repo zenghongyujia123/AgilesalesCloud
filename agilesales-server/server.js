@@ -17,6 +17,9 @@ var init = require('./config/init')(),
 // Start the app by listening on <port>
 app.listen(config.port);
 
+
+var allService = require('./services/all');
+allService.index.initTempData();
 // Expose app
 exports = module.exports = app;
 console.log('MEAN.JS application started on address ' + config.serverAddress);

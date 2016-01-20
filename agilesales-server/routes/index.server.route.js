@@ -2,10 +2,10 @@
  * Created by zenghong on 16/1/7.
  */
 'use strict';
-var indexCtrl = require('../controllers/index');
+var all = require('../controllers/all');
 
 module.exports = function (app) {
-  app.route('/').get(indexCtrl.index);
-  app.route('/webapp').get(indexCtrl.webAppIndex);
-  app.route('/download').get(indexCtrl.download);
+  app.route('/').get(all.index);
+  app.route('/webapp').get(all.webAppIndex);
+  app.route('/download').get(all.download);
 };

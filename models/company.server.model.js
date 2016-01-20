@@ -25,10 +25,10 @@ module.exports = function (appDb) {
       type: String,
       default: ''
     },
-    photo: {
-      type: String,
-      default: ''
-    },
+    nick_photo: '',
+    photo: [{
+      type: String
+    }],
     contact_name: {
       type: String,
       default: ''
@@ -41,6 +41,10 @@ module.exports = function (appDb) {
       type: String,
       default: ''
     },
+    super_admin: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
     areas: [{
       type: Schema.Types.Mixed
     }],
@@ -49,10 +53,29 @@ module.exports = function (appDb) {
     }]
   });
 
+  var AreaSchema = new Schema({
+    object: {
+      type: String,
+      default: 'area'
+    },
+    name: {
+      type: String
+    },
+    number: {
+      type: String
+    }
+  });
+
   CompanySchema.plugin(timestamps, {
     createdAt: 'created',
     updatedAt: 'updated'
   });
+  AreaSchema.plugin(timestamps, {
+    createdAt: 'created',
+    updatedAt: 'updated'
+  });
+
+  appDb.model('Area', AreaSchema);
   appDb.model('Company', CompanySchema);
 
 };
