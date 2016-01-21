@@ -373,10 +373,10 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -387,10 +387,10 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -777,7 +777,8 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
   };
 
   $rootScope.$on('show.importAreas', function () {
-    var headers = [
+    //最多10列
+    var headersTemp = [
       {key: 'A1', value: ''},
       {key: 'B1', value: ''},
       {key: 'C1', value: ''},
@@ -791,8 +792,14 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
     ];
 
     var index = 0;
+    var headers = [];
     $scope.company.areas.forEach(function (area) {
-      headers[index++].value = area.name;
+      if (area.value) {
+        headers.push({
+          key: headersTemp[index++].key,
+          value: area.name
+        })
+      }
     });
 
     $rootScope.$broadcast('show.dialogUpload', {
@@ -807,6 +814,8 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       callback: function (data) {
         var areas = {};
         data.forEach(function (item) {
+
+
           if (item['大区']) {
             if (!areas[item['大区']]) {
               areas[item['大区']] = {};
@@ -821,6 +830,22 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
             }
           }
         });
+
+        var items = [];
+        for (var area in areas) {
+          var a = {name: area, childs: []};
+          for (var province in areas[area]) {
+            var b = {name: province, childs: []};
+            for (var banshichu in areas[area][province]) {
+              var c = {name: banshichu, childs: []};
+              b.childs.push(c);
+            }
+            a.childs.push(b);
+          }
+          items.push(a);
+        }
+
+        console.log(JSON.stringify(items));
         console.log(areas);
       }
     });
