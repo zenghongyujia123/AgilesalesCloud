@@ -135,6 +135,7 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
                 return window.location = config.login;
               }
               AuthService.setUser(data);
+              $state.go('home');
             },
             function (err) {
               alert('系统错误' + JSON.stringify(err));

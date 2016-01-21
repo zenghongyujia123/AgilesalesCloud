@@ -30,6 +30,9 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
       console.log(u);
       $rootScope.$broadcast('onUserReset');
     },
+    getCompany: function () {
+      return user.company;
+    },
     isLoggedIn: function () {
       return user ? true : false;
     }

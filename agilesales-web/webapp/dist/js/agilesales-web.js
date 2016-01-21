@@ -135,6 +135,7 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
                 return window.location = config.login;
               }
               AuthService.setUser(data);
+              $state.go('home');
             },
             function (err) {
               alert('系统错误' + JSON.stringify(err));
@@ -438,6 +439,16 @@ angular.module('agilesales-web').factory('PublicInterceptor', ['AuthService', fu
 /**
  * Created by zenghong on 16/1/21.
  */
+angular.module('agilesales-web').factory('AreaService', ['HttpService', function (HttpService) {
+  return {
+    updateAreaTitle: function (area) {
+      return HttpService.post('/webapp/area/title/update', {area: area});
+    }
+  };
+}]);
+/**
+ * Created by zenghong on 16/1/21.
+ */
 angular.module('agilesales-web').factory('AuthService', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
   var access_token = '';
   var user = null;
@@ -466,6 +477,9 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
       user = u;
       console.log(u);
       $rootScope.$broadcast('onUserReset');
+    },
+    getCompany: function () {
+      return user.company;
     },
     isLoggedIn: function () {
       return user ? true : false;
@@ -712,43 +726,84 @@ angular.module('agilesales-web').factory('UserService', [ 'HttpService', functio
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
-  $scope.addColClick = function () {
+angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$rootScope', 'AuthService', 'AreaService', function ($scope, $rootScope, AuthService, AreaService) {
+  $scope.company = AuthService.getCompany();
+
+  $scope.editColClick = function (area) {
     $rootScope.$broadcast('show.dialogInput', {
-      title: '添加列',
+      title: '编辑列',
       contents: [{
         key: '请输入列的名称',
         tip: '取个名字',
-        value: ''
+        value: area.name
       }],
       color: 'blue',
       callback: function (info) {
-        $scope.addCol(info.contents[0].value);
+        if (area.name !== info.contents[0].value) {
+          area.name = info.contents[0].value;
+          $scope.updateArea(area);
+        }
       }
     });
   };
 
-  $scope.removeColClick = function () {
-    $rootScope.$broadcast('show.dialogInput', {
-      title: '删除列',
+  $scope.updateArea = function (area) {
+    AreaService.updateAreaTitle(area).then(function (data) {
+      console.log(data);
+    }, function (err) {
+      console.log(err);
+    });
+  };
+
+  $rootScope.$on('show.importAreas', function () {
+    var headers = [
+      {key: 'A1', value: ''},
+      {key: 'B1', value: ''},
+      {key: 'C1', value: ''},
+      {key: 'D1', value: ''},
+      {key: 'E1', value: ''},
+      {key: 'F1', value: ''},
+      {key: 'G1', value: ''},
+      {key: 'H1', value: ''},
+      {key: 'I1', value: ''},
+      {key: 'J1', value: ''}
+    ];
+
+    var index = 0;
+    $scope.company.areas.forEach(function (area) {
+      headers[index++].value = area.name;
+    });
+
+    $rootScope.$broadcast('show.dialogUpload', {
+      title: '上传地区',
       contents: [{
-        key: '请选择需要删除的列',
-        value: '大区'
+        key: '请选择需要上传的地区文件',
+        value: '点击选择文件',
+        tip: '点击选择文件'
       }],
-      color: 'red',
-      callback: function () {
+      color: 'blue',
+      headers: headers,
+      callback: function (data) {
+        var areas = {};
+        data.forEach(function (item) {
+          if (item['大区']) {
+            if (!areas[item['大区']]) {
+              areas[item['大区']] = {};
+            }
 
+            if (!areas[item['大区']][item['省区']]) {
+              areas[item['大区']][item['省区']] = {};
+            }
+
+            if (!areas[item['大区']][item['省区']][item['办事处']]) {
+              areas[item['大区']][item['省区']][item['办事处']] = {};
+            }
+          }
+        });
+        console.log(areas);
       }
     });
-  };
-
-  $scope.addCol = function (value) {
-    if ($scope.headers.indexOf(value) < 0) {
-      $scope.headers.push(value);
-    }
-  };
-  $scope.headers = [];
-
+  });
 }]);
 /**
  * Created by zenghong on 16/1/15.
@@ -768,39 +823,8 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl',[ '$scope',fu
  */
 angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
   $scope.showUpload = function () {
-    $rootScope.$broadcast('show.dialogUpload', {
-      title: '上传地区',
-      contents: [{
-        key: '请选择需要上传的地区文件',
-        value: '点击选择文件',
-        tip: '点击选择文件'
-      }],
-      color: 'blue',
-      headers: [
-        {key: 'A1', value: '大区'},
-        {key: 'B1', value: '省区'},
-        {key: 'C1', value: '办事处'}
-      ],
-      callback: function (data) {
-        var areas = {};
-        data.forEach(function (item) {
-          if(item['大区']){
-            if (!areas[item['大区']]) {
-              areas[item['大区']] = {};
-            }
+    $rootScope.$broadcast('show.importAreas');
 
-            if (!areas[item['大区']][item['省区']]) {
-              areas[item['大区']][item['省区']] = {};
-            }
-
-            if(!areas[item['大区']][item['省区']][item['办事处']]){
-              areas[item['大区']][item['省区']][item['办事处']]={};
-            }
-          }
-        });
-        console.log(areas);
-      }
-    });
   };
 
   $scope.location = window.location;
