@@ -112,37 +112,50 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
     }];
   }])
 
-  .run(['$rootScope', '$state', 'AuthService', 'UserService',
-  function ($rootScope, $state, AuthService, UserService) {
-    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-      var to = document.getElementById('error3').getAttribute('data-value');
-      if (to !== "") {
-        AuthService.setToken(to);
-      }
-      else {
-        if (AuthService.getToken() == "") {
-          event.preventDefault();
-          window.location = '/webapp/signin';
+  .run(['$rootScope', '$state', '$window', 'AuthService', 'UserService',
+    function ($rootScope, $state, $window, AuthService, UserService) {
+      $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        var to = document.getElementById('error3').getAttribute('data-value');
+        if (to !== "") {
+          AuthService.setToken(to);
         }
-      }
-      //判断用户数据是否存在
-      if (!AuthService.isLoggedIn()) {
-        event.preventDefault();
-        //没有用户数据，需要重新获取用户，页面可能需要被重定向
-        UserService.getMe()
-          .then(function (data) {
-              if (data.err) {
-                return window.location = config.login;
-              }
-              AuthService.setUser(data);
-              $state.go('home');
-            },
-            function (err) {
-              alert('系统错误' + JSON.stringify(err));
-            });
-      }
-    });
-  }]);
+        else {
+          if (AuthService.getToken() == "") {
+            event.preventDefault();
+            window.location = '/webapp/signin';
+          }
+        }
+        //判断用户数据是否存在
+        if (!AuthService.isLoggedIn()) {
+          event.preventDefault();
+          //没有用户数据，需要重新获取用户，页面可能需要被重定向
+          UserService.getMe()
+            .then(function (data) {
+                if (data.err) {
+                  return window.location = config.login;
+                }
+                AuthService.setUser(data);
+                var obj = AuthService.getLatestUrl();
+                var state = 'home';
+                var params = '';
+                if (obj && obj != '^' && obj.state) {
+                  state = obj.state;
+                  params = obj.params;
+                }
+                return $state.go(state, params);
+              },
+              function (err) {
+                alert('系统错误' + JSON.stringify(err));
+              });
+        }
+      });
+
+      var windowElement = angular.element($window);
+      windowElement.on('beforeunload', function (event) {
+        AuthService.setLatestUrl($state.current.name, $state.params);
+      });
+
+    }]);
 /**
  * Created by zenghong on 16/1/19.
  */
@@ -360,10 +373,10 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -374,10 +387,10 @@ angular.module('agilesales-web').directive('agQuestionBlank', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -483,6 +496,14 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
     },
     isLoggedIn: function () {
       return user ? true : false;
+    },
+    getLatestUrl: function () {
+      return localStorageService.get(user.username + 'state') || '';
+    },
+    setLatestUrl: function (state, params) {
+      if (user) {
+        localStorageService.set(user.username + 'state', {'state': state, 'params': params});
+      }
     }
   };
 }]);

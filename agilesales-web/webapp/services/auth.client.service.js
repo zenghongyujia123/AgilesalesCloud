@@ -35,6 +35,14 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
     },
     isLoggedIn: function () {
       return user ? true : false;
+    },
+    getLatestUrl: function () {
+      return localStorageService.get(user.username + 'state') || '';
+    },
+    setLatestUrl: function (state, params) {
+      if (user) {
+        localStorageService.set(user.username + 'state', {'state': state, 'params': params});
+      }
     }
   };
 }]);
