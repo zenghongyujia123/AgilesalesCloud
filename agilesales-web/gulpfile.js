@@ -12,6 +12,7 @@ gulp.task('js-concat', function () {
   return gulp.src([
       'webapp/app/**.js',
       'webapp/directives/**/*.js',
+      'webapp/interceptors/**/*.js',
       'webapp/services/**/*.js',
       'webapp/controllers/**/*.js'
     ])

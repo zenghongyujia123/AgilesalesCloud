@@ -1,33 +1,37 @@
 /**
  * Created by zenghong on 16/1/21.
  */
-angular.module('agilesales-web').factory('AuthService', ['localStorageService', function (localStorageService) {
+angular.module('agilesales-web').factory('AuthService', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
   var access_token = '';
   var user = null;
   return {
     setToken: function (t) {
-      token = t;
+      access_token = t;
       localStorageService.set('access_token', t);
     },
     getToken: function () {
-      if (token == "") {
+      if (access_token == "") {
         var local = localStorageService.get('access_token');
         if (!local || local == "" || local == "<%=  test %>") {
           localStorageService.set('token', "");
-          token = "";
+          access_token = "";
         }
         else {
-          token = local;
+          access_token = local;
         }
       }
-      return token;
+      return access_token;
     },
     getUser: function () {
       return user;
     },
     setUser: function (u) {
       user = u;
+      console.log(u);
       $rootScope.$broadcast('onUserReset');
+    },
+    isLoggedIn: function () {
+      return user ? true : false;
     }
   };
 }]);
