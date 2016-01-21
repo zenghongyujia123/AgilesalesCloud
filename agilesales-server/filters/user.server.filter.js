@@ -13,7 +13,7 @@ exports.requireUser = function (req, res, next) {
   }
 
   try {
-    access_token = cryptoLib.decrpToken(access_token, 'secret');
+    access_token = crypto.decrpToken(access_token, 'secret');
   }
   catch (e) {
     return res.send({err: err.business.user_token_invalid});
