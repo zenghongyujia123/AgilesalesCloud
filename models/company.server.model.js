@@ -45,7 +45,7 @@ module.exports = function (appDb) {
       type: Schema.Types.ObjectId,
       ref: 'User'
     },
-    areas: [{
+    areas_title: [{
       type: Schema.Types.Mixed
     }],
     card_templates: [{
@@ -53,29 +53,33 @@ module.exports = function (appDb) {
     }]
   });
 
-  var AreaSchema = new Schema({
-    object: {
-      type: String,
-      default: 'area'
-    },
-    name: {
-      type: String
-    },
-    number: {
-      type: String
+  var AreaTitleSchema = new Schema({
+      object: {
+        type: String,
+        default: 'area'
+      },
+      name: {
+        type: String
+      },
+      number: {
+        type: String
+      },
+      level: {
+        type: Number
+      }
     }
-  });
+  );
 
   CompanySchema.plugin(timestamps, {
     createdAt: 'created',
     updatedAt: 'updated'
   });
-  AreaSchema.plugin(timestamps, {
+  AreaTitleSchema.plugin(timestamps, {
     createdAt: 'created',
     updatedAt: 'updated'
   });
 
-  appDb.model('Area', AreaSchema);
+  appDb.model('AreaTitle', AreaTitleSchema);
   appDb.model('Company', CompanySchema);
 
 };

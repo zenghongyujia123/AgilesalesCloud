@@ -3,8 +3,8 @@
  */
 angular.module('agilesales-web').factory('AreaService', ['HttpService', function (HttpService) {
   return {
-    updateAreaTitle: function (area) {
-      return HttpService.post('/webapp/area/title/update', {area: area});
+    updateAreaTitle: function (areaTitle) {
+      return HttpService.post('/webapp/area/title/update', {area_title: areaTitle});
     }
   };
 }]);

@@ -7,9 +7,9 @@ var areaService = require('./../services/all').area;
 
 
 exports.updateAreaTitle = function (req, res, next) {
-  var area = req.body.area;
+  var areaTitle = req.body.area_title;
   var company = req.user.company;
-  areaService.updateAreaTitle(company, area, function (err, result) {
+  areaService.updateAreaTitle(company, areaTitle, function (err, result) {
     if (err) {
       return res.send(err);
     }

@@ -5,7 +5,7 @@
 var appDb = require('./../../libraries/mongoose').appDb,
   Company = appDb.model('Company'),
   User = appDb.model('User'),
-  Area = appDb.model('Area');
+  AreaTitle = appDb.model('AreaTitle');
 
 exports.initTempData = function () {
   Company.findOne({name: '敏捷云'}, function (err, company) {
@@ -20,35 +20,65 @@ exports.initTempData = function () {
         contact_name: '默认联系人',
         contact_phone: '13472423583',
         contact_email: 'hardy@zhuzhuqs.com',
-        areas: [],
+        areas_title: [],
         card_templates: []
       });
     }
 
-    if (!company.areas.length) {
-      company.areas.push(new Area({
+    if (!company.areas_title.length) {
+      company.areas_title.push(new AreaTitle({
         name: '大区',
-        number: '000001'
+        number: '000001',
+        level: 1
       }));
 
-      company.areas.push(new Area({
+      company.areas_title.push(new AreaTitle({
         name: '省份',
-        number: '000002'
+        number: '000002',
+        level: 2
       }));
 
-      company.areas.push(new Area({
+      company.areas_title.push(new AreaTitle({
         name: '区域',
-        number: '000003'
+        number: '000003',
+        level: 3
       }));
 
-      company.areas.push(new Area({
+      company.areas_title.push(new AreaTitle({
         name: '城市',
-        number: '000004'
+        number: '000004',
+        level: 4
       }));
 
-      company.areas.push(new Area({
+      company.areas_title.push(new AreaTitle({
         name: '县区',
-        number: '000005'
+        number: '000005',
+        level: 5
+      }));
+      company.areas_title.push(new AreaTitle({
+        name: '',
+        number: '000006',
+        level: 6
+      }));
+      company.areas_title.push(new AreaTitle({
+        name: '',
+        number: '000007',
+        level: 7
+      }));
+      company.areas_title.push(new AreaTitle({
+        name: '',
+        number: '000008',
+        level: 8
+      }));
+      company.areas_title.push(new AreaTitle({
+        name: '',
+        number: '000009',
+        level: 9
+      }));
+      company.areas_title.push(new AreaTitle({
+        name: '',
+        number: '0000010',
+        level: 10
       }));
     }
 

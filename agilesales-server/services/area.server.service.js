@@ -8,13 +8,13 @@ exports.multiCreate = function (info, callback) {
 
 };
 
-exports.updateAreaTitle = function (company, area, callback) {
-  company.areas.forEach(function (a) {
-    if (a._id.toString() === area._id) {
-      a.name = area.name;
+exports.updateAreaTitle = function (company, areaTitle, callback) {
+  company.areas_title.forEach(function (a) {
+    if (a._id.toString() === areaTitle._id) {
+      a.name = areaTitle.name;
     }
   });
-  company.markModified('areas');
+  company.markModified('areas_title');
   company.save(function (err, company) {
     if (err) {
       return callback({err: errs.system.db_error});

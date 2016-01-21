@@ -22,8 +22,8 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
     });
   };
 
-  $scope.updateAreaTitle = function (area) {
-    AreaService.updateAreaTitle(area).then(function (data) {
+  $scope.updateAreaTitle = function (areaTitle) {
+    AreaService.updateAreaTitle(areaTitle).then(function (data) {
       console.log(data);
     }, function (err) {
       console.log(err);
@@ -47,11 +47,11 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
 
     var index = 0;
     var headers = [];
-    $scope.company.areas.forEach(function (area) {
-      if (area.value) {
+    $scope.company.areas_title.forEach(function (areaTitle) {
+      if (areaTitle.name) {
         headers.push({
           key: headersTemp[index++].key,
-          value: area.name
+          value: areaTitle.name
         })
       }
     });
@@ -68,21 +68,25 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       callback: function (data) {
         var areas = {};
         data.forEach(function (item) {
-
-
-          if (item['大区']) {
-            if (!areas[item['大区']]) {
-              areas[item['大区']] = {};
+          var name1 = headers[0].value;
+          if (item[name1]) {
+            if (!areas[item[name1]]) {
+              areas[item[name1]] = {};
             }
 
-            if (!areas[item['大区']][item['省区']]) {
-              areas[item['大区']][item['省区']] = {};
+            var name2 = headers[1].value;
+
+            if (!areas[item[name1]][item[name2]]) {
+              areas[item[name1]][item[name2]] = {};
             }
 
-            if (!areas[item['大区']][item['省区']][item['办事处']]) {
-              areas[item['大区']][item['省区']][item['办事处']] = {};
+            var name3 = headers[2].value;
+
+            if (!areas[item[name1]][item[name2]][item[name3]]) {
+              areas[item[name1]][item[name2]][item[name3]] = {};
             }
           }
+
         });
 
         var items = [];
