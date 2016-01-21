@@ -3,7 +3,7 @@
  */
 angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$rootScope', 'AuthService', 'AreaService', function ($scope, $rootScope, AuthService, AreaService) {
   $scope.company = AuthService.getCompany();
-
+  $scope.areas = [];
   $scope.editColClick = function (area) {
     $rootScope.$broadcast('show.dialogInput', {
       title: '编辑列',
@@ -29,6 +29,19 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       console.log(err);
     });
   };
+
+  $scope.getAreas = function () {
+    AreaService.getAreas().then(function (data) {
+      console.log(data);
+      if(!data.err){
+        $scope.areas = data;
+      }
+    }, function (err) {
+      console.log(err);
+    });
+  };
+
+  $scope.getAreas();
 
   $rootScope.$on('show.importAreas', function () {
     //最多10列
@@ -56,6 +69,14 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       }
     });
 
+    $scope.uploadMultiArea = function (areas) {
+      AreaService.uploadMultiAreas(areas).then(function (data) {
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    };
+
     $rootScope.$broadcast('show.dialogUpload', {
       title: '上传地区',
       contents: [{
@@ -66,45 +87,56 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       color: 'blue',
       headers: headers,
       callback: function (data) {
-        var areas = {};
+        var obj = {};
+        var arr = [];
         data.forEach(function (item) {
-          var name1 = headers[0].value;
-          if (item[name1]) {
-            if (!areas[item[name1]]) {
-              areas[item[name1]] = {};
-            }
-
-            var name2 = headers[1].value;
-
-            if (!areas[item[name1]][item[name2]]) {
-              areas[item[name1]][item[name2]] = {};
-            }
-
-            var name3 = headers[2].value;
-
-            if (!areas[item[name1]][item[name2]][item[name3]]) {
-              areas[item[name1]][item[name2]][item[name3]] = {};
+          var a = {};
+          for (var p in item) {
+            switch (p) {
+              case headers[0].value:
+                a['level1'] = item[headers[0].value] || '';
+                break;
+              case headers[1].value:
+                a['level2'] = item[headers[1].value] || '';
+                break;
+              case headers[2].value:
+                a['level3'] = item[headers[2].value] || '';
+                break;
+              case headers[3].value:
+                a['level4'] = item[headers[3].value] || '';
+                break;
+              case headers[4].value:
+                a['level5'] = item[headers[4].value] || '';
+                break;
+              case headers[5].value:
+                a['level6'] = item[headers[5].value] || '';
+                break;
+              case headers[6].value:
+                a['level7'] = item[headers[6].value] || '';
+                break;
+              case headers[7].value:
+                a['level8'] = item[headers[7].value] || '';
+                break;
+              case headers[8].value:
+                a['level9'] = item[headers[8].value] || '';
+                break;
+              case headers[9].value:
+                a['level10'] = item[headers[9].value] || '';
+                break;
             }
           }
+
+          a['key'] = (a.level1 || '') + ( a.level2 || '') + ( a.level3 || '') + ( a.level4 || '') + ( a.level5 || '') + ( a.level6 || '') + ( a.level7 || '') + ( a.level8 || '') + ( a.level9 || '') + ( a.level10 || '');
+          if (!obj[a['key']]) {
+            obj[a['key']] = a;
+            arr.push(a);
+          }
+
 
         });
+        console.log(obj);
 
-        var items = [];
-        for (var area in areas) {
-          var a = {name: area, childs: []};
-          for (var province in areas[area]) {
-            var b = {name: province, childs: []};
-            for (var banshichu in areas[area][province]) {
-              var c = {name: banshichu, childs: []};
-              b.childs.push(c);
-            }
-            a.childs.push(b);
-          }
-          items.push(a);
-        }
-
-        console.log(JSON.stringify(items));
-        console.log(areas);
+        $scope.uploadMultiArea(arr);
       }
     });
   });

@@ -47,8 +47,9 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
             }
             excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
               if ($scope.info.callback) {
-                return $scope.info.callback(sheetData);
+                $scope.info.callback(sheetData);
               }
+              $scope.hide();
             });
           });
         });

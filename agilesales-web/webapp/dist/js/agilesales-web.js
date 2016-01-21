@@ -206,17 +206,50 @@ angular.module('agilesales-web').directive('agDialogConfirm', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          tip: '点击输入名称',
+          value: ''
+        }],
+        color: 'blue'
+      };
 
+      $scope.show = function () {
+        $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $scope.submit = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+        if ($scope.info.callback) {
+          $scope.info.callback($scope.info);
+        }
+      };
+      $rootScope.$on('show.dialogInput', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
     }
   }
-});
+}]);
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -266,8 +299,9 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
             }
             excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
               if ($scope.info.callback) {
-                return $scope.info.callback(sheetData);
+                $scope.info.callback(sheetData);
               }
+              $scope.hide();
             });
           });
         });
@@ -280,81 +314,6 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
     }
   }
 }]);
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          tip: '点击输入名称',
-          value: ''
-        }],
-        color: 'blue'
-      };
-
-      $scope.show = function () {
-        $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-      };
-      $scope.submit = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-        if ($scope.info.callback) {
-          $scope.info.callback($scope.info);
-        }
-      };
-      $rootScope.$on('show.dialogInput', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
-    }
-  }
-}]);
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionTable', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_table/question_table.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -426,6 +385,48 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
     }
   }
 });
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionTable', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_table/question_table.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
 angular.module('agilesales-web').factory('PublicInterceptor', ['AuthService', function (AuthService) {
   return {
     'request': function (req) {
@@ -456,6 +457,12 @@ angular.module('agilesales-web').factory('AreaService', ['HttpService', function
   return {
     updateAreaTitle: function (areaTitle) {
       return HttpService.post('/webapp/area/title/update', {area_title: areaTitle});
+    },
+    uploadMultiAreas: function (areas) {
+      return HttpService.post('/webapp/area/multi/upload', {areas: areas});
+    },
+    getAreas: function () {
+      return HttpService.get('/webapp/area', {});
     }
   };
 }]);
@@ -749,7 +756,7 @@ angular.module('agilesales-web').factory('UserService', [ 'HttpService', functio
  */
 angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$rootScope', 'AuthService', 'AreaService', function ($scope, $rootScope, AuthService, AreaService) {
   $scope.company = AuthService.getCompany();
-
+  $scope.areas = [];
   $scope.editColClick = function (area) {
     $rootScope.$broadcast('show.dialogInput', {
       title: '编辑列',
@@ -775,6 +782,19 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       console.log(err);
     });
   };
+
+  $scope.getAreas = function () {
+    AreaService.getAreas().then(function (data) {
+      console.log(data);
+      if(!data.err){
+        $scope.areas = data;
+      }
+    }, function (err) {
+      console.log(err);
+    });
+  };
+
+  $scope.getAreas();
 
   $rootScope.$on('show.importAreas', function () {
     //最多10列
@@ -802,6 +822,14 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       }
     });
 
+    $scope.uploadMultiArea = function (areas) {
+      AreaService.uploadMultiAreas(areas).then(function (data) {
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    };
+
     $rootScope.$broadcast('show.dialogUpload', {
       title: '上传地区',
       contents: [{
@@ -812,45 +840,56 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       color: 'blue',
       headers: headers,
       callback: function (data) {
-        var areas = {};
+        var obj = {};
+        var arr = [];
         data.forEach(function (item) {
-          var name1 = headers[0].value;
-          if (item[name1]) {
-            if (!areas[item[name1]]) {
-              areas[item[name1]] = {};
-            }
-
-            var name2 = headers[1].value;
-
-            if (!areas[item[name1]][item[name2]]) {
-              areas[item[name1]][item[name2]] = {};
-            }
-
-            var name3 = headers[2].value;
-
-            if (!areas[item[name1]][item[name2]][item[name3]]) {
-              areas[item[name1]][item[name2]][item[name3]] = {};
+          var a = {};
+          for (var p in item) {
+            switch (p) {
+              case headers[0].value:
+                a['level1'] = item[headers[0].value] || '';
+                break;
+              case headers[1].value:
+                a['level2'] = item[headers[1].value] || '';
+                break;
+              case headers[2].value:
+                a['level3'] = item[headers[2].value] || '';
+                break;
+              case headers[3].value:
+                a['level4'] = item[headers[3].value] || '';
+                break;
+              case headers[4].value:
+                a['level5'] = item[headers[4].value] || '';
+                break;
+              case headers[5].value:
+                a['level6'] = item[headers[5].value] || '';
+                break;
+              case headers[6].value:
+                a['level7'] = item[headers[6].value] || '';
+                break;
+              case headers[7].value:
+                a['level8'] = item[headers[7].value] || '';
+                break;
+              case headers[8].value:
+                a['level9'] = item[headers[8].value] || '';
+                break;
+              case headers[9].value:
+                a['level10'] = item[headers[9].value] || '';
+                break;
             }
           }
+
+          a['key'] = (a.level1 || '') + ( a.level2 || '') + ( a.level3 || '') + ( a.level4 || '') + ( a.level5 || '') + ( a.level6 || '') + ( a.level7 || '') + ( a.level8 || '') + ( a.level9 || '') + ( a.level10 || '');
+          if (!obj[a['key']]) {
+            obj[a['key']] = a;
+            arr.push(a);
+          }
+
 
         });
+        console.log(obj);
 
-        var items = [];
-        for (var area in areas) {
-          var a = {name: area, childs: []};
-          for (var province in areas[area]) {
-            var b = {name: province, childs: []};
-            for (var banshichu in areas[area][province]) {
-              var c = {name: banshichu, childs: []};
-              b.childs.push(c);
-            }
-            a.childs.push(b);
-          }
-          items.push(a);
-        }
-
-        console.log(JSON.stringify(items));
-        console.log(areas);
+        $scope.uploadMultiArea(arr);
       }
     });
   });
