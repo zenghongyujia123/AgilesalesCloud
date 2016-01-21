@@ -9,63 +9,66 @@ var agilesales = angular.module('agilesales-web', [
 ]);
 
 angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-  $stateProvider
-    .state('home', {
-      url: '/',
-      templateUrl: 'templates/home.client.view.html',
-      controller: "HomeCtrl"
-    })
-    .state('basedata_home', {
-      url: '/basedata_home',
-      templateUrl: 'templates/basedata_home.client.view.html',
-      controller: "BasedataHomeCtrl"
-    })
-    .state('basedata_home.basedata_area', {
-      url: '/basedata_area',
-      templateUrl: 'templates/basedata_area.client.view.html',
-      controller: "BasedataAreaCtrl"
-    })
-    .state('basedata_home.basedata_customer', {
-      url: '/basedata_customer',
-      templateUrl: 'templates/basedata_customer.client.view.html',
-      controller: "BasedataCustomerCtrl"
-    })
-    .state('basedata_home.basedata_people', {
-      url: '/basedata_people',
-      templateUrl: 'templates/basedata_people.client.view.html',
-      controller: "BasedataPeopleCtrl"
-    })
-    .state('basedata_home.basedata_shop', {
-      url: '/basedata_shop',
-      templateUrl: 'templates/basedata_shop.client.view.html',
-      controller: "BasedataShopCtrl"
-    })
-    .state('basedata_home.basedata_sku', {
-      url: '/basedata_sku',
-      templateUrl: 'templates/basedata_sku.client.view.html',
-      controller: "BasedataSkuCtrl"
-    })
-    .state('card_home', {
-      url: '/card_home',
-      templateUrl: 'templates/card_home.client.view.html',
-      controller: "CardHomeCtrl"
-    })
-    .state('card_edit', {
-      url: '/card_edit',
-      templateUrl: 'templates/card_edit.client.view.html',
-      controller: "CardEditCtrl"
-    })
-    .state('card_edit.card_config', {
-      url: '/card_config',
-      templateUrl: 'templates/card_config.client.view.html'
-    })
-    .state('card_edit.card_preview', {
-      url: '/card_preview',
-      templateUrl: 'templates/card_preview.client.view.html'
-    })
-  ;
-  $urlRouterProvider.otherwise('/');
-}]);
+    $stateProvider
+      .state('home', {
+        url: '/',
+        templateUrl: 'templates/home.client.view.html',
+        controller: "HomeCtrl"
+      })
+      .state('basedata_home', {
+        url: '/basedata_home',
+        templateUrl: 'templates/basedata_home.client.view.html',
+        controller: "BasedataHomeCtrl"
+      })
+      .state('basedata_home.basedata_area', {
+        url: '/basedata_area',
+        templateUrl: 'templates/basedata_area.client.view.html',
+        controller: "BasedataAreaCtrl"
+      })
+      .state('basedata_home.basedata_customer', {
+        url: '/basedata_customer',
+        templateUrl: 'templates/basedata_customer.client.view.html',
+        controller: "BasedataCustomerCtrl"
+      })
+      .state('basedata_home.basedata_people', {
+        url: '/basedata_people',
+        templateUrl: 'templates/basedata_people.client.view.html',
+        controller: "BasedataPeopleCtrl"
+      })
+      .state('basedata_home.basedata_shop', {
+        url: '/basedata_shop',
+        templateUrl: 'templates/basedata_shop.client.view.html',
+        controller: "BasedataShopCtrl"
+      })
+      .state('basedata_home.basedata_sku', {
+        url: '/basedata_sku',
+        templateUrl: 'templates/basedata_sku.client.view.html',
+        controller: "BasedataSkuCtrl"
+      })
+      .state('card_home', {
+        url: '/card_home',
+        templateUrl: 'templates/card_home.client.view.html',
+        controller: "CardHomeCtrl"
+      })
+      .state('card_edit', {
+        url: '/card_edit',
+        templateUrl: 'templates/card_edit.client.view.html',
+        controller: "CardEditCtrl"
+      })
+      .state('card_edit.card_config', {
+        url: '/card_config',
+        templateUrl: 'templates/card_config.client.view.html'
+      })
+      .state('card_edit.card_preview', {
+        url: '/card_preview',
+        templateUrl: 'templates/card_preview.client.view.html'
+      })
+    ;
+    $urlRouterProvider.otherwise('/');
+  }])
+  .config(['$httpProvider', function () {
+    $httpProvider.interceptors.push('PublicInterceptor');
+  }]);
 
 
 //zhuzhuqs.config(['localStorageServiceProvider', function (localStorageServiceProvider) {

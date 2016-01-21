@@ -3,13 +3,17 @@
  */
 var path = require('path');
 var _ = require('lodash');
+var cookieLib = require('./../../libraries/cookie');
 'use strict';
 exports.index = function (req, res, next) {
   return res.sendfile(path.join(__dirname, '../../agilesales-web/homepage/index.html'));
 };
 
 exports.webAppIndex = function (req, res, next) {
-  return res.sendfile(path.join(__dirname, '../../agilesales-web/webapp/index.html'));
+  var cookie = cookieLib.getCookie(req);
+  console.log(cookie);
+
+  return res.render(path.join(__dirname, '../../agilesales-web/webapp/index.html'), {test: cookie.access_token});
 };
 
 exports.download = function (req, res, next) {

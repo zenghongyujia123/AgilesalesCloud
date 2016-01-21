@@ -7,6 +7,7 @@
 
 var userService = require('./../services/all').user;
 var cryptoLib = require('./../../libraries/crypto');
+var cookieLib = require('./../../libraries/cookie');
 
 exports.signin = function (req, res, next) {
   var username = req.body.username;
@@ -17,10 +18,13 @@ exports.signin = function (req, res, next) {
       res.send(err);
     }
     var token = cryptoLib.encrypToken({_id: user._id, time: new Date()}, 'secret');
-
-    res.cookie('access_token', token);
+    res = cookieLib.setCookie(res, 'access_token', token);
     return res.redirect('/webapp');
   });
+};
+
+exports.getMe = function (req, res, next) {
+  return res.send(req.user);
 };
 
 exports.create = function (req, res, next) {
