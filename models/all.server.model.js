@@ -4,4 +4,5 @@
 module.exports = function (appDb) {
   require('./company')(appDb);
   require('./user')(appDb);
+  require('./area')(appDb);
 };
