@@ -762,13 +762,13 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
       callback: function (info) {
         if (area.name !== info.contents[0].value) {
           area.name = info.contents[0].value;
-          $scope.updateArea(area);
+          $scope.updateAreaTitle(area);
         }
       }
     });
   };
 
-  $scope.updateArea = function (area) {
+  $scope.updateAreaTitle = function (area) {
     AreaService.updateAreaTitle(area).then(function (data) {
       console.log(data);
     }, function (err) {
