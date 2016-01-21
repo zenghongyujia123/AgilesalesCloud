@@ -5,6 +5,11 @@
 var err = require('./../../errors/all');
 var crypto = require('./../../libraries/crypto');
 
+var appDb = require('./../../libraries/mongoose').appDb,
+  User = appDb.model('User');
+
+
+
 exports.requireUser = function (req, res, next) {
   var access_token = req.body.access_token || req.query.access_token || '';
 

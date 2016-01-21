@@ -6,7 +6,7 @@ exports.toMd5 = function (str) {
   return crypto.createHash('md5').update(str).digest('hex');
 };
 
-exports.toBase64 = function(str){
+exports.toBase64 = function (str) {
   return new Buffer(str).toString('base64');
 };
 
@@ -31,7 +31,7 @@ exports.encrypToken = function (token, secret) {
 };
 
 exports.decrpToken = function (token, secret) {
-  return JSON.parse( decrypt(token, secret));
+  return JSON.parse(decrypt(token, secret));
 };
 
 exports.encryptString = function (strText, secret) {
