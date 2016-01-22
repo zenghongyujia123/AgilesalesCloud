@@ -7,5 +7,5 @@ var filter = require('../filters/all').user;
 
 module.exports = function (app) {
   app.route('/webapp/customer/multi/upload').post(filter.requireUser, all.customer.uploadMultiCustomers);
-  app.route('/webapp/customers').post(filter.requireUser, all.customer.getCustomers);
+  app.route('/webapp/customers').get(filter.requireUser, all.customer.getCustomers);
 };

@@ -253,6 +253,63 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',function ($rootScope) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_select/dialog_select.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $scope.options = [];
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          value: '点击输入名称'
+        }],
+        color: 'blue'
+      };
+
+      $scope.show = function () {
+        $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $scope.submit = function(){
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $scope.toggleOptions = function (index) {
+        if ($element.find('.ag-row-option-container').eq(index).hasClass('show')) {
+          $scope.hideOptions(index);
+        }
+        else {
+          $scope.showOptions(index);
+        }
+      };
+      $rootScope.$on('show.dialogSelect', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+      $scope.showOptions = function (index) {
+        $element.find('.ag-row-option-container').eq(index).addClass('show');
+      };
+      $scope.hideOptions = function (index) {
+        $element.find('.ag-row-option-container').eq(index).removeClass('show');
+      }
+    }
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
   return {
     restrict: 'AE',
@@ -317,63 +374,6 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',function ($rootScope) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_select/dialog_select.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.options = [];
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          value: '点击输入名称'
-        }],
-        color: 'blue'
-      };
-
-      $scope.show = function () {
-        $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-      };
-      $scope.submit = function(){
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-      };
-      $scope.toggleOptions = function (index) {
-        if ($element.find('.ag-row-option-container').eq(index).hasClass('show')) {
-          $scope.hideOptions(index);
-        }
-        else {
-          $scope.showOptions(index);
-        }
-      };
-      $rootScope.$on('show.dialogSelect', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
-      $scope.showOptions = function (index) {
-        $element.find('.ag-row-option-container').eq(index).addClass('show');
-      };
-      $scope.hideOptions = function (index) {
-        $element.find('.ag-row-option-container').eq(index).removeClass('show');
-      }
-    }
-  }
-}]);
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
@@ -402,10 +402,10 @@ angular.module('agilesales-web').directive('agQuestionBlank', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
+angular.module('agilesales-web').directive('agQuestionTable', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
+    templateUrl: 'directives/question_table/question_table.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -416,10 +416,10 @@ angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionTable', function () {
+angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_table/question_table.client.view.html',
+    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -511,6 +511,19 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
       if (user) {
         localStorageService.set(user.username + 'state', {'state': state, 'params': params});
       }
+    }
+  };
+}]);
+/**
+ * Created by zenghong on 16/1/22.
+ */
+angular.module('agilesales-web').factory('CustomerService', ['HttpService', function (HttpService) {
+  return {
+    uploadMultiCustomers: function (areas) {
+      return HttpService.post('/webapp/customer/multi/upload', {customers: customers});
+    },
+    getCustomers: function () {
+      return HttpService.get('/webapp/customers', {});
     }
   };
 }]);
@@ -897,8 +910,8 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('BasedataCustomerCtrl',[ '$scope',function ($scope) {
-  $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,21,22,23,24,25,26,27];
+angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', 'CustomerService', '$rootScope', function ($scope, CustomerService, $rootScope) {
+  $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27];
   $scope.values = [
     '客户编码', '客户等级', '客户名称',
     '客户简称', '客户性质', '渠道类型',
@@ -906,6 +919,114 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl',[ '$scope',fu
     '地址', '送货地址', '电话',
     '联系人', '负责人编号', '负责人姓名'
   ];
+
+  $scope.customers = [];
+  $scope.getCustomers = function () {
+    CustomerService.getCustomers().then(function (data) {
+      console.log(data);
+      if (!data.err) {
+        $scope.customers = data;
+      }
+    }, function (err) {
+      console.log(err);
+    });
+  };
+
+  $scope.getCustomers();
+
+  $rootScope.$on('show.importCustomers', function () {
+    //最多10列
+    var headers = [
+      {key: 'A1', value: '客户编码'},
+      {key: 'B1', value: '客户等级'},
+      {key: 'C1', value: '客户名称'},
+      {key: 'D1', value: '客户简称'},
+      {key: 'E1', value: '客户类型'},
+      {key: 'F1', value: '渠道类型'},
+      {key: 'G1', value: '大区'},
+      {key: 'H1', value: '省区'},
+      {key: 'I1', value: '办事处'},
+      {key: 'J1', value: '客户地址'},
+      {key: 'K1', value: '客户送货地址'},
+      {key: 'L1', value: '客户联系人电话'},
+      {key: 'M1', value: '客户联系人姓名'},
+      {key: 'N1', value: '负责人编号'},
+      {key: 'O1', value: '负责人姓名'}
+    ];
+
+    $scope.uploadMultiCutomers = function (customers) {
+      //AreaService.uploadMultiCutomers(customers).then(function (data) {
+      //  console.log(data);
+      //}, function (data) {
+      //  console.log(data);
+      //});
+    };
+
+    $rootScope.$broadcast('show.dialogUpload', {
+      title: '上传客户',
+      contents: [{
+        key: '请选择需要上传的客户文件',
+        value: '点击选择文件',
+        tip: '点击选择文件'
+      }],
+      color: 'blue',
+      headers: headers,
+      callback: function (data) {
+        var obj = {};
+        var arr = [];
+        //data.forEach(function (item) {
+        //  var a = {};
+        //  for (var p in item) {
+        //    switch (p) {
+        //      case headers[0].value:
+        //        a['level1'] = item[headers[0].value] || '';
+        //        break;
+        //      case headers[1].value:
+        //        a['level2'] = item[headers[1].value] || '';
+        //        break;
+        //      case headers[2].value:
+        //        a['level3'] = item[headers[2].value] || '';
+        //        break;
+        //      case headers[3].value:
+        //        a['level4'] = item[headers[3].value] || '';
+        //        break;
+        //      case headers[4].value:
+        //        a['level5'] = item[headers[4].value] || '';
+        //        break;
+        //      case headers[5].value:
+        //        a['level6'] = item[headers[5].value] || '';
+        //        break;
+        //      case headers[6].value:
+        //        a['level7'] = item[headers[6].value] || '';
+        //        break;
+        //      case headers[7].value:
+        //        a['level8'] = item[headers[7].value] || '';
+        //        break;
+        //      case headers[8].value:
+        //        a['level9'] = item[headers[8].value] || '';
+        //        break;
+        //      case headers[9].value:
+        //        a['level10'] = item[headers[9].value] || '';
+        //        break;
+        //    }
+        //  }
+        //
+        //  a['key'] = (a.level1 || '') + ( a.level2 || '') + ( a.level3 || '') + ( a.level4 || '') + ( a.level5 || '') + ( a.level6 || '') + ( a.level7 || '') + ( a.level8 || '') + ( a.level9 || '') + ( a.level10 || '');
+        //  if (!obj[a['key']]) {
+        //    obj[a['key']] = a;
+        //    arr.push(a);
+        //  }
+        //
+        //
+        //});
+        //console.log(obj);
+        //
+        //$scope.uploadMultiArea(arr);
+        console.log(data);
+      }
+    });
+  });
+
 }]);
 /**
  * Created by zenghong on 16/1/15.
@@ -913,7 +1034,22 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl',[ '$scope',fu
 angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
   $scope.showUpload = function () {
     $rootScope.$broadcast('show.importAreas');
+  };
 
+  $scope.getUploadType = function () {
+    var location = window.location.hash;
+    switch (location) {
+      case '#/basedata_home/basedata_customer':
+        return '客户';
+      case '#/basedata_home/basedata_area':
+        return '地区';
+      case '#/basedata_home/basedata_people':
+        return '人员';
+      case '#/basedata_home/basedata_sku':
+        return 'SKU';
+      case '#/basedata_home/basedata_shop':
+        return '门店';
+    }
   };
 
   $scope.location = window.location;
