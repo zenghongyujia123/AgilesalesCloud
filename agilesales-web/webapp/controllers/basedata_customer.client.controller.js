@@ -3,12 +3,12 @@
  */
 angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', 'CustomerService', '$rootScope', function ($scope, CustomerService, $rootScope) {
   $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27];
-  $scope.values = [
+  $scope.headers = [
     '客户编码', '客户等级', '客户名称',
-    '客户简称', '客户性质', '渠道类型',
-    '所辖区域', '省份', '城市',
-    '地址', '送货地址', '电话',
-    '联系人', '负责人编号', '负责人姓名'
+    '客户简称', '客户类型', '渠道类型',
+    '大区', '省区', '办事处',
+    '客户地址', '客户送货地址', '客户联系人电话',
+    '客户联系人姓名', '负责人编号', '负责人姓名'
   ];
 
   $scope.customers = [];
@@ -65,55 +65,50 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', '
       callback: function (data) {
         var obj = {};
         var arr = [];
-        //data.forEach(function (item) {
-        //  var a = {};
-        //  for (var p in item) {
-        //    switch (p) {
-        //      case headers[0].value:
-        //        a['level1'] = item[headers[0].value] || '';
-        //        break;
-        //      case headers[1].value:
-        //        a['level2'] = item[headers[1].value] || '';
-        //        break;
-        //      case headers[2].value:
-        //        a['level3'] = item[headers[2].value] || '';
-        //        break;
-        //      case headers[3].value:
-        //        a['level4'] = item[headers[3].value] || '';
-        //        break;
-        //      case headers[4].value:
-        //        a['level5'] = item[headers[4].value] || '';
-        //        break;
-        //      case headers[5].value:
-        //        a['level6'] = item[headers[5].value] || '';
-        //        break;
-        //      case headers[6].value:
-        //        a['level7'] = item[headers[6].value] || '';
-        //        break;
-        //      case headers[7].value:
-        //        a['level8'] = item[headers[7].value] || '';
-        //        break;
-        //      case headers[8].value:
-        //        a['level9'] = item[headers[8].value] || '';
-        //        break;
-        //      case headers[9].value:
-        //        a['level10'] = item[headers[9].value] || '';
-        //        break;
-        //    }
-        //  }
-        //
-        //  a['key'] = (a.level1 || '') + ( a.level2 || '') + ( a.level3 || '') + ( a.level4 || '') + ( a.level5 || '') + ( a.level6 || '') + ( a.level7 || '') + ( a.level8 || '') + ( a.level9 || '') + ( a.level10 || '');
-        //  if (!obj[a['key']]) {
-        //    obj[a['key']] = a;
-        //    arr.push(a);
-        //  }
-        //
-        //
-        //});
-        //console.log(obj);
-        //
-        //$scope.uploadMultiArea(arr);
-        console.log(data);
+        data.forEach(function (item) {
+          if (!obj[item['客户名称']]) {
+            obj[item['客户名称']] = {};
+            $scope.headers.forEach(function (header) {
+              obj[item['客户名称']][header] = item[header];
+            });
+          }
+        });
+
+        for (var p in obj) {
+          switch (p){
+            case '客户编码':
+              break;
+            case '客户等级':
+              break;
+            case '客户名称':
+              break;
+            case '客户简称':
+              break;
+            case '客户类型':
+              break;
+            case '渠道类型':
+              break;
+            case '大区':
+              break;
+            case '省区':
+              break;
+            case '办事处':
+              break;
+            case '客户地址':
+              break;
+            case '客户送货地址':
+              break;
+            case '客户联系人电话':
+              break;
+            case '客户联系人姓名':
+              break;
+            case '负责人编号':
+              break;
+            case '负责人姓名':
+              break;
+          }
+        }
+        console.log(obj);
       }
     });
   });

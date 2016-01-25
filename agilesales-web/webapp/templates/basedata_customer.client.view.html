@@ -1,10 +1,10 @@
 <div class="basedata-child-page basedata_customer_page">
   <div class="ag-table">
     <div class="ag-table-header" ng-style="{width:((values.length+1)*141)+'px'}">
-    <div class="ag-table-col" ng-repeat="v in values">{{v}}</div>
+    <div class="ag-table-col" ng-repeat="h in headers">{{h}}</div>
     </div>
     <div class="ag-table-body animated bounceInDown" ng-style="{width:(17*141)+'px'}">
-      <div class="ag-table-row" ng-repeat="p in peoples">
+      <div class="ag-table-row" ng-repeat="p in customers">
         <div class="ag-table-col" ng-repeat="v in values">{{v}}</div>
         <div class="ag-table-col">删除</div>
       </div>

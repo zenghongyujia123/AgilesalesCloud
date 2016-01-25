@@ -3,10 +3,10 @@
  */
 angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
   $scope.showUpload = function () {
-    $rootScope.$broadcast('show.importAreas');
+    $rootScope.$broadcast($scope.getUploadType());
   };
 
-  $scope.getUploadType = function () {
+  $scope.getDataType = function () {
     var location = window.location.hash;
     switch (location) {
       case '#/basedata_home/basedata_customer':
@@ -21,6 +21,23 @@ angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$roo
         return '门店';
     }
   };
+
+  $scope.getUploadType = function () {
+    var location = window.location.hash;
+    switch (location) {
+      case '#/basedata_home/basedata_customer':
+        return 'show.importCustomers';
+      case '#/basedata_home/basedata_area':
+        return 'show.importAreas';
+      case '#/basedata_home/basedata_people':
+        return 'show.importPeoples';
+      case '#/basedata_home/basedata_sku':
+        return 'show.importSkus';
+      case '#/basedata_home/basedata_shop':
+        return 'show.importShops';
+    }
+  };
+
 
   $scope.location = window.location;
   $scope.isMenuClose = false;
