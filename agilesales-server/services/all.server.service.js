@@ -7,5 +7,6 @@ exports = _.extend(exports, {
   index: require('./index'),
   area: require('./area'),
   company: require('./company'),
-  user:require('./user')
+  user:require('./user'),
+  customer:require('./customer')
 });

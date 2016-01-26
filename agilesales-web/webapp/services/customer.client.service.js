@@ -3,7 +3,7 @@
  */
 angular.module('agilesales-web').factory('CustomerService', ['HttpService', function (HttpService) {
   return {
-    uploadMultiCustomers: function (areas) {
+    uploadMultiCustomers: function (customers) {
       return HttpService.post('/webapp/customer/multi/upload', {customers: customers});
     },
     getCustomers: function () {

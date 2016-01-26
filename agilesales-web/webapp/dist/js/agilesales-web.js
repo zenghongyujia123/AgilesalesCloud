@@ -374,6 +374,20 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
@@ -392,20 +406,6 @@ angular.module('agilesales-web').directive('agQuestionTable', function () {
   return {
     restrict: 'AE',
     templateUrl: 'directives/question_table/question_table.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -519,7 +519,7 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
  */
 angular.module('agilesales-web').factory('CustomerService', ['HttpService', function (HttpService) {
   return {
-    uploadMultiCustomers: function (areas) {
+    uploadMultiCustomers: function (customers) {
       return HttpService.post('/webapp/customer/multi/upload', {customers: customers});
     },
     getCustomers: function () {
@@ -755,6 +755,16 @@ angular.module('agilesales-web').factory('HttpService', ['$http', '$q', function
   };
 }]);
 /**
+ * Created by zenghong on 16/1/26.
+ */
+angular.module('agilesales-web').factory('UploadService', ['HttpService', function (HttpService) {
+  return {
+    upload: function (url, data) {
+      return HttpService.post(url, data);
+    }
+  };
+}]);
+/**
  * Created by zenghong on 16/1/21.
  */
 angular.module('agilesales-web').factory('UserService', [ 'HttpService', function (HttpService) {
@@ -910,7 +920,7 @@ angular.module('agilesales-web').controller('BasedataAreaCtrl', ['$scope', '$roo
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', 'CustomerService', '$rootScope', function ($scope, CustomerService, $rootScope) {
+angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', 'CustomerService', '$rootScope', 'UploadService', function ($scope, CustomerService, $rootScope, UploadService) {
   $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27];
   $scope.headers = [
     '客户编码', '客户等级', '客户名称',
@@ -954,7 +964,21 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', '
       {key: 'O1', value: '负责人姓名'}
     ];
 
+    function upload(customers, i) {
+      CustomerService.uploadMultiCustomers(customers[i++])
+        .then(function (data) {
+          console.log(data);
+          if (customers[i]) {
+            upload(customers, i);
+          }
+        }, function (err) {
+          console.log(err);
+        });
+    }
+
     $scope.uploadMultiCutomers = function (customers) {
+      var i = 0;
+      upload(customers, i);
       //AreaService.uploadMultiCutomers(customers).then(function (data) {
       //  console.log(data);
       //}, function (data) {
@@ -974,7 +998,7 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', '
       callback: function (data) {
         var obj = {};
         var arr = [];
-        data.forEach(function(item){
+        data.forEach(function (item) {
           if (!obj[item['客户名称']]) {
             obj[item['客户名称']] = {};
             $scope.headers.forEach(function (header) {
@@ -982,7 +1006,72 @@ angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', '
             });
           }
         });
+
+        var result = [];
+
+        for (var p in obj) {
+          var item = {};
+          for (var i in obj[p]) {
+            switch (i) {
+              case '客户编码':
+                item.number = obj[p][i];
+                break;
+              case '客户等级':
+                item.customer_level = obj[p][i];
+                break;
+              case '客户名称':
+                item.name = obj[p][i];
+                break;
+              case '客户简称':
+                item.short_name = obj[p][i];
+                break;
+              case '客户类型':
+                item.customer_type = obj[p][i];
+                break;
+              case '渠道类型':
+                item.channel_type = obj[p][i];
+                break;
+              case '大区':
+                item.area_level1 = obj[p][i];
+                break;
+              case '省区':
+                item.area_level2 = obj[p][i];
+                break;
+              case '办事处':
+                item.area_level3 = obj[p][i];
+                break;
+              case '客户地址':
+                item.address = obj[p][i];
+                break;
+              case '客户送货地址':
+                item.delivery_address = obj[p][i];
+                break;
+              case '客户联系人电话':
+                item.contact_phone = obj[p][i];
+                break;
+              case '客户联系人姓名':
+                item.contact_name = obj[p][i];
+                break;
+              case '负责人编号':
+                item.principal_number = obj[p][i];
+                break;
+              case '负责人姓名':
+                item.principal_name = obj[p][i];
+                break;
+            }
+
+          }
+          result.push(item);
+        }
+        var customers = [];
+        for (var i = 0, len = result.length; i < len; i += 100) {
+          customers.push(result.slice(i, i + 100));
+        }
+
         console.log(obj);
+        console.log(result);
+        console.log(customers);
+        $scope.uploadMultiCutomers(customers);
       }
     });
   });
