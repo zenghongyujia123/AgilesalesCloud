@@ -9,5 +9,6 @@ exports = _.extend(exports, {
   company: require('./company'),
   user:require('./user'),
   people:require('./people'),
+  product:require('./product'),
   customer:require('./customer')
 });
