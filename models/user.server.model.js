@@ -18,8 +18,7 @@ module.exports = function (appDb) {
       unique: true
     },
     password: {
-      type: String,
-      unique: true
+      type: String
     },
     nick_photo: '',
     telephone: {
@@ -56,7 +55,8 @@ module.exports = function (appDb) {
     },
     sex: {
       type: String,
-      enum: ['男', '女']
+      enum: ['男', '女'],
+      default:'男'
     },
     //上级id
     parent: {
