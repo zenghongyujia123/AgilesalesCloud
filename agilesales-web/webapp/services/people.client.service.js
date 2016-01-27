@@ -1,13 +1,13 @@
 /**
  * Created by zenghong on 16/1/26.
  */
-angular.module('agilesales-web').factory('PeopleService', ['HttpService', function (HttpService) {
+angular.module('agilesales-web').factory('PeopleService', ['HttpService',function (HttpService) {
   return {
-    uploadMultiPeoples: function (customers) {
-      return HttpService.post('/webapp/customer/multi/upload', {customers: customers});
+    uploadMultiPeoples: function (peoples) {
+      return HttpService.post('/webapp/people/multi/upload', {peoples: peoples});
     },
     getPeoples: function () {
-      return HttpService.get('/webapp/customers', {});
+      return HttpService.get('/webapp/peoples', {});
     }
   };
 }]);

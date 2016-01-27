@@ -53,7 +53,7 @@ exports.uploadMultiPeoples = function (company, peoples, callback) {
   });
 };
 
-exports.getPeoples = function (company) {
+exports.getPeoples = function (company,callback) {
   User.find({company: company}, function (err, users) {
     if (err || !users) {
       return callback({err: err.system.db_error});
