@@ -8,5 +8,6 @@ exports = _.extend(exports, {
   area: require('./area'),
   company: require('./company'),
   user:require('./user'),
+  people:require('./people'),
   customer:require('./customer')
 });

@@ -25,6 +25,7 @@ exports = _.extend(exports, {
   user: require('./user'),
   area: require('./area'),
   card: require('./card'),
+  people: require('./people'),
   customer: require('./customer'),
   daily: require('./daily'),
   dashboard: require('./dashboard'),
