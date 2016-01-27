@@ -22,6 +22,14 @@ module.exports = function (appDb) {
     name:{
       type:String
     },
+    short_name:{
+      type:String
+    },
+    //品牌
+    brand:{
+      type:String
+    },
+    //系列
     series:{
       type:String
     },
