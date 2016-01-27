@@ -6,5 +6,4 @@ module.exports = function (appDb) {
   require('./user')(appDb);
   require('./area')(appDb);
   require('./customer')(appDb);
-  require('./people')(appDb);
 };

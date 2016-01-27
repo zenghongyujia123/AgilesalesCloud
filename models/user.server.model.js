@@ -25,6 +25,7 @@ module.exports = function (appDb) {
     telephone: {
       type: String
     },
+    //shopping_guide , sales_man ,
     roles: [],
     //用户编号
     number: {
