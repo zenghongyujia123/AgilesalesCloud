@@ -32,7 +32,7 @@ angular.module('agilesales-web').controller('BasedataHomeCtrl', ['$scope', '$roo
       case '#/basedata_home/basedata_people':
         return 'show.importPeoples';
       case '#/basedata_home/basedata_sku':
-        return 'show.importSkus';
+        return 'show.importProducts';
       case '#/basedata_home/basedata_shop':
         return 'show.importShops';
     }
