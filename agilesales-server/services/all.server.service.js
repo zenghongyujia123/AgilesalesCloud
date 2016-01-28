@@ -10,5 +10,6 @@ exports = _.extend(exports, {
   user:require('./user'),
   people:require('./people'),
   product:require('./product'),
+  shop:require('./shop'),
   customer:require('./customer')
 });

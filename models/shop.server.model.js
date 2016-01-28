@@ -58,7 +58,7 @@ module.exports = function (appDb) {
       type: String
     },
     call_count: {
-      type: Numebr
+      type: Number
     },
     status: {
       type: String
