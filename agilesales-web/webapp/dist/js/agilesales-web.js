@@ -192,88 +192,10 @@ angular.module('agilesales-web').directive('agHoverShake', [function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          value: '点击输入名称'
-        }],
-        color: 'blue',
-        type: 'execel',
-        headers: [
-          {key: 'A1', value: '大区'},
-          {key: 'B1', value: '省区'},
-          {key: 'C1', value: '办事处'}
-        ]
-      };
-
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-      $scope.submit = function () {
-        $element.removeClass('show');
-      };
-      $rootScope.$on('show.dialogUpload', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-
-      $scope.handleFile = function (ele) {
-        var excelReader = ExcelReaderService.getReader();
-
-        excelReader.getWorkSheet(ele, function (err, excelSheet) {
-          excelReader.checkHeader(excelSheet, $scope.info.headers, function (isOurTemplate) {
-            if (!isOurTemplate) {
-              var a = isOurTemplate;
-            }
-            excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
-              if ($scope.info.callback) {
-                $scope.info.callback(sheetData);
-              }
-              $scope.hide();
-            });
-          });
-        });
-      };
-
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
-    }
-  }
-}]);
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agDialogConfirm', function () {
   return {
     restrict: 'AE',
     templateUrl: 'directives/dialog_confirm/dialog_confirm.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -385,6 +307,84 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
     }
   }
 }]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          value: '点击输入名称'
+        }],
+        color: 'blue',
+        type: 'execel',
+        headers: [
+          {key: 'A1', value: '大区'},
+          {key: 'B1', value: '省区'},
+          {key: 'C1', value: '办事处'}
+        ]
+      };
+
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+      $scope.submit = function () {
+        $element.removeClass('show');
+      };
+      $rootScope.$on('show.dialogUpload', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      $scope.handleFile = function (ele) {
+        var excelReader = ExcelReaderService.getReader();
+
+        excelReader.getWorkSheet(ele, function (err, excelSheet) {
+          excelReader.checkHeader(excelSheet, $scope.info.headers, function (isOurTemplate) {
+            if (!isOurTemplate) {
+              var a = isOurTemplate;
+            }
+            excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
+              if ($scope.info.callback) {
+                $scope.info.callback(sheetData);
+              }
+              $scope.hide();
+            });
+          });
+        });
+      };
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+    }
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
 /**
  * Created by zenghong on 16/1/18.
  */
@@ -777,6 +777,19 @@ angular.module('agilesales-web').factory('ProductService', ['HttpService', funct
     },
     getProducts: function () {
       return HttpService.get('/webapp/products', {});
+    }
+  };
+}]);
+/**
+ * Created by zenghong on 16/1/26.
+ */
+angular.module('agilesales-web').factory('ShopService', ['HttpService', function (HttpService) {
+  return {
+    uploadMultiShops: function (shops) {
+      return HttpService.post('/webapp/shop/multi/upload', {shops: shops});
+    },
+    getShops: function () {
+      return HttpService.get('/webapp/shops', {});
     }
   };
 }]);
@@ -1312,15 +1325,17 @@ angular.module('agilesales-web').controller('BasedataPeopleCtrl', ['$scope', '$r
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('BasedataShopCtrl', ['$scope',function ($scope) {
-  $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-  $scope.values = [
+angular.module('agilesales-web').controller('BasedataShopCtrl', ['$scope', '$rootScope', 'ShopService', function ($scope, $rootScope, ShopService) {
+  $scope.shops = [];
+
+  $scope.headers = [
     '门店编码', '门店名称', '门店等级',
     '所属区域', '所属城市', '地址',
     '渠道类型', '门店类型', '渠道',
-    '所属客户', '业务人员', '促销人员',
-    '月拜访频次', '门店状态', '品牌','经度','纬度'
+    '所属客户', '业务员姓名', '业务员工号', '促销员工号', '促销员姓名',
+    '月拜访频次', '门店状态', '品牌', '经度', '纬度'
   ];
+
 
 }]);
 /**
