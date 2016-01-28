@@ -13,7 +13,7 @@ module.exports = function (appDb) {
       type: String,
       default: 'cardTemplate'
     },
-    name: {
+    title: {
       type: String
     },
     role: {
@@ -36,7 +36,7 @@ module.exports = function (appDb) {
       type: String,
       default: 'paperTemplate'
     },
-    name:{
+    title:{
       type:String
     },
     questions: [{
@@ -53,7 +53,7 @@ module.exports = function (appDb) {
       type: String,
       default: 'questionTemplate'
     },
-    name:{
+    title:{
       type:String
     },
     company: {
