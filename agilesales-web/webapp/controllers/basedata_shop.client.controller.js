@@ -78,10 +78,10 @@ angular.module('agilesales-web').controller('BasedataShopCtrl', ['$scope', '$roo
         var obj = {};
         var arr = [];
         data.forEach(function (item) {
-          if (!obj[item['门店编号']]) {
-            obj[item['门店编号']] = {};
+          if (!obj[item['门店编码']]) {
+            obj[item['门店编码']] = {};
             $scope.headers.forEach(function (header) {
-              obj[item['门店编号']][header] = item[header];
+              obj[item['门店编码']][header] = item[header];
             });
           }
         });
