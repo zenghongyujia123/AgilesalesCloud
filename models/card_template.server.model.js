@@ -36,8 +36,8 @@ module.exports = function (appDb) {
       type: String,
       default: 'paperTemplate'
     },
-    title:{
-      type:String
+    title: {
+      type: String
     },
     questions: [{
       type: Schema.Types.Mixed
@@ -53,8 +53,11 @@ module.exports = function (appDb) {
       type: String,
       default: 'questionTemplate'
     },
-    title:{
-      type:String
+    type: {
+      type: String
+    },
+    title: {
+      type: String
     },
     company: {
       type: Schema.Types.ObjectId,
@@ -67,7 +70,7 @@ module.exports = function (appDb) {
     updatedAt: 'updated'
   });
 
-  appDb.model('QuestionTemplate',QuestionTemplateSchema );
+  appDb.model('QuestionTemplate', QuestionTemplateSchema);
   appDb.model('PaperTemplate', PaperTemplateSchema);
   appDb.model('CardTemplate', CardTemplateSchema);
 };
