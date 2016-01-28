@@ -36,6 +36,9 @@ module.exports = function (appDb) {
       type: String,
       default: 'paperTemplate'
     },
+    name:{
+      type:String
+    },
     questions: [{
       type: Schema.Types.Mixed
     }],
@@ -49,6 +52,9 @@ module.exports = function (appDb) {
     object: {
       type: String,
       default: 'questionTemplate'
+    },
+    name:{
+      type:String
     },
     company: {
       type: Schema.Types.ObjectId,
