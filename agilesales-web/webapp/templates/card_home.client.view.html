@@ -8,22 +8,22 @@
       <div class="card" ng-click="goEdit()">
         <div class="card-header">
           <div class="title">默认业务员</div>
-          <div class="name">默认业务员拜访卡</div>
+          <div class="name">{{card.title}}</div>
           <img class="photo" src="images/salesman.png">
         </div>
         <div class="card-body">
           <div class="row">
             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <div class="number">2</div>
+              <div class="number">{{card.paper_count}}</div>
               <div class="name">试卷</div>
             </div>
             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <div class="number">2</div>
-              <div class="name">试卷</div>
+              <div class="number">{{card.question_count}}</div>
+              <div class="name">题目</div>
             </div>
             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <div class="number">2</div>
-              <div class="name">试卷</div>
+              <div class="number">{{card.customers.length||'默认'}}</div>
+              <div class="name">经销商</div>
             </div>
           </div>
         </div>

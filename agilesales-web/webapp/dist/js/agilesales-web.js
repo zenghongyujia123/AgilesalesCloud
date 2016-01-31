@@ -206,84 +206,6 @@ angular.module('agilesales-web').directive('agDialogConfirm', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          value: '点击输入名称'
-        }],
-        color: 'blue',
-        type: 'execel',
-        headers: [
-          {key: 'A1', value: '大区'},
-          {key: 'B1', value: '省区'},
-          {key: 'C1', value: '办事处'}
-        ]
-      };
-
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-      $scope.submit = function () {
-        $element.removeClass('show');
-      };
-      $rootScope.$on('show.dialogUpload', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-
-      $scope.handleFile = function (ele) {
-        var excelReader = ExcelReaderService.getReader();
-
-        excelReader.getWorkSheet(ele, function (err, excelSheet) {
-          excelReader.checkHeader(excelSheet, $scope.info.headers, function (isOurTemplate) {
-            if (!isOurTemplate) {
-              var a = isOurTemplate;
-            }
-            excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
-              if ($scope.info.callback) {
-                $scope.info.callback(sheetData);
-              }
-              $scope.hide();
-            });
-          });
-        });
-      };
-
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
-    }
-  }
-}]);
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -388,10 +310,88 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          value: '点击输入名称'
+        }],
+        color: 'blue',
+        type: 'execel',
+        headers: [
+          {key: 'A1', value: '大区'},
+          {key: 'B1', value: '省区'},
+          {key: 'C1', value: '办事处'}
+        ]
+      };
+
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+      $scope.submit = function () {
+        $element.removeClass('show');
+      };
+      $rootScope.$on('show.dialogUpload', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      $scope.handleFile = function (ele) {
+        var excelReader = ExcelReaderService.getReader();
+
+        excelReader.getWorkSheet(ele, function (err, excelSheet) {
+          excelReader.checkHeader(excelSheet, $scope.info.headers, function (isOurTemplate) {
+            if (!isOurTemplate) {
+              var a = isOurTemplate;
+            }
+            excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
+              if ($scope.info.callback) {
+                $scope.info.callback(sheetData);
+              }
+              $scope.hide();
+            });
+          });
+        });
+      };
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+    }
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
     templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -472,6 +472,7 @@ angular.module('agilesales-web').factory('AreaService', ['HttpService', function
 angular.module('agilesales-web').factory('AuthService', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
   var access_token = '';
   var user = null;
+  var userUpdateHandles = [];
   return {
     setToken: function (t) {
       access_token = t;
@@ -501,8 +502,31 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
     getCompany: function () {
       return user.company;
     },
+    getCardTemplates: function () {
+      return user.company.card_templates;
+    },
     isLoggedIn: function () {
       return user ? true : false;
+    },
+    userUpdated: function () {
+      userUpdateHandles.forEach(function (handler) {
+        handler.handle(user);
+      });
+    },
+    onUserUpdated: function (name, callback) {
+      var result = false;
+      for (var i = 0; i < userUpdateHandles.length; i++) {
+        if (userUpdateHandles[i].name) {
+          result = true;
+          break;
+        }
+      }
+      if (!result) {
+        userUpdateHandles.push({
+          name: name,
+          handle: callback
+        });
+      }
     },
     getLatestUrl: function () {
       return localStorageService.get(user.username + 'state') || '';
@@ -1671,8 +1695,12 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
-  $scope.cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootScope', '$state', 'AuthService', function ($scope, $rootScope, $state, AuthService) {
+  $scope.cards = AuthService.getCardTemplates();
+  $scope.$on('onUserReset', function () {
+    $scope.cards = AuthService.getCardTemplates();
+  });
+
   $scope.goEdit = function () {
     $state.go('card_edit');
   };

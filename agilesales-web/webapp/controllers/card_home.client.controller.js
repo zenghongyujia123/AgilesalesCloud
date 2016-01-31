@@ -1,8 +1,12 @@
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
-  $scope.cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootScope', '$state', 'AuthService', function ($scope, $rootScope, $state, AuthService) {
+  $scope.cards = AuthService.getCardTemplates();
+  $scope.$on('onUserReset', function () {
+    $scope.cards = AuthService.getCardTemplates();
+  });
+
   $scope.goEdit = function () {
     $state.go('card_edit');
   };

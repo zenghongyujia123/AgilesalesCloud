@@ -4,6 +4,7 @@
 angular.module('agilesales-web').factory('AuthService', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
   var access_token = '';
   var user = null;
+  var userUpdateHandles = [];
   return {
     setToken: function (t) {
       access_token = t;
@@ -33,8 +34,31 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
     getCompany: function () {
       return user.company;
     },
+    getCardTemplates: function () {
+      return user.company.card_templates;
+    },
     isLoggedIn: function () {
       return user ? true : false;
+    },
+    userUpdated: function () {
+      userUpdateHandles.forEach(function (handler) {
+        handler.handle(user);
+      });
+    },
+    onUserUpdated: function (name, callback) {
+      var result = false;
+      for (var i = 0; i < userUpdateHandles.length; i++) {
+        if (userUpdateHandles[i].name) {
+          result = true;
+          break;
+        }
+      }
+      if (!result) {
+        userUpdateHandles.push({
+          name: name,
+          handle: callback
+        });
+      }
     },
     getLatestUrl: function () {
       return localStorageService.get(user.username + 'state') || '';
