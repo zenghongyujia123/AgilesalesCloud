@@ -17,17 +17,33 @@ module.exports = function (appDb) {
       type: String
     },
     role: {
-      type: String
+      type: String,
+      enum: ['promotions', 'salesman'],
+      default: 'promotions'
+    },
+    type: {
+      type: String,
+      enum: ['default', 'selfdefine'],
+      default: 'selfdefine'
     },
     papers: [{
       type: Schema.Types.Mixed
     }],
-    customers: {
+    customers: [{
       type: String
-    },
+    }]
+    ,
     company: {
       type: Schema.Types.ObjectId,
       ref: 'Company'
+    },
+    paper_count: {
+      type: Number,
+      default: 0
+    },
+    question_count: {
+      type: Number,
+      default: 0
     }
   });
 

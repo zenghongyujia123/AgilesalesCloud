@@ -5,6 +5,7 @@
 var appDb = require('./../../libraries/mongoose').appDb,
   Company = appDb.model('Company'),
   User = appDb.model('User'),
+  CardTemplate = appDb.model('CardTemplate'),
   AreaTitle = appDb.model('AreaTitle');
 
 exports.initTempData = function () {
@@ -99,6 +100,7 @@ exports.initTempData = function () {
       company.super_admin = user;
     }
 
+
     company.save(function (err, saveCompany) {
       if (err) {
         console.log(err);
@@ -108,9 +110,43 @@ exports.initTempData = function () {
           console.log(saveCompany);
         });
       }
+
+      if (company.card_templates.length <= 0) {
+        initCardTemplateData(saveCompany);
+      }
     });
   });
 };
+
+function initCardTemplateData(company, callback) {
+  var cardTemplate1 = new CardTemplate({
+    title: '默认业务员拜访卡',
+    role: 'salesman',
+    type: 'default',
+    papers: [],
+    customer: [],
+    company: company
+  });
+  var cardTemplate2 = new CardTemplate({
+    title: '默认导购员拜访卡',
+    role: 'promotions',
+    type: 'default',
+    papers: [],
+    customer: [],
+    company: company
+  });
+
+  cardTemplate1.save(function () {
+    cardTemplate2.save(function () {
+      company.card_templates.push(cardTemplate1);
+      company.card_templates.push(cardTemplate2);
+      company.save(function () {
+      });
+    });
+  });
+
+
+}
 
 exports.create = function () {
 
