@@ -5,7 +5,11 @@
 var cardService = require('./../services/all').card;
 
 exports.createCardTemplate = function (req, res, next) {
-  cardService.createCardTemplate(req.body.info, function (err, result) {
+  var info = {
+    title: req.body.title,
+    role: req.body.role
+  };
+  cardService.createCardTemplate(info, req.user.company, function (err, result) {
     if (err) {
       return res.send(err);
     }
@@ -14,5 +18,6 @@ exports.createCardTemplate = function (req, res, next) {
 };
 
 exports.updateCardTemplate = function (req, res, next) {
+
 };
 
