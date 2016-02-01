@@ -7,4 +7,5 @@ var filter = require('../filters/all').user;
 
 module.exports = function (app) {
   app.route('/webapp/card_template/create').post(filter.requireUser, all.card.createCardTemplate);
+  app.route('/webapp/card_template/paper/create').post(filter.requireUser, all.card.createPaperTemplate);
 };

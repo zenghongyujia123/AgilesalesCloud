@@ -19,6 +19,9 @@ module.exports = {
 
 //<editor-fold>
 
-  article_not_found: {type: 'article_not_found', message: 'article not found', zh_message: '文章未找到'}
+  //<editor-fold desc="card template relative">
+    card_template_not_existed:{type:'card_template_not_existed',zh_message:'拜访卡不存在'},
+  //<editor-fold>
+   article_not_found: {type: 'article_not_found', message: 'article not found', zh_message: '文章未找到'}
 };
 
