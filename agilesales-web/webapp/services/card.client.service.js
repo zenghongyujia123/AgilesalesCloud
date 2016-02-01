@@ -5,6 +5,9 @@ angular.module('agilesales-web').factory('CardService', ['HttpService', function
   return {
     createCardTemplate: function (title, role) {
       return HttpService.post('/webapp/card_template/create', {title: title, role: role});
+    },
+    addPaperTemplate: function (title, card_id) {
+      return HttpService.post('/webapp/card_template/paper/create', {title: title, card_id: card_id});
     }
   };
 }]);

@@ -51,17 +51,19 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
         controller: "CardHomeCtrl"
       })
       .state('card_edit', {
-        url: '/card_edit',
+        url: '/card_edit/:card',
         templateUrl: 'templates/card_edit.client.view.html',
         controller: "CardEditCtrl"
       })
       .state('card_edit.card_config', {
-        url: '/card_config',
-        templateUrl: 'templates/card_config.client.view.html'
+        url: '/card_config/:card',
+        templateUrl: 'templates/card_config.client.view.html',
+        controller: "CardConfigCtrl"
       })
       .state('card_edit.card_preview', {
-        url: '/card_preview',
-        templateUrl: 'templates/card_preview.client.view.html'
+        url: '/card_preview/:card',
+        templateUrl: 'templates/card_preview.client.view.html',
+        controller: "CardPreviewCtrl"
       })
     ;
     $urlRouterProvider.otherwise('/');
@@ -1689,7 +1691,19 @@ angular.module('agilesales-web').controller('BasedataSkuCtrl', ['$scope', '$root
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
+angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootScope', '$state', '$stateParams', function ($scope, $rootScope, $state, $stateParams) {
+  $scope.location = window.location;
+  $scope.card = {};
+  if ($stateParams.card) {
+    $scope.card = JSON.parse($stateParams.card);
+    console.log($scope.card);
+  }
+
+}]);
+/**
+ * Created by zenghong on 16/1/15.
+ */
+angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', function ($scope, $rootScope, $state, $stateParams) {
   $scope.addPaper = function () {
     $rootScope.$broadcast('show.dialogInput', {
       title: '添加试卷',
@@ -1700,6 +1714,17 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
       color: 'blue'
     });
   };
+
+  $scope.card = {};
+  if ($stateParams.card) {
+    $scope.card= JSON.parse($stateParams.card);
+    console.log($scope.card);
+  }
+
+  $scope.goConfig = function () {
+    $state.go('card_edit.card_config', {card: JSON.stringify($scope.card)});
+  };
+
   $scope.location = window.location;
 }]);
 /**
@@ -1711,8 +1736,8 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
     $scope.cards = AuthService.getCardTemplates();
   });
 
-  $scope.goEdit = function () {
-    $state.go('card_edit');
+  $scope.goEdit = function (card) {
+    $state.go('card_edit', {card: JSON.stringify(card)});
   };
 
   $scope.showCardAdd = function () {
@@ -1752,6 +1777,17 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
     }, function (data) {
       console.log(data);
     });
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/15.
+ */
+angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', function ($scope, $rootScope, $state, $stateParams) {
+  $scope.location = window.location;
+  $scope.card = {};
+  if ($stateParams.card) {
+    $scope.card = JSON.parse($stateParams.card);
+    console.log($scope.card);
   }
 }]);
 /**

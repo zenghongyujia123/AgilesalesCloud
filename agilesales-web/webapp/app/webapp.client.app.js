@@ -51,17 +51,19 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
         controller: "CardHomeCtrl"
       })
       .state('card_edit', {
-        url: '/card_edit',
+        url: '/card_edit/:card',
         templateUrl: 'templates/card_edit.client.view.html',
         controller: "CardEditCtrl"
       })
       .state('card_edit.card_config', {
-        url: '/card_config',
-        templateUrl: 'templates/card_config.client.view.html'
+        url: '/card_config/:card',
+        templateUrl: 'templates/card_config.client.view.html',
+        controller: "CardConfigCtrl"
       })
       .state('card_edit.card_preview', {
-        url: '/card_preview',
-        templateUrl: 'templates/card_preview.client.view.html'
+        url: '/card_preview/:card',
+        templateUrl: 'templates/card_preview.client.view.html',
+        controller: "CardPreviewCtrl"
       })
     ;
     $urlRouterProvider.otherwise('/');

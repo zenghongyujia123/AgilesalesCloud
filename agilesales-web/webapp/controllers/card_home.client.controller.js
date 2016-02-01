@@ -7,8 +7,8 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
     $scope.cards = AuthService.getCardTemplates();
   });
 
-  $scope.goEdit = function () {
-    $state.go('card_edit');
+  $scope.goEdit = function (card) {
+    $state.go('card_edit', {card: JSON.stringify(card)});
   };
 
   $scope.showCardAdd = function () {
