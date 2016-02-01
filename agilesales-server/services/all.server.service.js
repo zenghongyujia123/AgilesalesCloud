@@ -7,9 +7,10 @@ exports = _.extend(exports, {
   index: require('./index'),
   area: require('./area'),
   company: require('./company'),
-  user:require('./user'),
-  people:require('./people'),
-  product:require('./product'),
-  shop:require('./shop'),
-  customer:require('./customer')
+  user: require('./user'),
+  people: require('./people'),
+  product: require('./product'),
+  shop: require('./shop'),
+  customer: require('./customer'),
+  card: require('./card')
 });
