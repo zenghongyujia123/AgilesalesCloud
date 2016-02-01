@@ -22,7 +22,7 @@ exports.createPaperTemplate = function (req, res, next) {
     title: req.body.title,
     card_id: req.body.card_id
   };
-  cardService.createPaperTemplate(info, company, function (err, result) {
+  cardService.createPaperTemplate(info, req.user.company, function (err, result) {
     if (err) {
       return res.send(err);
     }

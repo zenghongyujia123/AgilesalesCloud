@@ -1,7 +1,7 @@
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', function ($scope, $rootScope, $state, $stateParams) {
+angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'CardService',function ($scope, $rootScope, $state, $stateParams,CardService) {
   $scope.showAddPaper = function () {
     $rootScope.$broadcast('show.dialogInput', {
       title: '添加试卷',
@@ -12,12 +12,12 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
       }],
       color: 'blue',
       callback: function (info) {
-
+        $scope.addPaper(info.contents[0].value);
       }
     });
   };
   $scope.addPaper = function (title) {
-    $scope.addPaperTemplate(title, $scope.card._id).then(function (data) {
+    CardService.addPaperTemplate(title, $scope.card._id).then(function (data) {
       console.log(data);
     }, function (data) {
       console.log(data);

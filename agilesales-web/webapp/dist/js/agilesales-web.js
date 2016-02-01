@@ -547,6 +547,9 @@ angular.module('agilesales-web').factory('CardService', ['HttpService', function
   return {
     createCardTemplate: function (title, role) {
       return HttpService.post('/webapp/card_template/create', {title: title, role: role});
+    },
+    addPaperTemplate: function (title, card_id) {
+      return HttpService.post('/webapp/card_template/paper/create', {title: title, card_id: card_id});
     }
   };
 }]);
@@ -1703,21 +1706,31 @@ angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootS
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', function ($scope, $rootScope, $state, $stateParams) {
-  $scope.addPaper = function () {
+angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'CardService',function ($scope, $rootScope, $state, $stateParams,CardService) {
+  $scope.showAddPaper = function () {
     $rootScope.$broadcast('show.dialogInput', {
       title: '添加试卷',
       contents: [{
         key: '请输入试卷名称',
-        value: '点击输入名称'
+        value: '',
+        tip: '点击输入名称'
       }],
-      color: 'blue'
+      color: 'blue',
+      callback: function (info) {
+        $scope.addPaper(info.contents[0].value);
+      }
     });
   };
-
+  $scope.addPaper = function (title) {
+    CardService.addPaperTemplate(title, $scope.card._id).then(function (data) {
+      console.log(data);
+    }, function (data) {
+      console.log(data);
+    });
+  };
   $scope.card = {};
   if ($stateParams.card) {
-    $scope.card= JSON.parse($stateParams.card);
+    $scope.card = JSON.parse($stateParams.card);
     console.log($scope.card);
   }
 

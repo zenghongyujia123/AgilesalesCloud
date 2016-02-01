@@ -53,21 +53,18 @@ exports.createPaperTemplate = function (info, company, callback) {
         return callback({err: errs.system.db_error});
       }
 
-      var isModified = false;
-      company.card_templates.forEach(function (card) {
-        if (card._id.toString() === saveCardTemplate._id.toString()) {
-          isModified = true;
-        }
-      });
-
-      if (isModified) {
-        company.markModified('card_templates');
-      }
-      company.save(function (err, saveCompany) {
-        if (err || !company) {
+      CardTemplate.find({company: company}, function (err, cardTemplates) {
+        if (err || !cardTemplates) {
           return callback({err: errs.system.db_error});
         }
-        return callback(null, saveCompany);
+        company.card_templates = cardTemplates;
+        company.markModified('card_templates');
+        company.save(function (err, saveCompany) {
+          if (err || !company) {
+            return callback({err: errs.system.db_error});
+          }
+          return callback(null, saveCompany);
+        });
       });
     });
   });
