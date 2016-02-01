@@ -38,11 +38,13 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
       return user.company.card_templates;
     },
     getCardTemplateById: function (id) {
+      var result = {};
       user.company.card_templates.forEach(function (item) {
         if (item._id === id) {
-          return item;
+          result = item;
         }
       });
+      return result;
     },
     isLoggedIn: function () {
       return user ? true : false;

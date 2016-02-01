@@ -1,7 +1,7 @@
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'CardService',function ($scope, $rootScope, $state, $stateParams,CardService) {
+angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', 'CardService', function ($scope, $rootScope, $state, $stateParams, AuthService, CardService) {
   $scope.showAddPaper = function () {
     $rootScope.$broadcast('show.dialogInput', {
       title: '添加试卷',
@@ -24,13 +24,13 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
     });
   };
   $scope.card = {};
-  if ($stateParams.card) {
-    $scope.card = JSON.parse($stateParams.card);
+  if ($stateParams.card_id) {
+    $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
     console.log($scope.card);
   }
 
   $scope.goConfig = function () {
-    $state.go('card_edit.card_config', {card: JSON.stringify($scope.card)});
+    $state.go('card_edit.card_config', {card_id: $scope.card._id});
   };
 
   $scope.location = window.location;

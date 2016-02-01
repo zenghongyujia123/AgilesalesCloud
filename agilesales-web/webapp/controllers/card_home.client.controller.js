@@ -8,7 +8,7 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
   });
 
   $scope.goEdit = function (card) {
-    $state.go('card_edit', {card: JSON.stringify(card)});
+    $state.go('card_edit', {card_id: card._id});
   };
 
   $scope.showCardAdd = function () {

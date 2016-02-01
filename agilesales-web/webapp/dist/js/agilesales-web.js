@@ -51,17 +51,17 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
         controller: "CardHomeCtrl"
       })
       .state('card_edit', {
-        url: '/card_edit/:card',
+        url: '/card_edit/:card_id',
         templateUrl: 'templates/card_edit.client.view.html',
         controller: "CardEditCtrl"
       })
       .state('card_edit.card_config', {
-        url: '/card_config/:card',
+        url: '/card_config/:card_id',
         templateUrl: 'templates/card_config.client.view.html',
         controller: "CardConfigCtrl"
       })
       .state('card_edit.card_preview', {
-        url: '/card_preview/:card',
+        url: '/card_preview/:card_id',
         templateUrl: 'templates/card_preview.client.view.html',
         controller: "CardPreviewCtrl"
       })
@@ -376,10 +376,10 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -390,10 +390,10 @@ angular.module('agilesales-web').directive('agQuestionBlank', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -506,6 +506,15 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
     },
     getCardTemplates: function () {
       return user.company.card_templates;
+    },
+    getCardTemplateById: function (id) {
+      var result = {};
+      user.company.card_templates.forEach(function (item) {
+        if (item._id === id) {
+          result = item;
+        }
+      });
+      return result;
     },
     isLoggedIn: function () {
       return user ? true : false;
@@ -1694,11 +1703,11 @@ angular.module('agilesales-web').controller('BasedataSkuCtrl', ['$scope', '$root
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootScope', '$state', '$stateParams', function ($scope, $rootScope, $state, $stateParams) {
+angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService',function ($scope, $rootScope, $state, $stateParams,AuthService) {
   $scope.location = window.location;
   $scope.card = {};
-  if ($stateParams.card) {
-    $scope.card = JSON.parse($stateParams.card);
+  if ($stateParams.card_id) {
+    $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
     console.log($scope.card);
   }
 
@@ -1706,7 +1715,7 @@ angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootS
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'CardService',function ($scope, $rootScope, $state, $stateParams,CardService) {
+angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', 'CardService', function ($scope, $rootScope, $state, $stateParams, AuthService, CardService) {
   $scope.showAddPaper = function () {
     $rootScope.$broadcast('show.dialogInput', {
       title: '添加试卷',
@@ -1729,13 +1738,13 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
     });
   };
   $scope.card = {};
-  if ($stateParams.card) {
-    $scope.card = JSON.parse($stateParams.card);
+  if ($stateParams.card_id) {
+    $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
     console.log($scope.card);
   }
 
   $scope.goConfig = function () {
-    $state.go('card_edit.card_config', {card: JSON.stringify($scope.card)});
+    $state.go('card_edit.card_config', {card_id: $scope.card._id});
   };
 
   $scope.location = window.location;
@@ -1750,7 +1759,7 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
   });
 
   $scope.goEdit = function (card) {
-    $state.go('card_edit', {card: JSON.stringify(card)});
+    $state.go('card_edit', {card_id: card._id});
   };
 
   $scope.showCardAdd = function () {
@@ -1795,11 +1804,11 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', function ($scope, $rootScope, $state, $stateParams) {
+angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', function ($scope, $rootScope, $state, $stateParams, AuthService) {
   $scope.location = window.location;
   $scope.card = {};
-  if ($stateParams.card) {
-    $scope.card = JSON.parse($stateParams.card);
+  if ($stateParams.card_id) {
+    $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
     console.log($scope.card);
   }
 }]);
