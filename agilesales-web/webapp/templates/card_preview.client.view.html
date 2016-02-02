@@ -12,7 +12,9 @@
     <ag-question-true-false
         ng-if="question.type==='trueorfalse'"
         get-question="question"></ag-question-true-false>
-    <!--<ag-question-table ng-show="question.type==='table'" model="question" index="{{$index}}"></ag-question-table>-->
+    <ag-question-table
+        ng-if="question.type==='table'"
+        get-question="question"></ag-question-table>
   </div>
   <div class="ag-question-container">
     <div class="ag-question-footer">
