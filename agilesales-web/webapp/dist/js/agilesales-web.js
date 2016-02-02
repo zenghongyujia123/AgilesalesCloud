@@ -255,7 +255,7 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',function ($rootScope) {
+angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/dialog_select/dialog_select.client.view.html',
@@ -280,9 +280,10 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
         $element.removeClass('show');
         $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $scope.submit = function(){
+      $scope.submit = function () {
         $element.removeClass('show');
         $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+        $scope.info.callback($scope.info);
       };
       $scope.toggleOptions = function (index) {
         if ($element.find('.ag-row-option-container').eq(index).hasClass('show')) {
@@ -292,6 +293,11 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
           $scope.showOptions(index);
         }
       };
+
+      $scope.selectOption = function (content, option) {
+        content.value = option;
+      };
+
       $rootScope.$on('show.dialogSelect', function (event, data) {
         setTheme(data);
         $scope.show();
@@ -300,6 +306,7 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
         $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
         $scope.info = info;
       }
+
       $scope.showOptions = function (index) {
         $element.find('.ag-row-option-container').eq(index).addClass('show');
       };
@@ -1838,14 +1845,31 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
         key: '请选择题目类型',
         value: '',
         tip: '点击输入名称',
-        options: ['填空题', '单选题', '多选题', '是非题','表格题']
+        options: ['填空题', '单选题', '多选题', '是非题', '表格题']
       }],
       color: 'blue',
       callback: function (info) {
-        console.log(info);
+        $scope.paper.questions.push({type: $scope.getQuestionType(info.contents[0].value)});
       }
     });
+  };
+
+  $scope.getQuestionType = function (type) {
+    switch (type) {
+      case '单选题':
+        return 'single';
+      case '多选题':
+        return 'multi_single';
+      case '填空题':
+        return 'blank';
+      case '表格题':
+        return 'table';
+      case '是非题':
+        return 'trueorfalse';
+    }
   }
+
+
 }]);
 /**
  * Created by zenghong on 16/1/15.

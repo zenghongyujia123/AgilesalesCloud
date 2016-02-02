@@ -1,7 +1,7 @@
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',function ($rootScope) {
+angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/dialog_select/dialog_select.client.view.html',
@@ -26,9 +26,10 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
         $element.removeClass('show');
         $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
-      $scope.submit = function(){
+      $scope.submit = function () {
         $element.removeClass('show');
         $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+        $scope.info.callback($scope.info);
       };
       $scope.toggleOptions = function (index) {
         if ($element.find('.ag-row-option-container').eq(index).hasClass('show')) {
@@ -38,6 +39,11 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
           $scope.showOptions(index);
         }
       };
+
+      $scope.selectOption = function (content, option) {
+        content.value = option;
+      };
+
       $rootScope.$on('show.dialogSelect', function (event, data) {
         setTheme(data);
         $scope.show();
@@ -46,6 +52,7 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope',funct
         $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
         $scope.info = info;
       }
+
       $scope.showOptions = function (index) {
         $element.find('.ag-row-option-container').eq(index).addClass('show');
       };

@@ -7,7 +7,7 @@
       <div class="ag-row-left">{{content.key}}</div>
       <div class="ag-row-right" ng-click="toggleOptions($index)">{{content.value}}
         <div class="ag-row-option-container">
-          <div class="ag-row-option" ng-repeat="option in content.options">{{option}}</div>
+          <div class="ag-row-option" ng-repeat="option in content.options" ng-click="selectOption(content,option)">{{option}}</div>
         </div>
       </div>
     </div>
