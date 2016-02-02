@@ -56,6 +56,18 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
       });
       return result;
     },
+    getTables: function () {
+      return user.company.tables;
+    },
+    getFieldsByTable: function (tableName) {
+      var result = [];
+      user.company.tables.forEach(function (table) {
+        if (table.table_name === tableName) {
+          result = table.fields
+        }
+      });
+      return result;
+    },
     isLoggedIn: function () {
       return user ? true : false;
     },
