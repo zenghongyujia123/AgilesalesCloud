@@ -46,6 +46,16 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
       });
       return result;
     },
+    getPaperById: function (cardId, paperId) {
+      var card = this.getCardTemplateById(cardId);
+      var result = {};
+      card.papers.forEach(function (item) {
+        if (item._id === paperId) {
+          result = item;
+        }
+      });
+      return result;
+    },
     isLoggedIn: function () {
       return user ? true : false;
     },
