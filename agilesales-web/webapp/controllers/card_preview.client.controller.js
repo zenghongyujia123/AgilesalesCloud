@@ -30,6 +30,20 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
     });
   };
 
+  $scope.$on('onQuestionUpdated', function (event, data) {
+    //$scope.paper.questions[data.index] = data.question;
+    console.log($scope.paper.questions);
+    console.log(data);
+  });
+
+  $scope.updateQuestion = function (question) {
+    CardService.updateQuestion(question, $scope.paper._id, $scope.card._id).then(function (data) {
+      console.log(data);
+    }, function (data) {
+      console.log(data);
+    });
+  };
+
   $scope.getQuestionType = function (type) {
     switch (type) {
       case '单选题':

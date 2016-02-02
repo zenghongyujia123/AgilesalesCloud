@@ -255,70 +255,6 @@ angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', funct
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          value: '点击输入名称'
-        }],
-        color: 'blue',
-        type: 'execel',
-        headers: [
-          {key: 'A1', value: '大区'},
-          {key: 'B1', value: '省区'},
-          {key: 'C1', value: '办事处'}
-        ]
-      };
-
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-      $scope.submit = function () {
-        $element.removeClass('show');
-      };
-      $rootScope.$on('show.dialogUpload', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-
-      $scope.handleFile = function (ele) {
-        var excelReader = ExcelReaderService.getReader();
-
-        excelReader.getWorkSheet(ele, function (err, excelSheet) {
-          excelReader.checkHeader(excelSheet, $scope.info.headers, function (isOurTemplate) {
-            if (!isOurTemplate) {
-              var a = isOurTemplate;
-            }
-            excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
-              if ($scope.info.callback) {
-                $scope.info.callback(sheetData);
-              }
-              $scope.hide();
-            });
-          });
-        });
-      };
-
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
-    }
-  }
-}]);
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -383,22 +319,103 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope', func
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'ExcelReaderService', function ($rootScope, ExcelReaderService) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_upload/dialog_upload.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          value: '点击输入名称'
+        }],
+        color: 'blue',
+        type: 'execel',
+        headers: [
+          {key: 'A1', value: '大区'},
+          {key: 'B1', value: '省区'},
+          {key: 'C1', value: '办事处'}
+        ]
+      };
+
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+      $scope.submit = function () {
+        $element.removeClass('show');
+      };
+      $rootScope.$on('show.dialogUpload', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      $scope.handleFile = function (ele) {
+        var excelReader = ExcelReaderService.getReader();
+
+        excelReader.getWorkSheet(ele, function (err, excelSheet) {
+          excelReader.checkHeader(excelSheet, $scope.info.headers, function (isOurTemplate) {
+            if (!isOurTemplate) {
+              var a = isOurTemplate;
+            }
+            excelReader.getSheetData(excelSheet, $scope.info.headers, function (err, sheetData) {
+              if ($scope.info.callback) {
+                $scope.info.callback(sheetData);
+              }
+              $scope.hide();
+            });
+          });
+        });
+      };
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+    }
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.question = {
-        type: 'blank',
-        type_text: '填空题',
-        input_type_text: '数字',
-        input_type: 'number',
-        title: '',
-        is_need_photo: false,
-        is_need_description: false
-      };
+    scope: {getQuestion: '&'},
+    controller: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
+      //$scope.question = {
+      //  type: 'blank',
+      //  type_text: '填空题',
+      //  input_type_text: '数字',
+      //  input_type: 'number',
+      //  title: '',
+      //  is_need_photo: false,
+      //  is_need_description: false
+      //};
+
+      if (!$scope.question.type)
+        $scope.question.type = 'blank';
+      if (!$scope.question.type_text)
+        $scope.question.type_text = '填空题';
+      if (!$scope.question.input_type_text)
+        $scope.question.input_type_text = '数字';
+      if (!$scope.question.input_type)
+        $scope.question.input_type = 'number';
+      if (!$scope.question.title)
+        $scope.question.title = '';
+      if (!$scope.question.is_need_photo)
+        $scope.question.is_need_photo = false;
+      if (!$scope.question.is_need_description)
+        $scope.question.is_need_description = false;
+
 
       $scope.showInputType = function () {
         $rootScope.$broadcast('show.dialogSelect', {
@@ -431,6 +448,10 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
           case '文本':
             return 'text';
         }
+      };
+
+      $scope.submitQuestion = function () {
+        $scope.$emit('onQuestionUpdated', {question: $scope.question, index: $attrs.index});
       }
     }
   }
@@ -1894,6 +1915,12 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
       }
     });
   };
+
+  $scope.$on('onQuestionUpdated', function (event, data) {
+    //$scope.paper.questions[data.index] = data.question;
+    console.log($scope.paper.questions);
+    console.log(data);
+  });
 
   $scope.getQuestionType = function (type) {
     switch (type) {

@@ -8,6 +8,13 @@ angular.module('agilesales-web').factory('CardService', ['HttpService', function
     },
     addPaperTemplate: function (title, card_id) {
       return HttpService.post('/webapp/card_template/paper/create', {title: title, card_id: card_id});
+    },
+    updateQuestion: function (question, paper_id, card_id) {
+      return HttpService.post('/webapp/card_template/question/update', {
+        paper_id: paper_id,
+        card_id: card_id,
+        question: question
+      });
     }
   };
 }]);

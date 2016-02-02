@@ -6,17 +6,25 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
     restrict: 'AE',
     templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.question = {
-        type: 'blank',
-        type_text: '填空题',
-        input_type_text: '数字',
-        input_type: 'number',
-        title: '',
-        is_need_photo: false,
-        is_need_description: false
-      };
+    scope: {getQuestion: '&'},
+    controller: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
+
+      if (!$scope.question.type)
+        $scope.question.type = 'blank';
+      if (!$scope.question.type_text)
+        $scope.question.type_text = '填空题';
+      if (!$scope.question.input_type_text)
+        $scope.question.input_type_text = '数字';
+      if (!$scope.question.input_type)
+        $scope.question.input_type = 'number';
+      if (!$scope.question.title)
+        $scope.question.title = '';
+      if (!$scope.question.is_need_photo)
+        $scope.question.is_need_photo = false;
+      if (!$scope.question.is_need_description)
+        $scope.question.is_need_description = false;
+
 
       $scope.showInputType = function () {
         $rootScope.$broadcast('show.dialogSelect', {
@@ -49,6 +57,10 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
           case '文本':
             return 'text';
         }
+      };
+
+      $scope.submitQuestion = function () {
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
       }
     }
   }
