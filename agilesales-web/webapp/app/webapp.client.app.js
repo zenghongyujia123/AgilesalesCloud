@@ -61,7 +61,7 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
         controller: "CardConfigCtrl"
       })
       .state('card_edit.card_preview', {
-        url: '/card_preview/:card_id',
+        url: '/card_preview/:card_id/:paper_id',
         templateUrl: 'templates/card_preview.client.view.html',
         controller: "CardPreviewCtrl"
       })

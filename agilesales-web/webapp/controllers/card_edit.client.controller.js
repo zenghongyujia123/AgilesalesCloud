@@ -33,5 +33,9 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
     $state.go('card_edit.card_config', {card_id: $scope.card._id});
   };
 
+  $scope.goPreview = function (paper) {
+    $state.go('card_edit.card_preview', {card_id: $scope.card._id, paper_id: paper._id});
+  };
+
   $scope.location = window.location;
 }]);

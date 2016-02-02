@@ -61,7 +61,7 @@ angular.module('agilesales-web').config(['$stateProvider', '$urlRouterProvider',
         controller: "CardConfigCtrl"
       })
       .state('card_edit.card_preview', {
-        url: '/card_preview/:card_id',
+        url: '/card_preview/:card_id/:paper_id',
         templateUrl: 'templates/card_preview.client.view.html',
         controller: "CardPreviewCtrl"
       })
@@ -376,10 +376,10 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -390,10 +390,10 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -1745,6 +1745,10 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
 
   $scope.goConfig = function () {
     $state.go('card_edit.card_config', {card_id: $scope.card._id});
+  };
+
+  $scope.goPreview = function (paper) {
+    $state.go('card_edit.card_preview', {card_id: $scope.card._id, paper_id: paper._id});
   };
 
   $scope.location = window.location;
