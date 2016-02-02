@@ -54,6 +54,35 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
           delete  option.$$hashKey;
         });
         $scope.$emit('onQuestionUpdated', {question: $scope.question});
+      };
+
+      $scope.pressOption = function (option, index) {
+        if (option.value && isLastOption(index)) {
+          pushOption();
+        }
+
+        if (!option.value && !isLastOption(index)) {
+          removeOption(index);
+        }
+      };
+
+      function isFirstOption(index) {
+        return index === 0;
+      }
+
+      function isLastOption(index) {
+        return ($scope.question.content.options.length - 1 ) === index;
+      }
+
+      function removeOption(index) {
+        $scope.question.content.options.splice(index, 1);
+      }
+
+      function pushOption() {
+        $scope.question.content.options.push({
+          key: '',
+          value: ''
+        })
       }
     }
   }
