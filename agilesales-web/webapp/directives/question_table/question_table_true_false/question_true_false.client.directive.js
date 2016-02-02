@@ -6,9 +6,13 @@ angular.module('agilesales-web').directive('agQuestionTableTrueFalse', function 
     restrict: 'AE',
     templateUrl: 'directives/question_table/question_table_true_false/question_true_false.client.view.html',
     replace: true,
-    scope: {getQuestion: '&'},
+    scope: {
+      getQuestion: '&',
+      getIndex: '&'
+    },
     link: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
+      $scope.index = $scope.getIndex();
       if (!$scope.question.content)
         $scope.question.content = {};
 

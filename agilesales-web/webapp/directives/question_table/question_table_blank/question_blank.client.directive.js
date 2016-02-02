@@ -6,9 +6,13 @@ angular.module('agilesales-web').directive('agQuestionTableBlank', ['$rootScope'
     restrict: 'AE',
     templateUrl: 'directives/question_table/question_table_blank/question_blank.client.view.html',
     replace: true,
-    scope: {getQuestion: '&'},
+    scope: {
+      getQuestion: '&',
+      getIndex: '&'
+    },
     controller: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
+      $scope.index = $scope.getIndex();
 
       if (!$scope.question.content)
         $scope.question.content = {};

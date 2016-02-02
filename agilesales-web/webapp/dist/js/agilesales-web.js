@@ -558,103 +558,6 @@ angular.module('agilesales-web').directive('agQuestionMulti', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionTable', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_table/question_table.client.view.html',
-    replace: true,
-    scope: {getQuestion: '&'},
-    link: function ($scope, $element, $attrs) {
-      $scope.question = $scope.getQuestion();
-
-      if (!$scope.question.content)
-        $scope.question.content = {};
-      if (!$scope.question.content)
-        $scope.question.content = {};
-
-      if (!$scope.question.content.title)
-        $scope.question.content.title = '';
-
-      if (!$scope.question.content.table)
-        $scope.question.content.table = '';
-
-      if (!$scope.question.content.filter_fields)
-        $scope.question.content.filter_fields = [];
-
-      if (!$scope.question.content.show_fields) {
-        $scope.question.content.show_fields = [];
-
-        $scope.question.content.show_fields.push({
-          type: 'single'
-        });
-        $scope.question.content.show_fields.push({
-          type: 'blank'
-        });
-        $scope.question.content.show_fields.push({
-          type: 'trueorfalse'
-        });
-        $scope.question.content.show_fields.push({
-          type: 'multi'
-        });
-      }
-
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
-    replace: true,
-    scope: {getQuestion: '&'},
-    link: function ($scope, $element, $attrs) {
-      $scope.question = $scope.getQuestion();
-      if (!$scope.question.content)
-        $scope.question.content = {};
-
-      if (!$scope.question.content.type)
-        $scope.question.content.type = 'trueorfalse';
-
-      if (!$scope.question.content.title)
-        $scope.question.content.title = '';
-
-      if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '是非题';
-
-      if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
-        $scope.question.content.is_need_photo = false;
-      }
-      else {
-        $scope.question.content.is_need_photo = true;
-      }
-
-      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
-        $scope.question.content.is_need_description = false;
-      }
-      else {
-        $scope.question.content.is_need_description = true;
-      }
-      $scope.togglePhoto = function () {
-        $scope.question.content.is_need_photo = !$scope.question.content.is_need_photo;
-      };
-      $scope.toggleDescription = function () {
-        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
-      };
-      $scope.submitQuestion = function () {
-        $scope.question.type = $scope.question.content.type;
-        $scope.question.title = $scope.question.content.title;
-        $scope.$emit('onQuestionUpdated', {question: $scope.question});
-      };
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
@@ -744,10 +647,10 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionTableMulti', function () {
+angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_table/question_table_multi/question_multi.client.view.html',
+    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
     replace: true,
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
@@ -756,26 +659,19 @@ angular.module('agilesales-web').directive('agQuestionTableMulti', function () {
         $scope.question.content = {};
 
       if (!$scope.question.content.type)
-        $scope.question.content.type = 'multi';
+        $scope.question.content.type = 'trueorfalse';
 
       if (!$scope.question.content.title)
         $scope.question.content.title = '';
 
       if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '多选题';
+        $scope.question.content.type_text = '是非题';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;
       }
       else {
         $scope.question.content.is_need_photo = true;
-      }
-
-      if (!$scope.question.content.options) {
-        $scope.question.content.options = [{
-          key: '选项',
-          value: ''
-        }];
       }
 
       if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
@@ -793,40 +689,55 @@ angular.module('agilesales-web').directive('agQuestionTableMulti', function () {
       $scope.submitQuestion = function () {
         $scope.question.type = $scope.question.content.type;
         $scope.question.title = $scope.question.content.title;
-        $scope.question.content.options.forEach(function (option) {
-          delete  option.$$hashKey;
-        });
         $scope.$emit('onQuestionUpdated', {question: $scope.question});
       };
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionTable', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_table/question_table.client.view.html',
+    replace: true,
+    scope: {getQuestion: '&'},
+    link: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
 
-      $scope.pressOption = function (option, index) {
-        if (option.value && isLastOption(index)) {
-          pushOption();
-        }
+      if (!$scope.question.content)
+        $scope.question.content = {};
+      if (!$scope.question.content)
+        $scope.question.content = {};
 
-        if (!option.value && !isLastOption(index)) {
-          removeOption(index);
-        }
-      };
+      if (!$scope.question.content.title)
+        $scope.question.content.title = '';
 
-      function isFirstOption(index) {
-        return index === 0;
+      if (!$scope.question.content.table)
+        $scope.question.content.table = '';
+
+      if (!$scope.question.content.filter_fields)
+        $scope.question.content.filter_fields = [];
+
+      if (!$scope.question.content.show_fields) {
+        $scope.question.content.show_fields = [];
+
+        $scope.question.content.show_fields.push({
+          type: 'single'
+        });
+        $scope.question.content.show_fields.push({
+          type: 'blank'
+        });
+        $scope.question.content.show_fields.push({
+          type: 'trueorfalse'
+        });
+        $scope.question.content.show_fields.push({
+          type: 'multi'
+        });
       }
 
-      function isLastOption(index) {
-        return ($scope.question.content.options.length - 1 ) === index;
-      }
 
-      function removeOption(index) {
-        $scope.question.content.options.splice(index, 1);
-      }
-
-      function pushOption() {
-        $scope.question.content.options.push({
-          key: '',
-          value: ''
-        })
-      }
     }
   }
 });
@@ -838,9 +749,13 @@ angular.module('agilesales-web').directive('agQuestionTableBlank', ['$rootScope'
     restrict: 'AE',
     templateUrl: 'directives/question_table/question_table_blank/question_blank.client.view.html',
     replace: true,
-    scope: {getQuestion: '&'},
+    scope: {
+      getQuestion: '&',
+      getIndex: '&'
+    },
     controller: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
+      $scope.index = $scope.getIndex();
 
       if (!$scope.question.content)
         $scope.question.content = {};
@@ -919,14 +834,112 @@ angular.module('agilesales-web').directive('agQuestionTableBlank', ['$rootScope'
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agQuestionTableMulti', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_table/question_table_multi/question_multi.client.view.html',
+    replace: true,
+    scope: {
+      getQuestion: '&',
+      getIndex: '&'
+    },
+    link: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
+      $scope.index = $scope.getIndex();
+      if (!$scope.question.content)
+        $scope.question.content = {};
+
+      if (!$scope.question.content.type)
+        $scope.question.content.type = 'multi';
+
+      if (!$scope.question.content.title)
+        $scope.question.content.title = '';
+
+      if (!$scope.question.content.type_text)
+        $scope.question.content.type_text = '多选题';
+
+      if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
+        $scope.question.content.is_need_photo = false;
+      }
+      else {
+        $scope.question.content.is_need_photo = true;
+      }
+
+      if (!$scope.question.content.options) {
+        $scope.question.content.options = [{
+          key: '选项',
+          value: ''
+        }];
+      }
+
+      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
+        $scope.question.content.is_need_description = false;
+      }
+      else {
+        $scope.question.content.is_need_description = true;
+      }
+      $scope.togglePhoto = function () {
+        $scope.question.content.is_need_photo = !$scope.question.content.is_need_photo;
+      };
+      $scope.toggleDescription = function () {
+        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
+      };
+      $scope.submitQuestion = function () {
+        $scope.question.type = $scope.question.content.type;
+        $scope.question.title = $scope.question.content.title;
+        $scope.question.content.options.forEach(function (option) {
+          delete  option.$$hashKey;
+        });
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
+      };
+
+      $scope.pressOption = function (option, index,$event) {
+        $event.stopPropagation();
+        if (option.value && isLastOption(index)) {
+          pushOption();
+        }
+
+        if (!option.value && !isLastOption(index)) {
+          removeOption(index);
+        }
+      };
+
+      function isFirstOption(index) {
+        return index === 0;
+      }
+
+      function isLastOption(index) {
+        return ($scope.question.content.options.length - 1 ) === index;
+      }
+
+      function removeOption(index) {
+        $scope.question.content.options.splice(index, 1);
+      }
+
+      function pushOption() {
+        $scope.question.content.options.push({
+          key: '',
+          value: ''
+        })
+      }
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agQuestionTableSingle', function () {
   return {
     restrict: 'AE',
     templateUrl: 'directives/question_table/question_table_single/question_single.client.view.html',
     replace: true,
-    scope: {getQuestion: '&'},
+    scope: {
+      getQuestion: '&',
+      getIndex: '&'
+    },
     link: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
+      $scope.index = $scope.getIndex();
       if (!$scope.question.content)
         $scope.question.content = {};
 
@@ -974,7 +987,8 @@ angular.module('agilesales-web').directive('agQuestionTableSingle', function () 
         $scope.$emit('onQuestionUpdated', {question: $scope.question});
       };
 
-      $scope.pressOption = function (option, index) {
+      $scope.pressOption = function (option, index,$event) {
+        $event.stopPropagation();
         if (option.value && isLastOption(index)) {
           pushOption();
         }
@@ -1013,9 +1027,13 @@ angular.module('agilesales-web').directive('agQuestionTableTrueFalse', function 
     restrict: 'AE',
     templateUrl: 'directives/question_table/question_table_true_false/question_true_false.client.view.html',
     replace: true,
-    scope: {getQuestion: '&'},
+    scope: {
+      getQuestion: '&',
+      getIndex: '&'
+    },
     link: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
+      $scope.index = $scope.getIndex();
       if (!$scope.question.content)
         $scope.question.content = {};
 

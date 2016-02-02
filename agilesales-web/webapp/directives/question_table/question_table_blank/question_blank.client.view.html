@@ -1,11 +1,11 @@
 <div class="ag-question-blank">
   <div class="ag-question-row">
-    <div class="ag-question-left">题目类型</div>
-    <div class="ag-question-right title">{{question.content.type_text}}</div>
+    <div class="ag-question-left">列{{index+1}}题型</div>
+    <div class="ag-question-right title">填空题</div>
   </div>
   <div class="ag-question-row">
-    <div class="ag-question-left">题目标题</div>
-    <input class="ag-question-right value" placeholder="请输入题目标题" ng-model="question.content.title">
+    <div class="ag-question-left">列{{index+1}}标题</div>
+    <input class="ag-question-right value" placeholder="请输入列{{index+1}}标题" ng-model="question.content.title">
   </div>
   <div class="ag-question-row">
     <div class="ag-question-left">请选择输入方式</div>

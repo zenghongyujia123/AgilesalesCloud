@@ -6,9 +6,13 @@ angular.module('agilesales-web').directive('agQuestionTableSingle', function () 
     restrict: 'AE',
     templateUrl: 'directives/question_table/question_table_single/question_single.client.view.html',
     replace: true,
-    scope: {getQuestion: '&'},
+    scope: {
+      getQuestion: '&',
+      getIndex: '&'
+    },
     link: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
+      $scope.index = $scope.getIndex();
       if (!$scope.question.content)
         $scope.question.content = {};
 
@@ -56,7 +60,8 @@ angular.module('agilesales-web').directive('agQuestionTableSingle', function () 
         $scope.$emit('onQuestionUpdated', {question: $scope.question});
       };
 
-      $scope.pressOption = function (option, index) {
+      $scope.pressOption = function (option, index,$event) {
+        $event.stopPropagation();
         if (option.value && isLastOption(index)) {
           pushOption();
         }
