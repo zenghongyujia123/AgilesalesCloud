@@ -194,67 +194,6 @@ angular.module('agilesales-web').directive('agHoverShake', [function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agDialogConfirm', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_confirm/dialog_confirm.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $scope.info = {
-        title: '',
-        contents: [{
-          key: '请输入拜访卡名称',
-          tip: '点击输入名称',
-          value: ''
-        }],
-        color: 'blue'
-      };
-
-      $scope.show = function () {
-        $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
-      };
-      $scope.hide = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-      };
-      $scope.submit = function () {
-        $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
-        if ($scope.info.callback) {
-          $scope.info.callback($scope.info);
-        }
-      };
-      $rootScope.$on('show.dialogInput', function (event, data) {
-        setTheme(data);
-        $scope.show();
-      });
-
-      function setTheme(info) {
-        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
-        $scope.info = info;
-      }
-    }
-  }
-}]);
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -383,6 +322,109 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agDialogConfirm', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_confirm/dialog_confirm.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agDialogInput', ['$rootScope', function ($rootScope) {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/dialog_input/dialog_input.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $scope.info = {
+        title: '',
+        contents: [{
+          key: '请输入拜访卡名称',
+          tip: '点击输入名称',
+          value: ''
+        }],
+        color: 'blue'
+      };
+
+      $scope.show = function () {
+        $element.addClass('show');
+        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
+      };
+      $scope.hide = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+      };
+      $scope.submit = function () {
+        $element.removeClass('show');
+        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
+        if ($scope.info.callback) {
+          $scope.info.callback($scope.info);
+        }
+      };
+      $rootScope.$on('show.dialogInput', function (event, data) {
+        setTheme(data);
+        $scope.show();
+      });
+
+      function setTheme(info) {
+        $element.find('.ag-dialog-panel').removeClass($scope.info.color).addClass(info.color);
+        $scope.info = info;
+      }
+    }
+  }
+}]);
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionTable', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_table/question_table.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -391,15 +433,6 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
     scope: {getQuestion: '&'},
     controller: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
-      //$scope.question = {
-      //  type: 'blank',
-      //  type_text: '填空题',
-      //  input_type_text: '数字',
-      //  input_type: 'number',
-      //  title: '',
-      //  is_need_photo: false,
-      //  is_need_description: false
-      //};
 
       if (!$scope.question.type)
         $scope.question.type = 'blank';
@@ -451,53 +484,11 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
       };
 
       $scope.submitQuestion = function () {
-        $scope.$emit('onQuestionUpdated', {question: $scope.question, index: $attrs.index});
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
       }
     }
   }
 }]);
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionTable', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_table/question_table.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_true_false/question_true_false.client.view.html',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  }
-});
 angular.module('agilesales-web').factory('PublicInterceptor', ['AuthService', function (AuthService) {
   return {
     'request': function (req) {
@@ -638,6 +629,13 @@ angular.module('agilesales-web').factory('CardService', ['HttpService', function
     },
     addPaperTemplate: function (title, card_id) {
       return HttpService.post('/webapp/card_template/paper/create', {title: title, card_id: card_id});
+    },
+    updateQuestion: function (question, paper_id, card_id) {
+      return HttpService.post('/webapp/card_template/question/update', {
+        paper_id: paper_id,
+        card_id: card_id,
+        question: question
+      });
     }
   };
 }]);
@@ -1887,58 +1885,68 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', function ($scope, $rootScope, $state, $stateParams, AuthService) {
-  $scope.location = window.location;
-  $scope.card = {};
-  $scope.paper = {};
+angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', 'CardService',
+  function ($scope, $rootScope, $state, $stateParams, AuthService, CardService) {
+    $scope.location = window.location;
+    $scope.card = {};
+    $scope.paper = {};
 
-  if ($stateParams.card_id) {
-    $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
-    if ($stateParams.paper_id) {
-      $scope.paper = AuthService.getPaperById($stateParams.card_id, $stateParams.paper_id);
-    }
-    console.log($scope.card);
-  }
-
-  $scope.showAddQuestion = function () {
-    $rootScope.$broadcast('show.dialogSelect', {
-      title: '添加题目',
-      contents: [{
-        key: '请选择题目类型',
-        value: '',
-        tip: '点击输入名称',
-        options: ['填空题', '单选题', '多选题', '是非题', '表格题']
-      }],
-      color: 'blue',
-      callback: function (info) {
-        $scope.paper.questions.push({type: $scope.getQuestionType(info.contents[0].value)});
+    if ($stateParams.card_id) {
+      $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
+      if ($stateParams.paper_id) {
+        $scope.paper = AuthService.getPaperById($stateParams.card_id, $stateParams.paper_id);
       }
-    });
-  };
-
-  $scope.$on('onQuestionUpdated', function (event, data) {
-    //$scope.paper.questions[data.index] = data.question;
-    console.log($scope.paper.questions);
-    console.log(data);
-  });
-
-  $scope.getQuestionType = function (type) {
-    switch (type) {
-      case '单选题':
-        return 'single';
-      case '多选题':
-        return 'multi_single';
-      case '填空题':
-        return 'blank';
-      case '表格题':
-        return 'table';
-      case '是非题':
-        return 'trueorfalse';
+      console.log($scope.card);
     }
-  }
+
+    $scope.showAddQuestion = function () {
+      $rootScope.$broadcast('show.dialogSelect', {
+        title: '添加题目',
+        contents: [{
+          key: '请选择题目类型',
+          value: '',
+          tip: '点击输入名称',
+          options: ['填空题', '单选题', '多选题', '是非题', '表格题']
+        }],
+        color: 'blue',
+        callback: function (info) {
+          $scope.paper.questions.push({type: $scope.getQuestionType(info.contents[0].value)});
+        }
+      });
+    };
+
+    $scope.$on('onQuestionUpdated', function (event, data) {
+      //$scope.paper.questions[data.index] = data.question;
+      $scope.updateQuestion(data.question);
+      console.log($scope.paper.questions);
+      console.log(data);
+    });
+
+    $scope.updateQuestion = function (question) {
+      CardService.updateQuestion(question, $scope.paper._id, $scope.card._id).then(function (data) {
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    };
+
+    $scope.getQuestionType = function (type) {
+      switch (type) {
+        case '单选题':
+          return 'single';
+        case '多选题':
+          return 'multi_single';
+        case '填空题':
+          return 'blank';
+        case '表格题':
+          return 'table';
+        case '是非题':
+          return 'trueorfalse';
+      }
+    }
 
 
-}]);
+  }]);
 /**
  * Created by zenghong on 16/1/15.
  */

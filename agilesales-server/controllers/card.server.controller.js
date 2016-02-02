@@ -30,6 +30,22 @@ exports.createPaperTemplate = function (req, res, next) {
   });
 };
 
+exports.updateQuestion = function (req, res, next) {
+  cardService.updateQuestion(
+    req.body.question,
+    req.body.card_id,
+    req.body.paper_id,
+    req.user.company,
+    function (err, result) {
+      if (err) {
+        return res.send(err);
+      }
+      return res.send(result);
+    }
+  )
+  ;
+};
+
 exports.updateCardTemplate = function (req, res, next) {
 
 };

@@ -75,6 +75,9 @@ module.exports = function (appDb) {
     title: {
       type: String
     },
+    content:{
+      type: Schema.Types.Mixed
+    },
     company: {
       type: Schema.Types.ObjectId,
       ref: 'Company'
