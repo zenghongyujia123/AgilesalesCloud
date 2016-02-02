@@ -23,6 +23,7 @@
       line-height: 50px;
       width: 50%;
       float: left;
+      border: 0px;
       text-align: center;
       &.title {
         background-color: #5b5b5b;
@@ -44,7 +45,7 @@
           width: 50px;
           height: 26px;
           position: relative;
-          background-color: #53d769;
+          background-color: #c6c6c6;
           border-radius: 90px;
           margin: 12px 5px;
           .slide {
@@ -55,6 +56,15 @@
             left: 1px;
             border-radius: 90px;
             background-color: white;
+            -webkit-transition: -webkit-transform .2s ease;
+            -webkit-transform: translate3d(0, 0, 0);
+            z-index: 4;
+          }
+          &.true{
+            background-color: #53d769;
+            .slide{
+              -webkit-transform: translate3d(24px, 0, 0);
+            }
           }
         }
         .true {
