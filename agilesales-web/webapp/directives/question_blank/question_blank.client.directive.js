@@ -10,20 +10,35 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
     controller: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
 
-      if (!$scope.question.type)
-        $scope.question.type = 'blank';
-      if (!$scope.question.type_text)
-        $scope.question.type_text = '填空题';
-      if (!$scope.question.input_type_text)
-        $scope.question.input_type_text = '数字';
-      if (!$scope.question.input_type)
-        $scope.question.input_type = 'number';
-      if (!$scope.question.title)
-        $scope.question.title = '';
-      if (!$scope.question.is_need_photo)
-        $scope.question.is_need_photo = false;
-      if (!$scope.question.is_need_description)
-        $scope.question.is_need_description = false;
+      if (!$scope.question.content)
+        $scope.question.content = {};
+
+      if (!$scope.question.content.type)
+        $scope.question.content.type = 'blank';
+
+      if (!$scope.question.content.title)
+        $scope.question.content.title = '';
+
+      if (!$scope.question.content.type_text)
+        $scope.question.content.type_text = '填空题';
+      if (!$scope.question.content.input_type_text)
+        $scope.question.content.input_type_text = '数字';
+      if (!$scope.question.content.input_type)
+        $scope.question.content.input_type = 'number';
+
+      if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
+        $scope.question.content.is_need_photo = false;
+      }
+      else {
+        $scope.question.content.is_need_photo = true;
+      }
+
+      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
+        $scope.question.content.is_need_description = false;
+      }
+      else {
+        $scope.question.content.is_need_description = true;
+      }
 
 
       $scope.showInputType = function () {
@@ -37,17 +52,17 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
           }],
           color: 'blue',
           callback: function (info) {
-            $scope.question.input_type_text = info.contents[0].value;
-            $scope.question.input_type = $scope.getInputType($scope.question.input_type_text);
+            $scope.question.content.input_type_text = info.contents[0].value;
+            $scope.question.content.input_type = $scope.getInputType($scope.question.input_type_text);
           }
         });
       };
 
       $scope.togglePhoto = function () {
-        $scope.question.is_need_photo = !$scope.question.is_need_photo;
+        $scope.question.content.is_need_photo = !$scope.question.content.is_need_photo;
       };
       $scope.toggleDescription = function () {
-        $scope.question.is_need_description = !$scope.question.is_need_description;
+        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
       };
 
       $scope.getInputType = function (type) {
@@ -60,6 +75,8 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
       };
 
       $scope.submitQuestion = function () {
+        $scope.question.type = $scope.question.content.type;
+        $scope.question.title = $scope.question.content.title;
         $scope.$emit('onQuestionUpdated', {question: $scope.question});
       }
     }
