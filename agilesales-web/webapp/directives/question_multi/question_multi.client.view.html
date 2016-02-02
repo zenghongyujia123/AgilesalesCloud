@@ -1,11 +1,17 @@
-<div class="ag-question-true-false">
+<div class="ag-question-multi">
   <div class="ag-question-row">
     <div class="ag-question-left">题目类型</div>
-    <div class="ag-question-right title">是非题</div>
+    <div class="ag-question-right title">多选题</div>
   </div>
   <div class="ag-question-row">
     <div class="ag-question-left">题目标题</div>
     <input class="ag-question-right value" placeholder="请输入题目标题" ng-model="question.content.title">
+  </div>
+  <div class="ag-question-row" ng-repeat="option in question.content.options">
+    <div class="ag-question-left">{{$index===0?'选项':''}}</div>
+    <input class="ag-question-right value" placeholder="请输入内容"
+           ng-model="option.value"
+           ng-keyup="pressOption(option,$index)">
   </div>
   <div class="ag-question-row">
     <div class="ag-question-left">是否需要拍照</div>

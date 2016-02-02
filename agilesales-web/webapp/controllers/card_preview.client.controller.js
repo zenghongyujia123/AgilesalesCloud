@@ -51,7 +51,7 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
         case '单选题':
           return 'single';
         case '多选题':
-          return 'multi_single';
+          return 'multi';
         case '填空题':
           return 'blank';
         case '表格题':

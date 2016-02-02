@@ -3,10 +3,15 @@
     <ag-question-single
         ng-if="question.type==='single'"
         get-question="question"></ag-question-single>
+    <ag-question-multi
+        ng-if="question.type==='multi'"
+        get-question="question"></ag-question-multi>
     <ag-question-blank
         ng-if="question.type==='blank'"
         get-question="question"></ag-question-blank>
-    <!--<ag-question-true-false ng-show="question.type==='trueorfalse'" model="question" index="{{$index}}"></ag-question-true-false>-->
+    <ag-question-true-false
+        ng-if="question.type==='trueorfalse'"
+        get-question="question"></ag-question-true-false>
     <!--<ag-question-table ng-show="question.type==='table'" model="question" index="{{$index}}"></ag-question-table>-->
   </div>
   <div class="ag-question-container">
