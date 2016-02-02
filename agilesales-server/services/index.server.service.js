@@ -99,7 +99,102 @@ exports.initTempData = function () {
       });
       company.super_admin = user;
     }
-
+    if (company.tables.length <= 0) {
+      company.tables = [];
+      company.tables.push({
+        table: 'Product',
+        table_name: '产品表',
+        fields: [
+          {
+            name: '产品编码',
+            field: 'number'
+          },
+          {
+            name: '产品条码',
+            field: 'barcode'
+          },
+          {
+            name: '产品名称',
+            field: 'name'
+          },
+          {
+            name: '产品简称',
+            field: 'short_name'
+          },
+          {
+            name: '品牌',
+            field: 'brand'
+          },
+          {
+            name: '系列',
+            field: 'series'
+          },
+          {
+            name: '大类',
+            field: 'large_type'
+          },
+          {
+            name: '小类',
+            field: 'small_type'
+          },
+          {
+            name: '包装单位',
+            field: 'package_unit'
+          },
+          {
+            name: '规格',
+            field: 'specification'
+          },
+          {
+            name: '产品等级',
+            field: 'product_level'
+          },
+          {
+            name: '是否新品',
+            field: 'is_new'
+          },
+          {
+            name: '是否重点产品',
+            field: 'is_key'
+          },
+          {
+            name: '是否档期促销品',
+            field: 'is_promotion'
+          }
+        ]
+      });
+      company.tables.push({
+        table: 'Customer',
+        table_name: '客户经销商',
+        fields: [
+          {
+            name: '客户名称',
+            field: 'name'
+          },
+          {
+            name: '客户简称',
+            field: 'short_name'
+          },
+          {
+            name: '客户编码',
+            field: 'number'
+          },
+          {
+            name: '客户等级',
+            field: 'customer_level'
+          },
+          {
+            name: '客户类型',
+            field: 'customer_type'
+          },
+          {
+            name: '渠道类型',
+            field: 'channel_type'
+          }
+        ]
+      });
+      company.markModified('tables');
+    }
 
     company.save(function (err, saveCompany) {
       if (err) {

@@ -50,6 +50,9 @@ module.exports = function (appDb) {
     }],
     card_templates: [{
       type: Schema.Types.Mixed
+    }],
+    tables: [{
+      type: Schema.Types.Mixed
     }]
   });
 
