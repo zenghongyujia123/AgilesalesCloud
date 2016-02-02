@@ -13,28 +13,4 @@
            ng-model="option.value"
            ng-keyup="pressOption(option,$index)">
   </div>
-  <div class="ag-question-row">
-    <div class="ag-question-left">是否需要拍照</div>
-    <div class="ag-question-right true-false">
-      <div class="true">是</div>
-      <div class="slider" ng-click="togglePhoto()" ng-class="{true:question.content.is_need_photo===true}">
-        <div class="slide"></div>
-      </div>
-      <div class="false">否</div>
-    </div>
-  </div>
-  <div class="ag-question-row">
-    <div class="ag-question-left">是否需要描述</div>
-    <div class="ag-question-right true-false">
-      <div class="true">是</div>
-      <div class="slider" ng-click="toggleDescription()" ng-class="{true:question.content.is_need_description===true}">
-        <div class="slide"></div>
-      </div>
-      <div class="false">否</div>
-    </div>
-  </div>
-  <div class="ag-question-footer">
-    <div class="ag-btn blue ag-question-finish" ng-click="submitQuestion()">完成</div>
-    <div class="ag-btn blue ag-question-remove">删除</div>
-  </div>
 </div>

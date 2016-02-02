@@ -25,49 +25,63 @@
     <div class="ag-question-left">请选择显示字段1</div>
     <div class="ag-question-right value">编号</div>
   </div>
+  <div class="ag-question-table-row" ng-repeat="q in question.content.show_fields">
+    <div class="ag-question-row">
+      <div class="ag-question-left"></div>
+      <div class="ag-question-right"></div>
+    </div>
 
-  <div class="ag-question-row">
-    <div class="ag-question-left"></div>
-    <div class="ag-question-right"></div>
-  </div>
+    <ag-question-table-single
+        ng-if="q.type==='single'"
+        get-question="question"></ag-question-table-single>
+    <ag-question-table-multi
+        ng-if="q.type==='multi'"
+        get-question="question"></ag-question-table-multi>
+    <ag-question-table-blank
+        ng-if="q.type==='blank'"
+        get-question="question"></ag-question-table-blank>
+    <ag-question-table-true-false
+        ng-if="q.type==='trueorfalse'"
+        get-question="question"></ag-question-table-true-false>
 
-  <div class="ag-question-row">
-    <div class="ag-question-left">请选择显示字段2</div>
-    <div class="ag-question-right title">填空题</div>
-  </div>
-  <div class="ag-question-row">
-    <div class="ag-question-left">请输入字段标题</div>
-    <div class="ag-question-right value">填写输入字段标题</div>
-  </div>
-
-  <div class="ag-question-row">
-    <div class="ag-question-left"></div>
-    <div class="ag-question-right"></div>
-  </div>
-
-  <div class="ag-question-row">
-    <div class="ag-question-left">请选择显示字段3</div>
-    <div class="ag-question-right title">拍照题</div>
-  </div>
-  <div class="ag-question-row">
-    <div class="ag-question-left">请输入字段标题</div>
-    <div class="ag-question-right value">填写输入字段标题</div>
-  </div>
-
-  <div class="ag-question-row">
-    <div class="ag-question-left"></div>
-    <div class="ag-question-right"></div>
+    <!--<div class="ag-question-row">-->
+      <!--<div class="ag-question-left">请选择显示字段2</div>-->
+      <!--<div class="ag-question-right title">填空题</div>-->
+    <!--</div>-->
+    <!--<div class="ag-question-row">-->
+      <!--<div class="ag-question-left">请输入字段标题</div>-->
+      <!--<div class="ag-question-right value">填写输入字段标题</div>-->
+    <!--</div>-->
   </div>
 
+  <!--<div class="ag-question-row">-->
+    <!--<div class="ag-question-left"></div>-->
+    <!--<div class="ag-question-right"></div>-->
+  <!--</div>-->
 
-  <div class="ag-question-row">
-    <div class="ag-question-left">请选择显示字段4</div>
-    <div class="ag-question-right title">拍照题</div>
-  </div>
-  <div class="ag-question-row">
-    <div class="ag-question-left">请输入字段标题</div>
-    <div class="ag-question-right value">填写输入字段标题</div>
-  </div>
+  <!--<div class="ag-question-row">-->
+    <!--<div class="ag-question-left">请选择显示字段3</div>-->
+    <!--<div class="ag-question-right title">拍照题</div>-->
+  <!--</div>-->
+  <!--<div class="ag-question-row">-->
+    <!--<div class="ag-question-left">请输入字段标题</div>-->
+    <!--<div class="ag-question-right value">填写输入字段标题</div>-->
+  <!--</div>-->
+
+  <!--<div class="ag-question-row">-->
+    <!--<div class="ag-question-left"></div>-->
+    <!--<div class="ag-question-right"></div>-->
+  <!--</div>-->
+
+
+  <!--<div class="ag-question-row">-->
+    <!--<div class="ag-question-left">请选择显示字段4</div>-->
+    <!--<div class="ag-question-right title">拍照题</div>-->
+  <!--</div>-->
+  <!--<div class="ag-question-row">-->
+    <!--<div class="ag-question-left">请输入字段标题</div>-->
+    <!--<div class="ag-question-right value">填写输入字段标题</div>-->
+  <!--</div>-->
 
   <div class="ag-question-footer">
     <div class="ag-btn blue ag-question-finish">完成</div>
