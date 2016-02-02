@@ -1,10 +1,10 @@
 <div class="ag-card-preview-page animated bounceInRight">
   <div class="ag-question-container" ng-repeat="question in paper.questions">
     <ag-question-single
-        ng-show="question.type==='single'"
+        ng-if="question.type==='single'"
         get-question="question"></ag-question-single>
     <ag-question-blank
-        ng-show="question.type==='blank'"
+        ng-if="question.type==='blank'"
         get-question="question"></ag-question-blank>
     <!--<ag-question-true-false ng-show="question.type==='trueorfalse'" model="question" index="{{$index}}"></ag-question-true-false>-->
     <!--<ag-question-table ng-show="question.type==='table'" model="question" index="{{$index}}"></ag-question-table>-->

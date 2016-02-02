@@ -21,10 +21,12 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
 
       if (!$scope.question.content.type_text)
         $scope.question.content.type_text = '填空题';
-      if (!$scope.question.content.input_type_text)
-        $scope.question.content.input_type_text = '数字';
+
       if (!$scope.question.content.input_type)
         $scope.question.content.input_type = 'number';
+
+      if (!$scope.question.content.input_type_text)
+        $scope.question.content.input_type_text = '数字';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;

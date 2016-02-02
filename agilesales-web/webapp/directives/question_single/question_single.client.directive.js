@@ -6,9 +6,55 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
     restrict: 'AE',
     templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
-    scope: {},
+    scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
+      if (!$scope.question.content)
+        $scope.question.content = {};
 
+      if (!$scope.question.content.type)
+        $scope.question.content.type = 'single';
+
+      if (!$scope.question.content.title)
+        $scope.question.content.title = '';
+
+      if (!$scope.question.content.type_text)
+        $scope.question.content.type_text = '选择题';
+
+      if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
+        $scope.question.content.is_need_photo = false;
+      }
+      else {
+        $scope.question.content.is_need_photo = true;
+      }
+
+      if (!$scope.question.content.options) {
+        $scope.question.content.options = [{
+          key: '选项',
+          value: ''
+        }];
+      }
+
+      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
+        $scope.question.content.is_need_description = false;
+      }
+      else {
+        $scope.question.content.is_need_description = true;
+      }
+      $scope.togglePhoto = function () {
+        $scope.question.content.is_need_photo = !$scope.question.content.is_need_photo;
+      };
+      $scope.toggleDescription = function () {
+        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
+      };
+      $scope.submitQuestion = function () {
+        $scope.question.type = $scope.question.content.type;
+        $scope.question.title = $scope.question.content.title;
+        $scope.question.content.options.forEach(function (option) {
+          delete  option.$$hashKey;
+        });
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
+      }
     }
   }
 });
