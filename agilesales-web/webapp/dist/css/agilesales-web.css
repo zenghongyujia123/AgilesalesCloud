@@ -590,8 +590,8 @@ body {
   line-height: 50px;
 }
 .ag-question-container .ag-question-footer .ag-question-add {
-  float: left;
-  margin: 30px;
+  margin: 30px auto;
+  text-align: center;
 }
 .ag-question-container .ag-question-footer .ag-question-remove {
   float: right;
@@ -658,7 +658,7 @@ body {
   width: 50%;
   padding: 0px 30px;
   display: inline-block;
-  margin-right: -5px;
+  float: left;
 }
 .ag-dialog .ag-dialog-panel .ag-dialog-row .ag-row-right {
   display: inline-block;

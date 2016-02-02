@@ -13,4 +13,20 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
     }
     console.log($scope.card);
   }
+
+  $scope.showAddQuestion = function () {
+    $rootScope.$broadcast('show.dialogSelect', {
+      title: '添加题目',
+      contents: [{
+        key: '请选择题目类型',
+        value: '',
+        tip: '点击输入名称',
+        options: ['填空题', '单选题', '多选题', '是非题','表格题']
+      }],
+      color: 'blue',
+      callback: function (info) {
+        console.log(info);
+      }
+    });
+  }
 }]);

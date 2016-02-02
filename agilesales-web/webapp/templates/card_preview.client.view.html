@@ -1,6 +1,13 @@
 <div class="ag-card-preview-page animated bounceInRight">
-  <ag-question-single></ag-question-single>
-  <ag-question-blank></ag-question-blank>
-  <ag-question-true-false></ag-question-true-false>
-  <ag-question-table></ag-question-table>
+  <div class="ag-question-container" ng-repeat="question in paper.questions">
+    <ag-question-single ng-show="question.type===single"></ag-question-single>
+    <ag-question-blank ng-show="question.type===blank"></ag-question-blank>
+    <ag-question-true-false ng-show="question.type===trueorfalse"></ag-question-true-false>
+    <ag-question-table ng-show="question.type===table"></ag-question-table>
+  </div>
+  <div class="ag-question-container">
+    <div class="ag-question-footer">
+      <div class="ag-btn blue ag-question-add" ng-click="showAddQuestion()">添加题目</div>
+    </div>
+  </div>
 </div>

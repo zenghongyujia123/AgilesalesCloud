@@ -376,10 +376,10 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionBlank', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_blank/question_blank.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -390,10 +390,10 @@ angular.module('agilesales-web').directive('agQuestionBlank', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
+angular.module('agilesales-web').directive('agQuestionBlank', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
+    templateUrl: 'directives/question_blank/question_blank.client.view.html',
     replace: true,
     scope: {},
     link: function ($scope, $element, $attrs) {
@@ -511,6 +511,16 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
       var result = {};
       user.company.card_templates.forEach(function (item) {
         if (item._id === id) {
+          result = item;
+        }
+      });
+      return result;
+    },
+    getPaperById: function (cardId, paperId) {
+      var card = this.getCardTemplateById(cardId);
+      var result = {};
+      card.papers.forEach(function (item) {
+        if (item._id === paperId) {
           result = item;
         }
       });
@@ -1811,9 +1821,30 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
 angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', function ($scope, $rootScope, $state, $stateParams, AuthService) {
   $scope.location = window.location;
   $scope.card = {};
+  $scope.paper = {};
+
   if ($stateParams.card_id) {
     $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
+    if ($stateParams.paper_id) {
+      $scope.paper = AuthService.getPaperById($stateParams.card_id, $stateParams.paper_id);
+    }
     console.log($scope.card);
+  }
+
+  $scope.showAddQuestion = function () {
+    $rootScope.$broadcast('show.dialogSelect', {
+      title: '添加题目',
+      contents: [{
+        key: '请选择题目类型',
+        value: '',
+        tip: '点击输入名称',
+        options: ['填空题', '单选题', '多选题', '是非题','表格题']
+      }],
+      color: 'blue',
+      callback: function (info) {
+        console.log(info);
+      }
+    });
   }
 }]);
 /**
