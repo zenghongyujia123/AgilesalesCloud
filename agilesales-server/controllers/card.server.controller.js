@@ -46,6 +46,19 @@ exports.updateQuestion = function (req, res, next) {
   ;
 };
 
+exports.updateCardTitle = function (req, res, next) {
+  cardService.updateCardTitle(
+    req.body.card_id,
+    req.body.title,
+    req.user.company,
+    function (err, result) {
+      if (err) {
+        return res.send(err);
+      }
+      return res.send(result);
+    });
+};
+
 exports.updateCardTemplate = function (req, res, next) {
 
 };

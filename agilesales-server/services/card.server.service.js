@@ -126,4 +126,37 @@ exports.updateQuestion = function (question, cardId, paperId, company, callback)
   });
 };
 
+exports.updateCardTitle = function (cardId, title, company, callback) {
+  CardTemplate.findOne({_id: cardId}, function (err, card) {
+    if (err) {
+      return callback({err: errs.system.db_error});
+    }
+    if (!card) {
+      return callback({err: errs.business.card_template_not_existed});
+    }
+
+    card.title = title;
+    card.save(function (err, saveCard) {
+      if (err || !saveCard) {
+        return callback({err: errs.system.db_error});
+      }
+
+      CardTemplate.find({company: company}).sort({created:1}).exec(function (err, cards) {
+        if (err || !cards) {
+          return callback({err: errs.system.db_error});
+        }
+        company.card_templates = cards;
+        company.markModified('card_templates');
+        company.save(function (err, saveCompany) {
+          if (err || !saveCompany) {
+            return callback({err: errs.system.db_error});
+          }
+          return callback(null, card);
+        });
+      });
+    })
+
+  });
+};
+
 
