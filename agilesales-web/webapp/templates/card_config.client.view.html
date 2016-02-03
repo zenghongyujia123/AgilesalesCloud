@@ -16,25 +16,25 @@
       <div class="ag-table-col" ng-repeat="h in headers">{{h}}</div>
     </div>
     <div class="ag-table-body animated bounceInDown" ng-style="{width:((headers.length+1)*141)+'px'}">
-      <div class="ag-table-row" ng-repeat="p in customers">
+      <div class="ag-table-row" ng-repeat="c in customers">
         <div class="ag-table-col" title="{{p.number}}">{{p.number||'未填'}}</div>
-        <div class="ag-table-col">{{p.customer_level||'未填'}}</div>
-        <div class="ag-table-col">{{p.name||'未填'}}</div>
-        <div class="ag-table-col">{{p.short_name||'未填'}}</div>
-        <div class="ag-table-col">{{p.customer_type||'未填'}}</div>
-        <div class="ag-table-col">{{p.channel_type||'未填'}}</div>
-        <div class="ag-table-col">{{p.area_level1||'未填'}}</div>
-        <div class="ag-table-col">{{p.area_level2||'未填'}}</div>
-        <div class="ag-table-col">{{p.area_level3||'未填'}}</div>
-        <div class="ag-table-col">{{p.address||'未填'}}</div>
-        <div class="ag-table-col">{{p.delivery_address||'未填'}}</div>
-        <div class="ag-table-col">{{p.contact_phone||'未填'}}</div>
-        <div class="ag-table-col">{{p.contact_name||'未填'}}</div>
-        <div class="ag-table-col">{{p.principal_number||'未填'}}</div>
-        <div class="ag-table-col">{{p.principal_name||'未填'}}</div>
-        <div class="ag-table-col">{{p.promotion_card.title||'未填'}}</div>
-        <div class="ag-table-col">{{p.salesman_card.title||'未填'}}</div>
-        <div class="ag-table-col btn">设为当前拜访卡</div>
+        <div class="ag-table-col">{{c.customer_level||'未填'}}</div>
+        <div class="ag-table-col">{{c.name||'未填'}}</div>
+        <div class="ag-table-col">{{c.short_name||'未填'}}</div>
+        <div class="ag-table-col">{{c.customer_type||'未填'}}</div>
+        <div class="ag-table-col">{{c.channel_type||'未填'}}</div>
+        <div class="ag-table-col">{{c.area_level1||'未填'}}</div>
+        <div class="ag-table-col">{{c.area_level2||'未填'}}</div>
+        <div class="ag-table-col">{{c.area_level3||'未填'}}</div>
+        <div class="ag-table-col">{{c.address||'未填'}}</div>
+        <div class="ag-table-col">{{c.delivery_address||'未填'}}</div>
+        <div class="ag-table-col">{{c.contact_phone||'未填'}}</div>
+        <div class="ag-table-col">{{c.contact_name||'未填'}}</div>
+        <div class="ag-table-col">{{c.principal_number||'未填'}}</div>
+        <div class="ag-table-col">{{c.principal_name||'未填'}}</div>
+        <div class="ag-table-col">{{c.promotion_card.title||'未填'}}</div>
+        <div class="ag-table-col">{{c.salesman_card.title||'未填'}}</div>
+        <div class="ag-table-col btn" ng-click="showUpdateCustomerCard(c)">设为当前拜访卡</div>
       </div>
     </div>
   </div>

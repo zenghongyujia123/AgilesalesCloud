@@ -58,4 +58,26 @@ exports.getCustomers = function (company, callback) {
   });
 };
 
+exports.updateCustomerCard = function (card, customer, callback) {
+  if (card.role === 'promotions') {
+    customer.promotion_card = card;
+    customer.markModified('promotion_card');
+  }
+
+  if (card.role === 'salesman') {
+    customer.salesman_card = card;
+    customer.markModified('salesman_card');
+  }
+
+  customer.save(function (err, saveCustomer) {
+    if (err || !saveCustomer) {
+      return callback({err: errs.system.db_error});
+    }
+
+    return callback(null, customer);
+  });
+};
+
+
+
 

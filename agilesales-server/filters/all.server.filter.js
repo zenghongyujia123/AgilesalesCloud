@@ -6,5 +6,7 @@
 var _ = require('lodash');
 
 exports = _.extend(exports, {
-  user: require('./user')
+  user: require('./user'),
+  card: require('./card'),
+  customer: require('./customer')
 });

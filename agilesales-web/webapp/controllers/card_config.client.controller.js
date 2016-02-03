@@ -50,6 +50,18 @@ angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootS
         }
       });
     };
+    $scope.showUpdateCustomerCard = function (customer) {
+      $rootScope.$broadcast('show.dialogConfirm', {
+        title: '修改客户经销商拜访卡',
+        content: '你确定要将拜访卡(' + $scope.card.title + ')设置给客户(' + customer.name + ')吗?',
+        color: 'blue',
+        customer: customer,
+        callback: function (info) {
+          $scope.updateCustomerCard(info.customer);
+          console.log(info);
+        }
+      })
+    };
 
     $scope.updateCardTemplateTitle = function (title) {
       CardService.updateCardTemplateTitle($scope.card._id, title).then(function (data) {
@@ -60,6 +72,16 @@ angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootS
       }, function (data) {
         console.log(data);
       });
-    }
+    };
 
+    $scope.updateCustomerCard = function (customer) {
+      CustomerService.updateCustomerCard(customer._id, $scope.card._id).then(function (data) {
+        if (!data.err) {
+          $state.go('card_edit.card_config', {}, {reload: true});
+        }
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    };
   }]);

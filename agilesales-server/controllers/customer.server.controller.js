@@ -22,3 +22,12 @@ exports.getCustomers = function (req, res, next) {
     return res.send(result);
   });
 };
+
+exports.updateCustomerCard = function (req, res, next) {
+  customerService.updateCustomerCard(req.card_template, req.customer, function (err, result) {
+    if (err) {
+      return res.send(err);
+    }
+    return res.send(result);
+  });
+};
