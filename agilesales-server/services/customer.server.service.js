@@ -18,7 +18,9 @@ exports.uploadMultiCustomers = function (company, customers, callback) {
       if (!findCustomer) {
         findCustomer = new Customer({
           name: customer.name,
-          company: company
+          company: company,
+          promotion_card: company.promotion_defaul_card,
+          salesman_card: company.salesman_defaul_card
         });
       }
 
