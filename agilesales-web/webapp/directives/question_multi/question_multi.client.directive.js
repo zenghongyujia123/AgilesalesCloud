@@ -66,10 +66,6 @@ angular.module('agilesales-web').directive('agQuestionMulti', function () {
         }
       };
 
-      function isFirstOption(index) {
-        return index === 0;
-      }
-
       function isLastOption(index) {
         return ($scope.question.content.options.length - 1 ) === index;
       }

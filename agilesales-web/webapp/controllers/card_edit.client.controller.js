@@ -39,6 +39,4 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
   };
 
   $scope.location = window.location;
-
-  $scope.goConfig();
 }]);

@@ -32,7 +32,6 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
     };
 
     $scope.$on('onQuestionUpdated', function (event, data) {
-      //$scope.paper.questions[data.index] = data.question;
       $scope.updateQuestion(data.question);
       console.log($scope.paper.questions);
       console.log(data);
@@ -40,6 +39,8 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
 
     $scope.updateQuestion = function (question) {
       CardService.updateQuestion(question, $scope.paper._id, $scope.card._id).then(function (data) {
+        if (!data.err)
+          $state.go('card_edit.card_preview', {}, {reload: true});
         console.log(data);
       }, function (data) {
         console.log(data);
