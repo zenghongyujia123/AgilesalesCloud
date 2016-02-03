@@ -48,9 +48,29 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
     });
 
     CardService.createCardTemplate(title, role).then(function (data) {
+      if (!data.err) {
+        $state.go('card_home', {}, {reload: true});
+      }
       console.log(data);
     }, function (data) {
       console.log(data);
     });
+  };
+
+  $scope.getCardTip = function (card) {
+    var result = '';
+    if (card.type === 'default') {
+      result += '默认';
+    }
+    else {
+      result += '自定';
+    }
+    if (card.role === 'salesman') {
+      result += '业务员';
+    }
+    else {
+      result += '导购员';
+    }
+    return result;
   }
 }]);

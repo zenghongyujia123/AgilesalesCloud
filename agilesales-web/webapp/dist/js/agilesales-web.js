@@ -383,47 +383,6 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionCamera', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_camera/camera.client.view.html',
-    replace: true,
-    scope: {getQuestion: '&'},
-    link: function ($scope, $element, $attrs) {
-      $scope.question = $scope.getQuestion();
-      $scope.status = 'preview';
-      if (!$scope.question.content)
-        $scope.question.content = {};
-
-      if (!$scope.question.content.type)
-        $scope.question.content.type = 'camera';
-
-      if (!$scope.question.content.title)
-        $scope.question.content.title = '';
-
-      if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '拍照题';
-
-      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
-        $scope.question.content.is_need_description = false;
-      }
-      else {
-        $scope.question.content.is_need_description = true;
-      }
-      $scope.toggleDescription = function () {
-        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
-      };
-      $scope.submitQuestion = function () {
-        $scope.question.type = $scope.question.content.type;
-        $scope.question.title = $scope.question.content.title;
-        $scope.$emit('onQuestionUpdated', {question: $scope.question});
-      };
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -512,10 +471,51 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
+angular.module('agilesales-web').directive('agQuestionCamera', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
+    templateUrl: 'directives/question_camera/camera.client.view.html',
+    replace: true,
+    scope: {getQuestion: '&'},
+    link: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
+      $scope.status = 'preview';
+      if (!$scope.question.content)
+        $scope.question.content = {};
+
+      if (!$scope.question.content.type)
+        $scope.question.content.type = 'camera';
+
+      if (!$scope.question.content.title)
+        $scope.question.content.title = '';
+
+      if (!$scope.question.content.type_text)
+        $scope.question.content.type_text = '拍照题';
+
+      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
+        $scope.question.content.is_need_description = false;
+      }
+      else {
+        $scope.question.content.is_need_description = true;
+      }
+      $scope.toggleDescription = function () {
+        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
+      };
+      $scope.submitQuestion = function () {
+        $scope.question.type = $scope.question.content.type;
+        $scope.question.title = $scope.question.content.title;
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
+      };
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionMulti', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_multi/question_multi.client.view.html',
     replace: true,
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
@@ -525,13 +525,13 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
         $scope.question.content = {};
 
       if (!$scope.question.content.type)
-        $scope.question.content.type = 'single';
+        $scope.question.content.type = 'multi';
 
       if (!$scope.question.content.title)
         $scope.question.content.title = '';
 
       if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '选择题';
+        $scope.question.content.type_text = '多选题';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;
@@ -601,10 +601,10 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionMulti', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_multi/question_multi.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
@@ -614,13 +614,13 @@ angular.module('agilesales-web').directive('agQuestionMulti', function () {
         $scope.question.content = {};
 
       if (!$scope.question.content.type)
-        $scope.question.content.type = 'multi';
+        $scope.question.content.type = 'single';
 
       if (!$scope.question.content.title)
         $scope.question.content.title = '';
 
       if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '多选题';
+        $scope.question.content.type_text = '选择题';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;
@@ -2658,10 +2658,30 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
     });
 
     CardService.createCardTemplate(title, role).then(function (data) {
+      if (!data.err) {
+        $state.go('card_home', {}, {reload: true});
+      }
       console.log(data);
     }, function (data) {
       console.log(data);
     });
+  };
+
+  $scope.getCardTip = function (card) {
+    var result = '';
+    if (card.type === 'default') {
+      result += '默认';
+    }
+    else {
+      result += '自定';
+    }
+    if (card.role === 'salesman') {
+      result += '业务员';
+    }
+    else {
+      result += '导购员';
+    }
+    return result;
   }
 }]);
 /**

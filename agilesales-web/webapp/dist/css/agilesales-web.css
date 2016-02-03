@@ -245,6 +245,7 @@ body {
 }
 .ag-card-home-page .body .card .card-header .title {
   line-height: 40px;
+  font-size: 12px;
 }
 .ag-card-home-page .body .card .card-header .name {
   font-size: 16px;
