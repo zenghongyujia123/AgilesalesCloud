@@ -16,6 +16,7 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
       }
     });
   };
+
   $scope.addPaper = function (title) {
     CardService.addPaperTemplate(title, $scope.card._id).then(function (data) {
       console.log(data);
@@ -38,4 +39,6 @@ angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootSco
   };
 
   $scope.location = window.location;
+
+  $scope.goConfig();
 }]);

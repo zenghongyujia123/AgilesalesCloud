@@ -6,10 +6,10 @@
   <div class="center-area">
     <div class="left">
       <div class="left-header">
-        美赞成业务拜访卡
+        {{card.title}}
       </div>
       <div class="left-item" ui-sref="card_edit.card_config"
-           ng-class="{select:location.hash==='#/card_edit/card_config'}">拜访卡配置
+           ng-class="{select:location.hash==='#/card_edit/'+card._id+'/card_config/'+card._id}">拜访卡配置
       </div>
       <div class="card-paper-title">
         <div class="title">拜访卡试卷</div>
@@ -19,11 +19,6 @@
            ng-class="{select:location.hash===('#/card_edit/'+card._id+'/card_preview/'+card._id+'/'+paper._id+'')}">
         {{paper.title}}
       </div>
-      <div class="left-item" ui-sref="card_edit.card_preview">分销检查报告</div>
-      <div class="left-item" ui-sref="card_edit.card_preview">价格检查报告</div>
-      <div class="left-item" ui-sref="card_edit.card_preview">人员检查报告</div>
-      <div class="left-item" ui-sref="card_edit.card_preview">精品检查报告</div>
-      <div class="left-item" ui-sref="card_edit.card_preview">订单</div>
     </div>
     <div class="right">
       <ui-view>
