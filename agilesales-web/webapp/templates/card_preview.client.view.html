@@ -12,6 +12,10 @@
     <ag-question-true-false
         ng-if="question.type==='trueorfalse'"
         get-question="question"></ag-question-true-false>
+    <ag-question-camera
+        ng-if="question.type==='camera'"
+        get-question="question"></ag-question-true-false>
+    </ag-question-camera>
     <ag-question-table
         ng-if="question.type==='table'"
         get-question="question"></ag-question-table>

@@ -22,7 +22,7 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
           key: '请选择题目类型',
           value: '',
           tip: '点击输入名称',
-          options: ['填空题', '单选题', '多选题', '是非题', '表格题']
+          options: ['填空题', '单选题', '多选题', '是非题', '表格题', '拍照题']
         }],
         color: 'blue',
         callback: function (info) {
@@ -59,6 +59,8 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
           return 'table';
         case '是非题':
           return 'trueorfalse';
+        case '拍照题':
+          return 'camera';
       }
     }
 

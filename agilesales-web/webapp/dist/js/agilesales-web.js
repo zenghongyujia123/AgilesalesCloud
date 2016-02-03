@@ -469,6 +469,46 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agQuestionCamera', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_camera/camera.client.view.html',
+    replace: true,
+    scope: {getQuestion: '&'},
+    link: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
+      if (!$scope.question.content)
+        $scope.question.content = {};
+
+      if (!$scope.question.content.type)
+        $scope.question.content.type = 'camera';
+
+      if (!$scope.question.content.title)
+        $scope.question.content.title = '';
+
+      if (!$scope.question.content.type_text)
+        $scope.question.content.type_text = '拍照题';
+
+      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
+        $scope.question.content.is_need_description = false;
+      }
+      else {
+        $scope.question.content.is_need_description = true;
+      }
+      $scope.toggleDescription = function () {
+        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
+      };
+      $scope.submitQuestion = function () {
+        $scope.question.type = $scope.question.content.type;
+        $scope.question.title = $scope.question.content.title;
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
+      };
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agQuestionMulti', function () {
   return {
     restrict: 'AE',
@@ -2608,7 +2648,7 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
           key: '请选择题目类型',
           value: '',
           tip: '点击输入名称',
-          options: ['填空题', '单选题', '多选题', '是非题', '表格题']
+          options: ['填空题', '单选题', '多选题', '是非题', '表格题', '拍照题']
         }],
         color: 'blue',
         callback: function (info) {
@@ -2645,6 +2685,8 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
           return 'table';
         case '是非题':
           return 'trueorfalse';
+        case '拍照题':
+          return 'camera';
       }
     }
 
