@@ -6,8 +6,11 @@
     <div class="ag-dialog-row" ng-repeat="content in info.contents">
       <div class="ag-row-left">{{content.key}}</div>
       <div class="ag-row-right" ng-click="toggleOptions($index)">{{content.value}}
-        <div class="ag-row-option-container" ng-style="{height:(content.options.length*41)+'px'}">
-          <div class="ag-row-option" ng-repeat="option in content.options" ng-click="selectOption(content,option)">{{option}}</div>
+        <div class="ag-row-option-container"
+             ng-style="{height:((content.options.length>8?8:content.options.length)*41)+'px'}">
+          <div class="ag-row-option" ng-repeat="option in content.options" ng-click="selectOption(content,option)">
+            {{option}}
+          </div>
         </div>
       </div>
     </div>

@@ -7,13 +7,10 @@
     <div class="ag-question-left">请选择表格</div>
     <div class="ag-question-right value" ng-click="showTableSelect()">{{question.content.table_name}}</div>
   </div>
-  <div class="ag-question-row">
-    <div class="ag-question-left">请选择筛选字段</div>
-    <div class="ag-question-right value">编号</div>
-  </div>
-  <div class="ag-question-row">
-    <div class="ag-question-left"></div>
-    <div class="ag-question-right value">产品名称</div>
+
+  <div class="ag-question-row" ng-repeat="f in question.content.filter_fields">
+    <div class="ag-question-left">{{f.key}}</div>
+    <div class="ag-question-right value" ng-click="showFilterFieldSelect (f.index)">{{f.value}}</div>
   </div>
 
   <div class="ag-question-row">
@@ -22,8 +19,8 @@
   </div>
 
   <div class="ag-question-row">
-    <div class="ag-question-left">请选择显示字段1</div>
-    <div class="ag-question-right value">编号</div>
+    <div class="ag-question-left">请选择显示字段</div>
+    <div class="ag-question-right value" ng-click="showFieldSelect()">{{question.content.col_field_1 }}</div>
   </div>
   <div class="ag-question-table-row" ng-repeat="q in question.content.show_fields">
     <div class="ag-question-row">
