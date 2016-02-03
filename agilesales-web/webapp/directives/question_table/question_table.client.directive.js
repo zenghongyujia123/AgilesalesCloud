@@ -20,7 +20,7 @@ angular.module('agilesales-web').directive('agQuestionTable', ['$rootScope', 'Au
           title: '选择表格',
           contents: [{
             key: '请选择表格',
-            value: '请选择表格',
+            value: '',
             options: options
           }],
           color: 'blue',
@@ -30,7 +30,7 @@ angular.module('agilesales-web').directive('agQuestionTable', ['$rootScope', 'Au
         });
       };
 
-      $scope.showFieldSelect = function(){
+      $scope.showFieldSelect = function () {
         var fields = AuthService.getFieldsByTable($scope.question.content.table_name);
         var options = [];
         fields.forEach(function (field) {
@@ -41,12 +41,12 @@ angular.module('agilesales-web').directive('agQuestionTable', ['$rootScope', 'Au
           title: '选择显示字段',
           contents: [{
             key: '请选择显示字段',
-            value: '请选择显示字段',
+            value: '',
             options: options
           }],
           color: 'blue',
           callback: function (info) {
-            $scope.question.content.col_field_1= info.contents[0].value;
+            $scope.question.content.col_field_1 = info.contents[0].value;
           }
         });
       };
@@ -75,6 +75,11 @@ angular.module('agilesales-web').directive('agQuestionTable', ['$rootScope', 'Au
 
       if (!$scope.question.content)
         $scope.question.content = {};
+
+      if (!$scope.question.content.type) {
+        $scope.question.content.type = 'table';
+      }
+
       if (!$scope.question.content)
         $scope.question.content = {};
       if (!$scope.question.content.table_name)
@@ -94,12 +99,12 @@ angular.module('agilesales-web').directive('agQuestionTable', ['$rootScope', 'Au
         $scope.question.content.filter_fields = [];
         $scope.question.content.filter_fields.push({
           key: '请选择筛选字段',
-          value: '请选择筛选字段',
+          value: '',
           index: 0
         });
         $scope.question.content.filter_fields.push({
           key: '',
-          value: '请选择筛选字段',
+          value: '',
           index: 1
         });
       }
@@ -120,6 +125,28 @@ angular.module('agilesales-web').directive('agQuestionTable', ['$rootScope', 'Au
           type: 'multi'
         });
       }
+
+      $scope.submitQuestion = function () {
+        $scope.question.type = $scope.question.content.type;
+        $scope.question.title = $scope.question.content.title;
+
+        delete  $scope.question.$$hashKey;
+        $scope.question.content.filter_fields.forEach(function (field) {
+          delete field.$$hashKey;
+        });
+
+        $scope.question.content.show_fields.forEach(function (field) {
+          delete field.$$hashKey;
+          if (field.content.options) {
+            field.content.options.forEach(function (option) {
+              delete option.$$hashKey;
+            });
+          }
+        });
+
+        console.log($scope.question);
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
+      };
     }
   }
 }]);

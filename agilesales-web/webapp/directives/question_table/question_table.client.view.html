@@ -4,13 +4,20 @@
     <div class="ag-question-right title">表格题</div>
   </div>
   <div class="ag-question-row">
+    <div class="ag-question-left">题目标题</div>
+    <input class="ag-question-right value" placeholder="请输入题目标题" ng-model="question.content.title">
+  </div>
+
+  <div class="ag-question-row">
     <div class="ag-question-left">请选择表格</div>
-    <div class="ag-question-right value" ng-click="showTableSelect()">{{question.content.table_name}}</div>
+    <input readonly="readonly" class="ag-question-right value" ng-click="showTableSelect()" placeholder="请选择表格"
+           ng-model="question.content.table_name">
   </div>
 
   <div class="ag-question-row" ng-repeat="f in question.content.filter_fields">
     <div class="ag-question-left">{{f.key}}</div>
-    <div class="ag-question-right value" ng-click="showFilterFieldSelect (f.index)">{{f.value}}</div>
+    <input readonly="readonly" class="ag-question-right value" ng-click="showFilterFieldSelect(f.index)" ng-model="f.value"
+           placeholder="请输入筛选字段">
   </div>
 
   <div class="ag-question-row">
@@ -19,8 +26,9 @@
   </div>
 
   <div class="ag-question-row">
-    <div class="ag-question-left">请选择显示字段</div>
-    <div class="ag-question-right value" ng-click="showFieldSelect()">{{question.content.col_field_1 }}</div>
+    <div class="ag-question-left">列1显示字段</div>
+    <input readonly="readonly" class="ag-question-right value" ng-click="showFieldSelect()" ng-model="question.content.col_field_1"
+           placeholder="请选择显示字段">
   </div>
   <div class="ag-question-table-row" ng-repeat="q in question.content.show_fields">
     <div class="ag-question-row">
@@ -46,7 +54,7 @@
         get-question="q"></ag-question-table-true-false>
   </div>
   <div class="ag-question-footer">
-    <div class="ag-btn blue ag-question-finish">完成</div>
+    <div class="ag-btn blue ag-question-finish" ng-click="submitQuestion()">完成</div>
     <div class="ag-btn blue ag-question-remove">删除</div>
   </div>
 </div>
