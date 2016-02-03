@@ -8,6 +8,7 @@ angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
     replace: true,
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
+      $scope.status = 'preview';
       $scope.question = $scope.getQuestion();
       if (!$scope.question.content)
         $scope.question.content = {};
