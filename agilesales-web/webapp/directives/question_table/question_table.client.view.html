@@ -62,80 +62,55 @@
     </div>
   </div>
   <div class="ag-question-preview table" ng-show="status==='preview'" ng-click="status='edit'">
-    <div class="ag-question-row preview has-bottom">
+    <div class="ag-question-table-header ag-question-row preview has-bottom">
       <div class="ag-question-left">品牌</div>
       <div class="ag-question-right has-left">系列</div>
     </div>
-    <div class="ag-question-row preview has-bottom">
-      <div class="row">
-        <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-          <div class="ag-table-preview-header ">重点sku</div>
+    <div class="ag-question-table-body">
+      <div class="ag-question-row preview has-bottom" ng-style="{width:getPreviewRowWidth()}">
+        <div class="ag-question-col" ng-style="{width:getPreviewColWidth()}">
+          <div class="ag-table-preview-header">{{question.content.col_field_1}}</div>
         </div>
-        <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-          <div class="ag-table-preview-header ">重点sku</div>
-        </div>
-        <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-          <div class="ag-table-preview-header ">重点sku</div>
-        </div>
-        <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-          <div class="ag-table-preview-header ">重点sku</div>
+        <div class="ag-question-col" ng-repeat="f in question.content.show_fields"
+             ng-style="{width:getPreviewColWidth()}">
+          <div class="ag-table-preview-header">{{f.content.title}}</div>
         </div>
       </div>
-    </div>
-    <div class="ag-question-row preview row has-bottom">
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="title">重点sku</div>
+      <div class="ag-question-row preview has-bottom" ng-style="{width:getPreviewRowWidth()}">
+        <div class="ag-question-col" ng-style="{width:getPreviewColWidth()}">
+          <div class="title">{{question.content.col_field_1}}</div>
+        </div>
+        <div class="ag-question-col" ng-repeat="f in question.content.show_fields"
+             ng-style="{width:getPreviewColWidth()}">
+          <div class="value">{{f.content.title}}</div>
+        </div>
       </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
+      <div class="ag-question-row preview has-bottom" ng-style="{width:getPreviewRowWidth()}">
+        <div class="ag-question-col" ng-style="{width:getPreviewColWidth()}">
+          <div class="title">{{question.content.col_field_1}}</div>
+        </div>
+        <div class="ag-question-col" ng-repeat="f in question.content.show_fields"
+             ng-style="{width:getPreviewColWidth()}">
+          <div class="value">{{f.content.title}}</div>
+        </div>
       </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
+      <div class="ag-question-row preview has-bottom" ng-style="{width:getPreviewRowWidth()}">
+        <div class="ag-question-col" ng-style="{width:getPreviewColWidth()}">
+          <div class="title">{{question.content.col_field_1}}</div>
+        </div>
+        <div class="ag-question-col" ng-repeat="f in question.content.show_fields"
+             ng-style="{width:getPreviewColWidth()}">
+          <div class="value">{{f.content.title}}</div>
+        </div>
       </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-    </div>
-    <div class="ag-question-row preview row has-bottom">
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="title">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-    </div>
-    <div class="ag-question-row preview row has-bottom">
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="title">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-    </div>
-    <div class="ag-question-row preview row has-bottom">
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="title">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
-      </div>
-      <div class="col col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <div class="value">重点sku</div>
+      <div class="ag-question-row preview has-bottom" ng-style="{width:getPreviewRowWidth()}">
+        <div class="ag-question-col" ng-style="{width:getPreviewColWidth()}">
+          <div class="title">{{question.content.col_field_1}}</div>
+        </div>
+        <div class="ag-question-col" ng-repeat="f in question.content.show_fields"
+             ng-style="{width:getPreviewColWidth()}">
+          <div class="value">{{f.content.title}}</div>
+        </div>
       </div>
     </div>
   </div>

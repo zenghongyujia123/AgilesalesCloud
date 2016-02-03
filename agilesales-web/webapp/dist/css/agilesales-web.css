@@ -788,28 +788,42 @@ body {
 .ag-question-container .ag-question-table .ag-question-preview.table {
   margin-bottom: 0px;
 }
-.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-row.preview .ag-table-preview-header {
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-header .ag-question-left {
+  width: 50%;
+  text-align: center;
+}
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-header .ag-question-right {
+  width: 50%;
+  text-align: center;
+}
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-body {
+  overflow-x: scroll;
+}
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-body .ag-question-row.preview .ag-question-col {
+  float: left;
+}
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-body .ag-question-row.preview .ag-question-col .ag-table-preview-header {
   color: #999;
   margin-top: 30px;
   font-size: 12px;
-  margin-left: 10px;
+  padding-left: 10px;
   margin-bottom: 5px;
 }
-.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-row.preview .title {
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-body .ag-question-row.preview .ag-question-col .title {
   color: #037dff;
   line-height: 50px;
   padding-left: 10px;
 }
-.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-row.preview .value {
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-body .ag-question-row.preview .ag-question-col .value {
   border-left: 1px solid #d2d2d2;
   line-height: 50px;
   padding-left: 10px;
 }
-.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-row.preview .ag-question-left {
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-body .ag-question-row.preview .ag-question-col .ag-question-left {
   text-align: center;
   width: 50%;
 }
-.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-row.preview .ag-question-right {
+.ag-question-container .ag-question-table .ag-question-preview.table .ag-question-table-body .ag-question-row.preview .ag-question-col .ag-question-right {
   text-align: center;
   width: 50%;
 }

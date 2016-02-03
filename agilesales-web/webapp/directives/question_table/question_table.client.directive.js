@@ -147,6 +147,15 @@ angular.module('agilesales-web').directive('agQuestionTable', ['$rootScope', 'Au
         console.log($scope.question);
         $scope.$emit('onQuestionUpdated', {question: $scope.question});
       };
+
+      $scope.getPreviewRowWidth = function () {
+        var colWidth = $element.width() / 4;
+        return colWidth * ($scope.question.content.show_fields.length + 1) + 'px';
+      };
+      $scope.getPreviewColWidth = function () {
+        var colWidth = $element.width() / 4;
+        return colWidth + 'px';
+      };
     }
   }
 }]);
