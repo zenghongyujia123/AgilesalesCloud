@@ -2,7 +2,7 @@
  * Created by zenghong on 16/1/20.
  */
 'use strict';
-var err = require('./../../errors/all');
+var error = require('./../../errors/all');
 var crypto = require('./../../libraries/crypto');
 
 var appDb = require('./../../libraries/mongoose').appDb,
@@ -16,10 +16,10 @@ exports.requireCardTemplate = function (req, res, next) {
 
   CardTemplate.findOne({_id: card_id}, function (err, card) {
     if (err)
-      return res.send(err.system.db_error);
+      return res.send({err:error.system.db_error});
 
     if (!card)
-      return res.send({err: err.business.card_template_not_existed});
+      return res.send({err: error.business.card_template_not_existed});
 
     req.card_template = card;
     return next();

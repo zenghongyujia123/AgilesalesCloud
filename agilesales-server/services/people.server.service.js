@@ -35,10 +35,10 @@ exports.uploadMultiPeoples = function (company, peoples, callback) {
       user.job_status = '在职';
 
       if (people.role === '导购') {
-        user.roles.push('shopping_guide');
+        user.roles.push('promotion');
       }
       else {
-        user.roles.push('sales_man');
+        user.roles.push('salesman');
       }
       user.save(function (err, saveUser) {
         return eachCallback();
