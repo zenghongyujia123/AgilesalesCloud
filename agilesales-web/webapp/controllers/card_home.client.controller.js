@@ -11,6 +11,10 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
     $state.go('card_edit', {card_id: card._id});
   };
 
+  $scope.goConfig = function (card) {
+    $state.go('card_edit.card_config', {card_id: card._id});
+  };
+
   $scope.showCardAdd = function () {
     $rootScope.$broadcast('show.dialogInput', {
       title: '添加拜访卡',

@@ -5,6 +5,7 @@
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
+  async = require('async'),
   timestamps = require('mongoose-timestamp');
 
 module.exports = function (appDb) {
@@ -75,7 +76,7 @@ module.exports = function (appDb) {
     title: {
       type: String
     },
-    content:{
+    content: {
       type: Schema.Types.Mixed
     },
     company: {
@@ -87,6 +88,20 @@ module.exports = function (appDb) {
   CardTemplateSchema.plugin(timestamps, {
     createdAt: 'created',
     updatedAt: 'updated'
+  });
+
+  CardTemplateSchema.pre('save', function (next) {
+    var self = this;
+    this.paper_count = this.papers.length;
+    this.question_count = 0;
+    async.each(this.papers, function (paper, callback) {
+      if(paper.questions){
+        self.question_count += paper.questions.length;
+      }
+      return callback();
+    }, function () {
+      return next();
+    });
   });
 
   appDb.model('QuestionTemplate', QuestionTemplateSchema);
