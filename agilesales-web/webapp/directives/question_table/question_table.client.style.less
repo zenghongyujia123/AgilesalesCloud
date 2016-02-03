@@ -1,17 +1,37 @@
 .ag-question-container {
   .ag-question-table {
-
-    width: 100%;
-    overflow: hidden;
-    .ag-question-row {
-      .ag-question-left {
-
-      }
-      .ag-question-right {
-      }
-    }
-    .ag-question-footer {
-      .ag-question-add {
+    .ag-question-preview {
+      &.table {
+        margin-bottom: 0px;
+        .ag-question-row {
+          &.preview{
+            .ag-table-preview-header{
+              color: #999;
+              margin-top: 30px;
+              font-size: 12px;
+              margin-left: 10px;
+              margin-bottom: 5px;
+            }
+            .title{
+              color:#037dff;
+              line-height: 50px;
+              padding-left: 10px;
+            }
+            .value{
+              border-left: 1px solid #d2d2d2;
+              line-height: 50px;
+              padding-left: 10px;
+            }
+            .ag-question-left{
+              text-align: center;
+              width:50%;
+            }
+            .ag-question-right{
+              text-align: center;
+              width:50%;
+            }
+          }
+        }
       }
     }
   }
