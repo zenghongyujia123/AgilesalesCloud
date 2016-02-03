@@ -10,6 +10,8 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
     controller: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
 
+      $scope.status = 'preview';
+
       if (!$scope.question.content)
         $scope.question.content = {};
 

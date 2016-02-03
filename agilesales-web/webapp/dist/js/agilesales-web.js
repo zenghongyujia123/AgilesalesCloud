@@ -392,6 +392,8 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
     controller: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
 
+      $scope.status = 'preview';
+
       if (!$scope.question.content)
         $scope.question.content = {};
 
@@ -516,6 +518,7 @@ angular.module('agilesales-web').directive('agQuestionMulti', function () {
     replace: true,
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
+      $scope.status = 'preview';
       $scope.question = $scope.getQuestion();
       if (!$scope.question.content)
         $scope.question.content = {};
@@ -561,6 +564,9 @@ angular.module('agilesales-web').directive('agQuestionMulti', function () {
         $scope.question.content.options.forEach(function (option) {
           delete  option.$$hashKey;
         });
+        if (!$scope.question.content.options[$scope.question.content.options.length - 1].value) {
+          $scope.question.content.options.splice($scope.question.content.options.length - 1, 1);
+        }
         $scope.$emit('onQuestionUpdated', {question: $scope.question});
       };
 
@@ -601,6 +607,7 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
     replace: true,
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
+      $scope.status = 'preview';
       $scope.question = $scope.getQuestion();
       if (!$scope.question.content)
         $scope.question.content = {};
@@ -646,6 +653,9 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
         $scope.question.content.options.forEach(function (option) {
           delete  option.$$hashKey;
         });
+        if (!$scope.question.content.options[$scope.question.content.options.length - 1].value) {
+          $scope.question.content.options.splice($scope.question.content.options.length - 1, 1);
+        }
         $scope.$emit('onQuestionUpdated', {question: $scope.question});
       };
 
@@ -658,10 +668,6 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
           removeOption(index);
         }
       };
-
-      function isFirstOption(index) {
-        return index === 0;
-      }
 
       function isLastOption(index) {
         return ($scope.question.content.options.length - 1 ) === index;
