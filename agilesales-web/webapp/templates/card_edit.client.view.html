@@ -6,7 +6,7 @@
   <div class="center-area">
     <div class="left">
       <div class="left-header">
-        {{card.title}}
+        {{card.title||'未填拜访卡名称'}}
       </div>
       <div class="left-item" ui-sref="card_edit.card_config"
            ng-class="{select:location.hash==='#/card_edit/'+card._id+'/card_config/'+card._id}">拜访卡配置

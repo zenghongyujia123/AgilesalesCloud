@@ -33,4 +33,19 @@ angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootS
 
     $scope.getCustomers();
 
+    $scope.showUpdateCardTitle = function () {
+      $rootScope.$broadcast('show.dialogInput', {
+        title: '修改拜访卡名称',
+        contents: [{
+          key: '修改拜访卡名称',
+          value: $scope.card.title,
+          tip: '请拜访卡名称',
+          param: 'title'
+        }],
+        color: 'blue',
+        callback: function (info) {
+
+        }
+      });
+    };
   }]);

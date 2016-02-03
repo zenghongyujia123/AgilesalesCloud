@@ -902,6 +902,100 @@ angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
+angular.module('agilesales-web').directive('agQuestionTableSingle', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_table/question_table_single/question_single.client.view.html',
+    replace: true,
+    scope: {
+      getQuestion: '&',
+      getIndex: '&'
+    },
+    link: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
+      $scope.index = $scope.getIndex();
+      if (!$scope.question.content)
+        $scope.question.content = {};
+
+      if (!$scope.question.content.type)
+        $scope.question.content.type = 'single';
+
+      if (!$scope.question.content.title)
+        $scope.question.content.title = '';
+
+      if (!$scope.question.content.type_text)
+        $scope.question.content.type_text = '选择题';
+
+      if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
+        $scope.question.content.is_need_photo = false;
+      }
+      else {
+        $scope.question.content.is_need_photo = true;
+      }
+
+      if (!$scope.question.content.options) {
+        $scope.question.content.options = [{
+          key: '选项',
+          value: ''
+        }];
+      }
+
+      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
+        $scope.question.content.is_need_description = false;
+      }
+      else {
+        $scope.question.content.is_need_description = true;
+      }
+      $scope.togglePhoto = function () {
+        $scope.question.content.is_need_photo = !$scope.question.content.is_need_photo;
+      };
+      $scope.toggleDescription = function () {
+        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
+      };
+      $scope.submitQuestion = function () {
+        $scope.question.type = $scope.question.content.type;
+        $scope.question.title = $scope.question.content.title;
+        $scope.question.content.options.forEach(function (option) {
+          delete  option.$$hashKey;
+        });
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
+      };
+
+      $scope.pressOption = function (option, index,$event) {
+        $event.stopPropagation();
+        if (option.value && isLastOption(index)) {
+          pushOption();
+        }
+
+        if (!option.value && !isLastOption(index)) {
+          removeOption(index);
+        }
+      };
+
+      function isFirstOption(index) {
+        return index === 0;
+      }
+
+      function isLastOption(index) {
+        return ($scope.question.content.options.length - 1 ) === index;
+      }
+
+      function removeOption(index) {
+        $scope.question.content.options.splice(index, 1);
+      }
+
+      function pushOption() {
+        $scope.question.content.options.push({
+          key: '',
+          value: ''
+        })
+      }
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
 angular.module('agilesales-web').directive('agQuestionTableBlank', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -1015,100 +1109,6 @@ angular.module('agilesales-web').directive('agQuestionTableMulti', function () {
 
       if (!$scope.question.content.type_text)
         $scope.question.content.type_text = '多选题';
-
-      if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
-        $scope.question.content.is_need_photo = false;
-      }
-      else {
-        $scope.question.content.is_need_photo = true;
-      }
-
-      if (!$scope.question.content.options) {
-        $scope.question.content.options = [{
-          key: '选项',
-          value: ''
-        }];
-      }
-
-      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
-        $scope.question.content.is_need_description = false;
-      }
-      else {
-        $scope.question.content.is_need_description = true;
-      }
-      $scope.togglePhoto = function () {
-        $scope.question.content.is_need_photo = !$scope.question.content.is_need_photo;
-      };
-      $scope.toggleDescription = function () {
-        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
-      };
-      $scope.submitQuestion = function () {
-        $scope.question.type = $scope.question.content.type;
-        $scope.question.title = $scope.question.content.title;
-        $scope.question.content.options.forEach(function (option) {
-          delete  option.$$hashKey;
-        });
-        $scope.$emit('onQuestionUpdated', {question: $scope.question});
-      };
-
-      $scope.pressOption = function (option, index,$event) {
-        $event.stopPropagation();
-        if (option.value && isLastOption(index)) {
-          pushOption();
-        }
-
-        if (!option.value && !isLastOption(index)) {
-          removeOption(index);
-        }
-      };
-
-      function isFirstOption(index) {
-        return index === 0;
-      }
-
-      function isLastOption(index) {
-        return ($scope.question.content.options.length - 1 ) === index;
-      }
-
-      function removeOption(index) {
-        $scope.question.content.options.splice(index, 1);
-      }
-
-      function pushOption() {
-        $scope.question.content.options.push({
-          key: '',
-          value: ''
-        })
-      }
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
-angular.module('agilesales-web').directive('agQuestionTableSingle', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_table/question_table_single/question_single.client.view.html',
-    replace: true,
-    scope: {
-      getQuestion: '&',
-      getIndex: '&'
-    },
-    link: function ($scope, $element, $attrs) {
-      $scope.question = $scope.getQuestion();
-      $scope.index = $scope.getIndex();
-      if (!$scope.question.content)
-        $scope.question.content = {};
-
-      if (!$scope.question.content.type)
-        $scope.question.content.type = 'single';
-
-      if (!$scope.question.content.title)
-        $scope.question.content.title = '';
-
-      if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '选择题';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;
@@ -2565,6 +2565,21 @@ angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootS
 
     $scope.getCustomers();
 
+    $scope.showUpdateCardTitle = function () {
+      $rootScope.$broadcast('show.dialogInput', {
+        title: '修改拜访卡名称',
+        contents: [{
+          key: '修改拜访卡名称',
+          value: $scope.card.title,
+          tip: '请拜访卡名称',
+          param: 'title'
+        }],
+        color: 'blue',
+        callback: function (info) {
+
+        }
+      });
+    };
   }]);
 /**
  * Created by zenghong on 16/1/15.
