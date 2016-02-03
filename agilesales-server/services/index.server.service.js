@@ -6,6 +6,8 @@ var appDb = require('./../../libraries/mongoose').appDb,
   Company = appDb.model('Company'),
   User = appDb.model('User'),
   CardTemplate = appDb.model('CardTemplate'),
+  PaperTemplate = appDb.model('PaperTemplate'),
+  QuestionTemplate = appDb.model('QuestionTemplate'),
   AreaTitle = appDb.model('AreaTitle');
 
 exports.initTempData = function () {
@@ -100,100 +102,7 @@ exports.initTempData = function () {
       company.super_admin = user;
     }
     if (company.tables.length <= 0) {
-      company.tables = [];
-      company.tables.push({
-        table: 'Product',
-        table_name: '产品表',
-        fields: [
-          {
-            name: '产品编码',
-            field: 'number'
-          },
-          {
-            name: '产品条码',
-            field: 'barcode'
-          },
-          {
-            name: '产品名称',
-            field: 'name'
-          },
-          {
-            name: '产品简称',
-            field: 'short_name'
-          },
-          {
-            name: '品牌',
-            field: 'brand'
-          },
-          {
-            name: '系列',
-            field: 'series'
-          },
-          {
-            name: '大类',
-            field: 'large_type'
-          },
-          {
-            name: '小类',
-            field: 'small_type'
-          },
-          {
-            name: '包装单位',
-            field: 'package_unit'
-          },
-          {
-            name: '规格',
-            field: 'specification'
-          },
-          {
-            name: '产品等级',
-            field: 'product_level'
-          },
-          {
-            name: '是否新品',
-            field: 'is_new'
-          },
-          {
-            name: '是否重点产品',
-            field: 'is_key'
-          },
-          {
-            name: '是否档期促销品',
-            field: 'is_promotion'
-          }
-        ]
-      });
-      company.tables.push({
-        table: 'Customer',
-        table_name: '客户经销商',
-        fields: [
-          {
-            name: '客户名称',
-            field: 'name'
-          },
-          {
-            name: '客户简称',
-            field: 'short_name'
-          },
-          {
-            name: '客户编码',
-            field: 'number'
-          },
-          {
-            name: '客户等级',
-            field: 'customer_level'
-          },
-          {
-            name: '客户类型',
-            field: 'customer_type'
-          },
-          {
-            name: '渠道类型',
-            field: 'channel_type'
-          }
-        ]
-      });
-      company.markModified('tables');
+      company = initCompanyTables(company);
     }
 
     company.save(function (err, saveCompany) {
@@ -207,13 +116,14 @@ exports.initTempData = function () {
       }
 
       if (company.card_templates.length <= 0) {
-        initCardTemplateData(saveCompany);
+        initCardTemplate(saveCompany);
       }
     });
   });
 };
 
-function initCardTemplateData(company, callback) {
+function initCardTemplate(company, callback) {
+  company.card_templates = [];
   var cardTemplate1 = new CardTemplate({
     title: '默认业务员拜访卡',
     role: 'salesman',
@@ -231,6 +141,9 @@ function initCardTemplateData(company, callback) {
     company: company
   });
 
+  cardTemplate1 = initCardPapers(cardTemplate1, company);
+  cardTemplate2 = initCardPapers(cardTemplate2, company);
+
   cardTemplate1.save(function () {
     cardTemplate2.save(function () {
       company.card_templates.push(cardTemplate1);
@@ -239,8 +152,227 @@ function initCardTemplateData(company, callback) {
       });
     });
   });
+}
 
+function initCardPapers(cardTemplate, company) {
+  var paper = new PaperTemplate({
+    title: '陈列检查报告',
+    questions: [],
+    company: company
+  });
 
+  paper = initPaperQuestions(paper, company);
+  cardTemplate.papers.push(paper);
+  paper = new PaperTemplate({
+    title: '分销检查报告',
+    questions: [],
+    company: company
+  });
+  paper = initPaperQuestions(paper, company);
+  cardTemplate.papers.push(paper);
+  paper = new PaperTemplate({
+    title: '价格检查报告',
+    questions: [],
+    company: company
+  });
+  paper = initPaperQuestions(paper, company);
+  cardTemplate.papers.push(paper);
+  paper = new PaperTemplate({
+    title: '人员检查报告',
+    questions: [],
+    company: company
+  });
+  paper = initPaperQuestions(paper, company);
+  cardTemplate.papers.push(paper);
+  paper = new PaperTemplate({
+    title: '竞品检查报告',
+    questions: [],
+    company: company
+  });
+  paper = initPaperQuestions(paper, company);
+  cardTemplate.papers.push(paper);
+  paper = new PaperTemplate({
+    title: '订单',
+    questions: [],
+    company: company
+  });
+  cardTemplate.papers.push(paper);
+  return cardTemplate;
+}
+
+function initPaperQuestions(paper, company) {
+  var question = new QuestionTemplate({
+    type: 'blank',
+    title: '填空题标题1',
+    content: {
+      input_type: 'number',
+      is_need_description: true,
+      is_need_photo: true,
+      input_type_text: '数字',
+      type_text: '填空题',
+      title: '填空题标题1',
+      type: 'blank'
+    },
+    company: company
+  });
+  paper.questions.push(question);
+
+  question = new QuestionTemplate({
+    type: 'single',
+    title: '单选题标题1',
+    content: {
+      is_need_description: true,
+      is_need_photo: true,
+      type_text: '单选题',
+      title: '单选题标题1',
+      type: 'single',
+      options: [
+        {value: '是正品', key: ''},
+        {value: '不是正品', key: ''}
+      ]
+    },
+    company: company
+  });
+  paper.questions.push(question);
+
+  question = new QuestionTemplate({
+    type: 'multi',
+    title: '多选题标题1',
+    content: {
+      is_need_description: true,
+      is_need_photo: true,
+      type_text: '多选题',
+      title: '多选题标题1',
+      type: 'multi',
+      options: [
+        {value: '是正品', key: ''},
+        {value: '不是正品', key: ''}
+      ]
+    },
+    company: company
+  });
+  paper.questions.push(question);
+
+  question = new QuestionTemplate({
+    type: 'trueorfalse',
+    title: '是非题标题1',
+    content: {
+      is_need_description: true,
+      is_need_photo: true,
+      type_text: '是非题',
+      title: '是非题标题1',
+      type: 'trueorfalse',
+    },
+    company: company
+  });
+  paper.questions.push(question);
+
+  question = new QuestionTemplate({
+    type: 'table',
+    title: '表格题标题1',
+    content: {},
+    company: company
+  });
+  paper.questions.push(question);
+  return paper;
+}
+
+function initCompanyTables(company) {
+  company.tables = [];
+  company.tables.push({
+    table: 'Product',
+    table_name: '产品表',
+    fields: [
+      {
+        name: '产品编码',
+        field: 'number'
+      },
+      {
+        name: '产品条码',
+        field: 'barcode'
+      },
+      {
+        name: '产品名称',
+        field: 'name'
+      },
+      {
+        name: '产品简称',
+        field: 'short_name'
+      },
+      {
+        name: '品牌',
+        field: 'brand'
+      },
+      {
+        name: '系列',
+        field: 'series'
+      },
+      {
+        name: '大类',
+        field: 'large_type'
+      },
+      {
+        name: '小类',
+        field: 'small_type'
+      },
+      {
+        name: '包装单位',
+        field: 'package_unit'
+      },
+      {
+        name: '规格',
+        field: 'specification'
+      },
+      {
+        name: '产品等级',
+        field: 'product_level'
+      },
+      {
+        name: '是否新品',
+        field: 'is_new'
+      },
+      {
+        name: '是否重点产品',
+        field: 'is_key'
+      },
+      {
+        name: '是否档期促销品',
+        field: 'is_promotion'
+      }
+    ]
+  });
+  company.tables.push({
+    table: 'Customer',
+    table_name: '客户经销商',
+    fields: [
+      {
+        name: '客户名称',
+        field: 'name'
+      },
+      {
+        name: '客户简称',
+        field: 'short_name'
+      },
+      {
+        name: '客户编码',
+        field: 'number'
+      },
+      {
+        name: '客户等级',
+        field: 'customer_level'
+      },
+      {
+        name: '客户类型',
+        field: 'customer_type'
+      },
+      {
+        name: '渠道类型',
+        field: 'channel_type'
+      }
+    ]
+  });
+  company.markModified('tables');
+  return company;
 }
 
 exports.create = function () {
