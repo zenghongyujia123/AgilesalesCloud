@@ -184,6 +184,13 @@ body {
   color: #666;
   padding: 0px 20px;
 }
+.ag-table .ag-table-body .ag-table-row .ag-table-col.btn {
+  cursor: pointer;
+  color: #999;
+}
+.ag-table .ag-table-body .ag-table-row .ag-table-col.btn:hover {
+  color: #037dff;
+}
 .ag-table .ag-table-body .ag-table-row:nth-child(odd) {
   background-color: #f8fcfe;
 }

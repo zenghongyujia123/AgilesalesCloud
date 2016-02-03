@@ -2,7 +2,6 @@
  * Created by zenghong on 16/1/15.
  */
 angular.module('agilesales-web').controller('BasedataCustomerCtrl', ['$scope', 'CustomerService', '$rootScope', 'UploadService', function ($scope, CustomerService, $rootScope, UploadService) {
-  $scope.peoples = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27];
   $scope.headers = [
     '客户编码', '客户等级', '客户名称',
     '客户简称', '客户类型', '渠道类型',
