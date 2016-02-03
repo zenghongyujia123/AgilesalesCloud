@@ -53,7 +53,13 @@ module.exports = function (appDb) {
     }],
     tables: [{
       type: Schema.Types.Mixed
-    }]
+    }],
+    salesman_defaul_card: {
+      type: Schema.Types.Mixed
+    },
+    promotion_defaul_card: {
+      type: Schema.Types.Mixed
+    }
   });
 
   var AreaTitleSchema = new Schema({
@@ -80,6 +86,23 @@ module.exports = function (appDb) {
   AreaTitleSchema.plugin(timestamps, {
     createdAt: 'created',
     updatedAt: 'updated'
+  });
+
+  CompanySchema.pre('save', function (next) {
+    var self = this;
+    if (self.card_templates.length >= 2) {
+      self.card_templates.forEach(function (card) {
+        if (card.type === 'default' && card.role === 'promotions') {
+          self.promotion_defaul_card = card;
+          self.markModified('promotion_defaul_card');
+        }
+        if (card.type === 'default' && card.role === 'salesman') {
+          self.salesman_defaul_card = card;
+          self.markModified('salesman_defaul_card');
+        }
+      });
+    }
+    return next();
   });
 
   appDb.model('AreaTitle', AreaTitleSchema);

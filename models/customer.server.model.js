@@ -67,6 +67,12 @@ module.exports = function (appDb) {
     company: {
       type: Schema.Types.ObjectId,
       ref: 'Company'
+    },
+    promotion_card: {
+      type: Schema.Types.Mixed
+    },
+    salesman_card: {
+      type: Schema.Types.Mixed
     }
   });
 
