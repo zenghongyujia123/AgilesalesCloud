@@ -1,8 +1,8 @@
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', 'CardService',
-  function ($scope, $rootScope, $state, $stateParams, AuthService, CardService) {
+angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'AuthService', 'CardService',
+  function ($scope, $rootScope, $state, $stateParams, $window, AuthService, CardService) {
     $scope.location = window.location;
     $scope.card = {};
     $scope.paper = {};
@@ -40,7 +40,7 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
     $scope.updateQuestion = function (question) {
       CardService.updateQuestion(question, $scope.paper._id, $scope.card._id).then(function (data) {
         if (!data.err)
-          $state.go('card_edit.card_preview', {}, {reload: true});
+          $window.location.reload();
         console.log(data);
       }, function (data) {
         console.log(data);

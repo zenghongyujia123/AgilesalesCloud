@@ -1,8 +1,8 @@
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', 'CustomerService',
-  function ($scope, $rootScope, $state, $stateParams, AuthService, CustomerService) {
+angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'AuthService', 'CustomerService', 'CardService',
+  function ($scope, $rootScope, $state, $stateParams, $window, AuthService, CustomerService, CardService) {
     $scope.location = window.location;
     $scope.card = {};
     if ($stateParams.card_id) {
@@ -44,8 +44,22 @@ angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootS
         }],
         color: 'blue',
         callback: function (info) {
-
+          if (info.contents[0].value) {
+            $scope.updateCardTemplateTitle(info.contents[0].value);
+          }
         }
       });
     };
+
+    $scope.updateCardTemplateTitle = function (title) {
+      CardService.updateCardTemplateTitle($scope.card._id, title).then(function (data) {
+        if (!data.err) {
+          $window.location.reload();
+        }
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    }
+
   }]);

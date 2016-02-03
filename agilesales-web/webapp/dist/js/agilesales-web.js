@@ -902,10 +902,10 @@ angular.module('agilesales-web').directive('agQuestionTrueFalse', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionTableSingle', function () {
+angular.module('agilesales-web').directive('agQuestionTableMulti', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_table/question_table_single/question_single.client.view.html',
+    templateUrl: 'directives/question_table/question_table_multi/question_multi.client.view.html',
     replace: true,
     scope: {
       getQuestion: '&',
@@ -918,13 +918,13 @@ angular.module('agilesales-web').directive('agQuestionTableSingle', function () 
         $scope.question.content = {};
 
       if (!$scope.question.content.type)
-        $scope.question.content.type = 'single';
+        $scope.question.content.type = 'multi';
 
       if (!$scope.question.content.title)
         $scope.question.content.title = '';
 
       if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '选择题';
+        $scope.question.content.type_text = '多选题';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;
@@ -1086,10 +1086,10 @@ angular.module('agilesales-web').directive('agQuestionTableBlank', ['$rootScope'
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionTableMulti', function () {
+angular.module('agilesales-web').directive('agQuestionTableSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_table/question_table_multi/question_multi.client.view.html',
+    templateUrl: 'directives/question_table/question_table_single/question_single.client.view.html',
     replace: true,
     scope: {
       getQuestion: '&',
@@ -1102,13 +1102,13 @@ angular.module('agilesales-web').directive('agQuestionTableMulti', function () {
         $scope.question.content = {};
 
       if (!$scope.question.content.type)
-        $scope.question.content.type = 'multi';
+        $scope.question.content.type = 'single';
 
       if (!$scope.question.content.title)
         $scope.question.content.title = '';
 
       if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '多选题';
+        $scope.question.content.type_text = '选择题';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;
@@ -1378,6 +1378,9 @@ angular.module('agilesales-web').factory('AuthService', ['localStorageService', 
  */
 angular.module('agilesales-web').factory('CardService', ['HttpService', function (HttpService) {
   return {
+    updateCardTemplateTitle: function (card_id, title) {
+      return HttpService.post('/webapp/card_template/title/update', {title: title, card_id: card_id});
+    },
     createCardTemplate: function (title, role) {
       return HttpService.post('/webapp/card_template/create', {title: title, role: role});
     },
@@ -2533,8 +2536,8 @@ angular.module('agilesales-web').controller('BasedataSkuCtrl', ['$scope', '$root
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', 'CustomerService',
-  function ($scope, $rootScope, $state, $stateParams, AuthService, CustomerService) {
+angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'AuthService', 'CustomerService', 'CardService',
+  function ($scope, $rootScope, $state, $stateParams, $window, AuthService, CustomerService, CardService) {
     $scope.location = window.location;
     $scope.card = {};
     if ($stateParams.card_id) {
@@ -2576,53 +2579,71 @@ angular.module('agilesales-web').controller('CardConfigCtrl', ['$scope', '$rootS
         }],
         color: 'blue',
         callback: function (info) {
-
+          if (info.contents[0].value) {
+            $scope.updateCardTemplateTitle(info.contents[0].value);
+          }
         }
       });
     };
+
+    $scope.updateCardTemplateTitle = function (title) {
+      CardService.updateCardTemplateTitle($scope.card._id, title).then(function (data) {
+        if (!data.err) {
+          $window.location.reload();
+        }
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    }
+
   }]);
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', 'CardService', function ($scope, $rootScope, $state, $stateParams, AuthService, CardService) {
-  $scope.showAddPaper = function () {
-    $rootScope.$broadcast('show.dialogInput', {
-      title: '添加试卷',
-      contents: [{
-        key: '请输入试卷名称',
-        value: '',
-        tip: '点击输入名称'
-      }],
-      color: 'blue',
-      callback: function (info) {
-        $scope.addPaper(info.contents[0].value);
-      }
-    });
-  };
+angular.module('agilesales-web').controller('CardEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'AuthService', 'CardService',
+  function ($scope, $rootScope, $state, $stateParams, $window, AuthService, CardService) {
+    $scope.showAddPaper = function () {
+      $rootScope.$broadcast('show.dialogInput', {
+        title: '添加试卷',
+        contents: [{
+          key: '请输入试卷名称',
+          value: '',
+          tip: '点击输入名称'
+        }],
+        color: 'blue',
+        callback: function (info) {
+          $scope.addPaper(info.contents[0].value);
+        }
+      });
+    };
 
-  $scope.addPaper = function (title) {
-    CardService.addPaperTemplate(title, $scope.card._id).then(function (data) {
-      console.log(data);
-    }, function (data) {
-      console.log(data);
-    });
-  };
-  $scope.card = {};
-  if ($stateParams.card_id) {
-    $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
-    console.log($scope.card);
-  }
+    $scope.addPaper = function (title) {
+      CardService.addPaperTemplate(title, $scope.card._id).then(function (data) {
+        if (!data.err) {
+          $window.location.reload();
+        }
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    };
+    $scope.card = {};
+    if ($stateParams.card_id) {
+      $scope.card = AuthService.getCardTemplateById($stateParams.card_id);
+      console.log($scope.card);
+    }
 
-  $scope.goConfig = function () {
-    $state.go('card_edit.card_config', {card_id: $scope.card._id});
-  };
+    $scope.goConfig = function () {
+      $state.go('card_edit.card_config', {card_id: $scope.card._id});
+    };
 
-  $scope.goPreview = function (paper) {
-    $state.go('card_edit.card_preview', {card_id: $scope.card._id, paper_id: paper._id});
-  };
+    $scope.goPreview = function (paper) {
+      $state.go('card_edit.card_preview', {card_id: $scope.card._id, paper_id: paper._id});
+    };
 
-  $scope.location = window.location;
-}]);
+    $scope.location = window.location;
+  }]);
 /**
  * Created by zenghong on 16/1/15.
  */
@@ -2702,8 +2723,8 @@ angular.module('agilesales-web').controller('CardHomeCtrl', ['$scope', '$rootSco
 /**
  * Created by zenghong on 16/1/15.
  */
-angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'AuthService', 'CardService',
-  function ($scope, $rootScope, $state, $stateParams, AuthService, CardService) {
+angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$window', 'AuthService', 'CardService',
+  function ($scope, $rootScope, $state, $stateParams, $window, AuthService, CardService) {
     $scope.location = window.location;
     $scope.card = {};
     $scope.paper = {};
@@ -2741,7 +2762,7 @@ angular.module('agilesales-web').controller('CardPreviewCtrl', ['$scope', '$root
     $scope.updateQuestion = function (question) {
       CardService.updateQuestion(question, $scope.paper._id, $scope.card._id).then(function (data) {
         if (!data.err)
-          $state.go('card_edit.card_preview', {}, {reload: true});
+          $window.location.reload();
         console.log(data);
       }, function (data) {
         console.log(data);
