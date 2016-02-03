@@ -4,7 +4,7 @@
   </div>
   <div class="card-add-btn" ng-click="showCardAdd()" ag-hover-shake="rubberBand">创建拜访卡</div>
   <div class="body row">
-    <div class="col col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="card in cards">
+    <div class="col col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="card in cards | orderBy :'created'">
       <div class="card" ng-click="goEdit(card)">
         <div class="card-header">
           <div class="title">{{getCardTip(card)}}</div>

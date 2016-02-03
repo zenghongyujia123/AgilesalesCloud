@@ -20,15 +20,12 @@ angular.module('agilesales-web').directive('agDialogSelect', ['$rootScope', func
 
       $scope.show = function () {
         $element.addClass('show');
-        $element.find('.ag-dialog-panel').addClass('animated rotateIn');
       };
       $scope.hide = function () {
         $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
       };
       $scope.submit = function () {
         $element.removeClass('show');
-        $element.find('.ag-dialog-panel').removeClass('animated rotateIn')
         $scope.info.callback($scope.info);
       };
       $scope.toggleOptions = function (index) {
