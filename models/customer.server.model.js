@@ -64,6 +64,27 @@ module.exports = function (appDb) {
     area_level3: {
       type: String
     },
+    area_level4: {
+      type: String
+    },
+    area_level5: {
+      type: String
+    },
+    area_level6: {
+      type: String
+    },
+    area_level7: {
+      type: String
+    },
+    area_level8: {
+      type: String
+    },
+    area_level9: {
+      type: String
+    },
+    area_level10: {
+      type: String
+    },
     company: {
       type: Schema.Types.ObjectId,
       ref: 'Company'
