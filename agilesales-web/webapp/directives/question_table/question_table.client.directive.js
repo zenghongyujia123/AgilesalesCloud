@@ -9,7 +9,7 @@ angular.module('agilesales-web').directive('agQuestionTable', ['$rootScope', 'Au
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
-
+      $scope.status = 'preview';
       $scope.showTableSelect = function () {
         var tables = AuthService.getTables();
         var options = [];

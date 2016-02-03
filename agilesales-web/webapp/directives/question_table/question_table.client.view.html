@@ -1,4 +1,5 @@
 <div class="ag-question-table">
+  <div class="ag-question-edit" ng-show="status==='edit'">
   <div class="ag-question-row">
     <div class="ag-question-left">题目类型</div>
     <div class="ag-question-right title">表格题</div>
@@ -57,4 +58,8 @@
     <div class="ag-btn blue ag-question-finish" ng-click="submitQuestion()">完成</div>
     <div class="ag-btn blue ag-question-remove">删除</div>
   </div>
+
+
+  </div>
+  <div class="ag-question-preview" ng-show="status==='preview'" ng-click="status='edit'"></div>
 </div>

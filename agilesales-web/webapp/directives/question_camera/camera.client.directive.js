@@ -9,6 +9,7 @@ angular.module('agilesales-web').directive('agQuestionCamera', function () {
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
       $scope.question = $scope.getQuestion();
+      $scope.status = 'preview';
       if (!$scope.question.content)
         $scope.question.content = {};
 
