@@ -41,11 +41,27 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
         $rootScope.$broadcast('show.photoDetailPanel', $scope.photos);
       };
 
+      $scope.info = {
+        title: '拍照',
+        sub_title: '拍摄什么照片',
+        is_browser: false,
+        callback: function () {
+
+        },
+        photos: []
+      };
+
+      $scope.submit = function () {
+        if ($scope.info.callback) {
+          $scope.info.callback($scope.info);
+        }
+        $scope.hide();
+      };
+
       $scope.photos = [];
 
       $scope.getPicture = function () {
         $cordovaCamera.getPicture(options).then(function (imageData) {
-
           $scope.photos.push({
             key: $scope.photos.length + 1,
             value: "data:image/jpeg;base64," + imageData

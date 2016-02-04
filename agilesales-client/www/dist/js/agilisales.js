@@ -799,11 +799,27 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
         $rootScope.$broadcast('show.photoDetailPanel', $scope.photos);
       };
 
+      $scope.info = {
+        title: '拍照',
+        sub_title: '拍摄什么照片',
+        is_browser: false,
+        callback: function () {
+
+        },
+        photos: []
+      };
+
+      $scope.submit = function () {
+        if ($scope.info.callback) {
+          $scope.info.callback($scope.info);
+        }
+        $scope.hide();
+      };
+
       $scope.photos = [];
 
       $scope.getPicture = function () {
         $cordovaCamera.getPicture(options).then(function (imageData) {
-
           $scope.photos.push({
             key: $scope.photos.length + 1,
             value: "data:image/jpeg;base64," + imageData
@@ -985,25 +1001,6 @@ angular.module('agilisales').directive('agStatisticsPanel', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agBlankQuestion', [function () {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-blank-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">\
-                      <input type="text" placeholder="请输入">\
-                    </div>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  };
-}]);
-
 angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -1019,6 +1016,25 @@ angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', f
       $element.click(function () {
         $rootScope.$broadcast('show.multiSelectPanel');
       });
+    }
+  };
+}]);
+
+angular.module('agilisales').directive('agBlankQuestion', [function () {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-blank-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">\
+                      <input type="text" placeholder="请输入">\
+                    </div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
     }
   };
 }]);
