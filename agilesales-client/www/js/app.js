@@ -4,9 +4,16 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('templates',[]);
-angular.module('agilisales', ['templates','ionic', 'flexcalendar', 'flexcalendar.defaultTranslation', 'ngCordova'])
-  .run(function ($ionicPlatform,$rootScope) {
+angular.module('templates', []);
+angular.module('agilisales', [
+    'templates',
+    'ionic',
+    'flexcalendar',
+    'flexcalendar.defaultTranslation',
+    'ngCordova',
+    'LocalStorageModule'
+  ])
+  .run(function ($ionicPlatform, $rootScope) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -20,12 +27,12 @@ angular.module('agilisales', ['templates','ionic', 'flexcalendar', 'flexcalendar
         StatusBar.styleDefault();
       }
 
-      $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+      $rootScope.$on('$cordovaNetwork:online', function (event, networkState) {
         console.log(event);
         console.log(networkState);
       });
 
-      $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+      $rootScope.$on('$cordovaNetwork:offline', function (event, networkState) {
         console.log(event);
         console.log(networkState);
       });
@@ -251,7 +258,7 @@ angular.module('agilisales', ['templates','ionic', 'flexcalendar', 'flexcalendar
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/menu/home');
   })
-  .config(function($translateProvider){
+  .config(function ($translateProvider) {
     $translateProvider.translations('ch', {
       JANUARY: '1月',
       FEBRUARY: '2月',
@@ -276,4 +283,89 @@ angular.module('agilisales', ['templates','ionic', 'flexcalendar', 'flexcalendar
     });
     $translateProvider.preferredLanguage('ch');
 
-  });
+  })
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push('PublicInterceptor');
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    /**
+     * The workhorse; converts an object to x-www-form-urlencoded serialization.
+     * @param {Object} obj
+     * @return {String}
+     */
+    var param = function (obj) {
+      var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+      for (name in obj) {
+        value = obj[name];
+
+        if (value instanceof Array) {
+          for (i = 0; i < value.length; ++i) {
+            subValue = value[i];
+            fullSubName = name + '[' + i + ']';
+            innerObj = {};
+            innerObj[fullSubName] = subValue;
+            query += param(innerObj) + '&';
+          }
+        }
+        else if (value instanceof Object) {
+          for (subName in value) {
+            subValue = value[subName];
+            fullSubName = name + '[' + subName + ']';
+            innerObj = {};
+            innerObj[fullSubName] = subValue;
+            query += param(innerObj) + '&';
+          }
+        }
+        else if (value !== undefined && value !== null)
+          query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+      }
+      return query.length ? query.substr(0, query.length - 1) : query;
+    };
+
+    // Override $http service's default transformRequest
+    $httpProvider.defaults.transformRequest = [function (data) {
+      return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+    }];
+  }])
+  .run(['$rootScope', '$state', '$window', 'AuthService', 'UserService',
+    function ($rootScope, $state, $window, AuthService, UserService) {
+      $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        var to = document.getElementById('error3').getAttribute('data-value');
+        if (to !== "") {
+          AuthService.setToken(to);
+        }
+        else {
+          if (AuthService.getToken() == "") {
+            event.preventDefault();
+            $rootScope.$broadcast('show.signinPanel');
+          }
+        }
+        //判断用户数据是否存在
+        if (!AuthService.isLoggedIn()) {
+          event.preventDefault();
+          //没有用户数据，需要重新获取用户，页面可能需要被重定向
+          UserService.getMe()
+            .then(function (data) {
+                if (data.err) {
+                  return $rootScope.$broadcast('show.signinPanel');
+                }
+                AuthService.setUser(data);
+                var obj = AuthService.getLatestUrl();
+                var state = 'menu.home';
+                var params = '';
+                if (obj && obj != '^' && obj.state) {
+                  state = obj.state;
+                  params = obj.params;
+                }
+                return $state.go(state, params);
+              },
+              function (err) {
+                alert('系统错误' + JSON.stringify(err));
+              });
+        }
+      });
+
+      var windowElement = angular.element($window);
+      windowElement.on('beforeunload', function (event) {
+        AuthService.setLatestUrl($state.current.name, $state.params);
+      });
+    }]);

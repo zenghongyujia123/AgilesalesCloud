@@ -4,9 +4,16 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('templates',[]);
-angular.module('agilisales', ['templates','ionic', 'flexcalendar', 'flexcalendar.defaultTranslation', 'ngCordova'])
-  .run(function ($ionicPlatform,$rootScope) {
+angular.module('templates', []);
+angular.module('agilisales', [
+    'templates',
+    'ionic',
+    'flexcalendar',
+    'flexcalendar.defaultTranslation',
+    'ngCordova',
+    'LocalStorageModule'
+  ])
+  .run(function ($ionicPlatform, $rootScope) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -20,12 +27,12 @@ angular.module('agilisales', ['templates','ionic', 'flexcalendar', 'flexcalendar
         StatusBar.styleDefault();
       }
 
-      $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+      $rootScope.$on('$cordovaNetwork:online', function (event, networkState) {
         console.log(event);
         console.log(networkState);
       });
 
-      $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+      $rootScope.$on('$cordovaNetwork:offline', function (event, networkState) {
         console.log(event);
         console.log(networkState);
       });
@@ -251,7 +258,7 @@ angular.module('agilisales', ['templates','ionic', 'flexcalendar', 'flexcalendar
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/menu/home');
   })
-  .config(function($translateProvider){
+  .config(function ($translateProvider) {
     $translateProvider.translations('ch', {
       JANUARY: '1月',
       FEBRUARY: '2月',
@@ -276,7 +283,92 @@ angular.module('agilisales', ['templates','ionic', 'flexcalendar', 'flexcalendar
     });
     $translateProvider.preferredLanguage('ch');
 
-  });
+  })
+  .config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push('PublicInterceptor');
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    /**
+     * The workhorse; converts an object to x-www-form-urlencoded serialization.
+     * @param {Object} obj
+     * @return {String}
+     */
+    var param = function (obj) {
+      var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+      for (name in obj) {
+        value = obj[name];
+
+        if (value instanceof Array) {
+          for (i = 0; i < value.length; ++i) {
+            subValue = value[i];
+            fullSubName = name + '[' + i + ']';
+            innerObj = {};
+            innerObj[fullSubName] = subValue;
+            query += param(innerObj) + '&';
+          }
+        }
+        else if (value instanceof Object) {
+          for (subName in value) {
+            subValue = value[subName];
+            fullSubName = name + '[' + subName + ']';
+            innerObj = {};
+            innerObj[fullSubName] = subValue;
+            query += param(innerObj) + '&';
+          }
+        }
+        else if (value !== undefined && value !== null)
+          query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+      }
+      return query.length ? query.substr(0, query.length - 1) : query;
+    };
+
+    // Override $http service's default transformRequest
+    $httpProvider.defaults.transformRequest = [function (data) {
+      return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+    }];
+  }])
+  .run(['$rootScope', '$state', '$window', 'AuthService', 'UserService',
+    function ($rootScope, $state, $window, AuthService, UserService) {
+      $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        var to = document.getElementById('error3').getAttribute('data-value');
+        if (to !== "") {
+          AuthService.setToken(to);
+        }
+        else {
+          if (AuthService.getToken() == "") {
+            event.preventDefault();
+            $rootScope.$broadcast('show.signinPanel');
+          }
+        }
+        //判断用户数据是否存在
+        if (!AuthService.isLoggedIn()) {
+          event.preventDefault();
+          //没有用户数据，需要重新获取用户，页面可能需要被重定向
+          UserService.getMe()
+            .then(function (data) {
+                if (data.err) {
+                  return $rootScope.$broadcast('show.signinPanel');
+                }
+                AuthService.setUser(data);
+                var obj = AuthService.getLatestUrl();
+                var state = 'menu.home';
+                var params = '';
+                if (obj && obj != '^' && obj.state) {
+                  state = obj.state;
+                  params = obj.params;
+                }
+                return $state.go(state, params);
+              },
+              function (err) {
+                alert('系统错误' + JSON.stringify(err));
+              });
+        }
+      });
+
+      var windowElement = angular.element($window);
+      windowElement.on('beforeunload', function (event) {
+        AuthService.setLatestUrl($state.current.name, $state.params);
+      });
+    }]);
 
 /**
  * Created by zenghong on 16/1/7.
@@ -288,6 +380,186 @@ angular.module('agilisales').factory('NetworkTool', ['$cordovaNetwork', function
     }
   }
 }]);
+
+/**
+ * Created by zenghong on 16/2/4.
+ */
+angular.module('agilisales').factory('AuthService', ['localStorageService', '$rootScope', function (localStorageService, $rootScope) {
+  var access_token = '';
+  var user = null;
+  var userUpdateHandles = [];
+  return {
+    setToken: function (t) {
+      access_token = t;
+      localStorageService.set('access_token', t);
+    },
+    getToken: function () {
+      if (access_token == "") {
+        var local = localStorageService.get('access_token');
+        if (!local || local == "" || local == "<%=  test %>") {
+          localStorageService.set('token', "");
+          access_token = "";
+        }
+        else {
+          access_token = local;
+        }
+      }
+      return access_token;
+    },
+    getUser: function () {
+      return user;
+    },
+    setUser: function (u) {
+      user = u;
+      console.log(u);
+      $rootScope.$broadcast('onUserReset');
+    },
+    getCompany: function () {
+      return user.company;
+    },
+    getCardTemplates: function () {
+      return user.company.card_templates;
+    },
+    getCardTemplateById: function (id) {
+      var result = {};
+      user.company.card_templates.forEach(function (item) {
+        if (item._id === id) {
+          result = item;
+        }
+      });
+      return result;
+    },
+    getPaperById: function (cardId, paperId) {
+      var card = this.getCardTemplateById(cardId);
+      var result = {};
+      card.papers.forEach(function (item) {
+        if (item._id === paperId) {
+          result = item;
+        }
+      });
+      return result;
+    },
+    getTables: function () {
+      return user.company.tables;
+    },
+    getFieldsByTable: function (tableName) {
+      var result = [];
+      user.company.tables.forEach(function (table) {
+        if (table.table_name === tableName) {
+          result = table.fields
+        }
+      });
+      return result;
+    },
+    isLoggedIn: function () {
+      return user ? true : false;
+    },
+    userUpdated: function () {
+      userUpdateHandles.forEach(function (handler) {
+        handler.handle(user);
+      });
+    },
+    onUserUpdated: function (name, callback) {
+      var result = false;
+      for (var i = 0; i < userUpdateHandles.length; i++) {
+        if (userUpdateHandles[i].name) {
+          result = true;
+          break;
+        }
+      }
+      if (!result) {
+        userUpdateHandles.push({
+          name: name,
+          handle: callback
+        });
+      }
+    },
+    getLatestUrl: function () {
+      return localStorageService.get(user.username + 'state') || '';
+    },
+    setLatestUrl: function (state, params) {
+      if (user) {
+        localStorageService.set(user.username + 'state', {'state': state, 'params': params});
+      }
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 16/2/4.
+ */
+angular.module('agilisales').factory('ConfigService', ['$http', '$q', function ($http, $q) {
+  return {
+    server: 'http://localhost:3002'
+  };
+}]);
+
+/**
+ * Created by zenghong on 16/1/21.
+ */
+/**
+ * Created by zenghong on 16/1/21.
+ */
+angular.module('agilisales').factory('HttpService', ['$http', '$q', 'ConfigService', function ($http, $q, ConfigService) {
+  return {
+    post: function (url, params) {
+      var q = $q.defer();
+      $http.post(ConfigService.server + url, params)
+        .success(function (data) {
+          q.resolve(data);
+        })
+        .error(function (data) {
+          q.reject(data);
+        });
+      return q.promise;
+    },
+    get: function (url, params) {
+      var q = $q.defer();
+      $http.get(ConfigService.server + url, {params: params})
+        .success(function (data) {
+          q.resolve(data);
+        })
+        .error(function (data) {
+          q.reject(data);
+        });
+      return q.promise;
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 16/2/4.
+ */
+angular.module('agilisales').factory('UserService', [ 'HttpService', function (HttpService) {
+  return {
+    getMe: function () {
+      return HttpService.get('/webapp/user/me', {});
+    }
+  };
+}]);
+
+angular.module('agilisales').factory('PublicInterceptor', ['AuthService', function (AuthService) {
+  return {
+    'request': function (req) {
+      req.data = req.data ? req.data : {};
+      req.data.access_token = AuthService.getToken();
+      req.params = req.params ? req.params : {};
+      req.params.access_token = AuthService.getToken();
+      req.params.no_cache =new Date().getTime();
+      return req;
+    },
+    'response': function (resp) {
+      return resp;
+    },
+    'requestError': function (rejection) {
+      return rejection;
+    },
+    'responseError': function (rejection) {
+      return rejection;
+    }
+  }
+}]);
+
 
 /**
  * Created by zenghong on 15/12/27.
@@ -467,6 +739,31 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.peopleSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$rootScope', function ($cordovaCamera, $rootScope) {
   return {
     restrict: 'AE',
@@ -592,31 +889,6 @@ angular.module('agilisales').directive('agPhotoSelectPanel', ['$cordovaCamera', 
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.peopleSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agShopCreatePanel', [function () {
   return {
     restrict: 'AE',
@@ -633,6 +905,31 @@ angular.module('agilisales').directive('agShopCreatePanel', [function () {
       };
 
       $scope.$on('show.shopCreatePanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agSigninPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/signin_panel/signin.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.signinPanel', function () {
         $scope.show();
       });
     }
@@ -737,7 +1034,7 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
     template: ' <div class="ag-row-container ag-single-select-question"> \
                   <div class="ag-row-item">\
                     <div class="left">主陈列形式</div> \
-                    <select class="right" placeho>\
+                    <select class="right">\
                       <option value="" disabled="true">请选择</option>\
                       <option ng-repeat="option in options">{{option}}</option> \
                     </select>\
