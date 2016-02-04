@@ -403,47 +403,6 @@ angular.module('agilesales-web').directive('agDialogUpload', ['$rootScope', 'Exc
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionCamera', function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/question_camera/camera.client.view.html',
-    replace: true,
-    scope: {getQuestion: '&'},
-    link: function ($scope, $element, $attrs) {
-      $scope.question = $scope.getQuestion();
-      $scope.status = 'preview';
-      if (!$scope.question.content)
-        $scope.question.content = {};
-
-      if (!$scope.question.content.type)
-        $scope.question.content.type = 'camera';
-
-      if (!$scope.question.content.title)
-        $scope.question.content.title = '';
-
-      if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '拍照题';
-
-      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
-        $scope.question.content.is_need_description = false;
-      }
-      else {
-        $scope.question.content.is_need_description = true;
-      }
-      $scope.toggleDescription = function () {
-        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
-      };
-      $scope.submitQuestion = function () {
-        $scope.question.type = $scope.question.content.type;
-        $scope.question.title = $scope.question.content.title;
-        $scope.$emit('onQuestionUpdated', {question: $scope.question});
-      };
-    }
-  }
-});
-/**
- * Created by zenghong on 16/1/18.
- */
 angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
@@ -532,10 +491,51 @@ angular.module('agilesales-web').directive('agQuestionBlank', ['$rootScope', fun
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionSingle', function () {
+angular.module('agilesales-web').directive('agQuestionCamera', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_single/question_single.client.view.html',
+    templateUrl: 'directives/question_camera/camera.client.view.html',
+    replace: true,
+    scope: {getQuestion: '&'},
+    link: function ($scope, $element, $attrs) {
+      $scope.question = $scope.getQuestion();
+      $scope.status = 'preview';
+      if (!$scope.question.content)
+        $scope.question.content = {};
+
+      if (!$scope.question.content.type)
+        $scope.question.content.type = 'camera';
+
+      if (!$scope.question.content.title)
+        $scope.question.content.title = '';
+
+      if (!$scope.question.content.type_text)
+        $scope.question.content.type_text = '拍照题';
+
+      if ($scope.question.content.is_need_description !== 'true' && $scope.question.content.is_need_description !== true) {
+        $scope.question.content.is_need_description = false;
+      }
+      else {
+        $scope.question.content.is_need_description = true;
+      }
+      $scope.toggleDescription = function () {
+        $scope.question.content.is_need_description = !$scope.question.content.is_need_description;
+      };
+      $scope.submitQuestion = function () {
+        $scope.question.type = $scope.question.content.type;
+        $scope.question.title = $scope.question.content.title;
+        $scope.$emit('onQuestionUpdated', {question: $scope.question});
+      };
+    }
+  }
+});
+/**
+ * Created by zenghong on 16/1/18.
+ */
+angular.module('agilesales-web').directive('agQuestionMulti', function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/question_multi/question_multi.client.view.html',
     replace: true,
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
@@ -545,13 +545,13 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
         $scope.question.content = {};
 
       if (!$scope.question.content.type)
-        $scope.question.content.type = 'single';
+        $scope.question.content.type = 'multi';
 
       if (!$scope.question.content.title)
         $scope.question.content.title = '';
 
       if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '选择题';
+        $scope.question.content.type_text = '多选题';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;
@@ -621,10 +621,10 @@ angular.module('agilesales-web').directive('agQuestionSingle', function () {
 /**
  * Created by zenghong on 16/1/18.
  */
-angular.module('agilesales-web').directive('agQuestionMulti', function () {
+angular.module('agilesales-web').directive('agQuestionSingle', function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/question_multi/question_multi.client.view.html',
+    templateUrl: 'directives/question_single/question_single.client.view.html',
     replace: true,
     scope: {getQuestion: '&'},
     link: function ($scope, $element, $attrs) {
@@ -634,13 +634,13 @@ angular.module('agilesales-web').directive('agQuestionMulti', function () {
         $scope.question.content = {};
 
       if (!$scope.question.content.type)
-        $scope.question.content.type = 'multi';
+        $scope.question.content.type = 'single';
 
       if (!$scope.question.content.title)
         $scope.question.content.title = '';
 
       if (!$scope.question.content.type_text)
-        $scope.question.content.type_text = '多选题';
+        $scope.question.content.type_text = '选择题';
 
       if ($scope.question.content.is_need_photo !== 'true' && $scope.question.content.is_need_photo !== true) {
         $scope.question.content.is_need_photo = false;
@@ -1662,13 +1662,16 @@ angular.module('agilesales-web').factory('HttpService', ['$http', '$q', function
 /**
  * Created by zenghong on 16/1/26.
  */
-angular.module('agilesales-web').factory('PeopleService', ['HttpService',function (HttpService) {
+angular.module('agilesales-web').factory('PeopleService', ['HttpService', function (HttpService) {
   return {
     uploadMultiPeoples: function (peoples) {
       return HttpService.post('/webapp/people/multi/upload', {peoples: peoples});
     },
     getPeoples: function () {
       return HttpService.get('/webapp/peoples', {});
+    },
+    updatePeoplesPaths: function () {
+      return HttpService.post('/webapp/peoples/path/update', {});
     }
   };
 }]);
@@ -2079,6 +2082,14 @@ angular.module('agilesales-web').controller('BasedataPeopleCtrl', ['$scope', '$r
     '上级领导姓名', '常驻城市', '辖区',
     '帐号开通日期', '在职状态', '人员类型'
   ];
+  $scope.updatePeoplesPaths = function () {
+    PeopleService.updatePeoplesPaths().then(function (data) {
+      console.log(data);
+    }, function (data) {
+      console.log(data);
+    });
+  };
+  $scope.updatePeoplesPaths();
 
   $scope.getPeoples = function () {
     PeopleService.getPeoples().then(function (data) {

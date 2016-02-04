@@ -17,6 +17,9 @@ exports.uploadMultiPeoples = function (company, peoples, callback) {
           company: company
         });
       }
+      if (user.job_number === '000873') {
+        console.log(people);
+      }
 
       user.password = '111111';
       user.telephone = people.telephone;
@@ -53,11 +56,47 @@ exports.uploadMultiPeoples = function (company, peoples, callback) {
   });
 };
 
-exports.getPeoples = function (company,callback) {
+exports.getPeoples = function (company, callback) {
   User.find({company: company}, function (err, users) {
     if (err || !users) {
       return callback({err: err.system.db_error});
     }
     return callback(null, users);
+  });
+};
+var count = 0;
+
+function updateChildPath(company, parent, callback) {
+  User.find({company: company, parent_number: parent.job_number}, function (err, users) {
+    if (users.length === 0) {
+      return callback();
+    }
+
+    async.eachSeries(users, function (user, eachCallback) {
+      user.path = (parent.path || '') + parent.job_number+',';
+
+      user.save(function (err, saveUser) {
+        console.log(saveUser.path);
+        return updateChildPath(company, saveUser, eachCallback);
+      });
+    }, function (err) {
+      return callback();
+    });
+  });
+}
+
+exports.updatePeoplesPath = function (company, callback) {
+  User.find({company: company, parent_number: {$exists: false}, job_number: {$exists: true}}, function (err, users) {
+    if (err || !users) {
+      return callback({err: err.system.db_error});
+    }
+    async.eachSeries(users, function (user, eachCallback) {
+      user.path = null;
+      user.save(function (err, saveUser) {
+        return updateChildPath(company, saveUser, eachCallback);
+      });
+    }, function (err) {
+      return callback(null, {success: true});
+    });
   });
 };

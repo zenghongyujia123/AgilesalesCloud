@@ -10,6 +10,14 @@ angular.module('agilesales-web').controller('BasedataPeopleCtrl', ['$scope', '$r
     '上级领导姓名', '常驻城市', '辖区',
     '帐号开通日期', '在职状态', '人员类型'
   ];
+  $scope.updatePeoplesPaths = function () {
+    PeopleService.updatePeoplesPaths().then(function (data) {
+      console.log(data);
+    }, function (data) {
+      console.log(data);
+    });
+  };
+  //$scope.updatePeoplesPaths();
 
   $scope.getPeoples = function () {
     PeopleService.getPeoples().then(function (data) {

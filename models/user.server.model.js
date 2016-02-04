@@ -56,7 +56,7 @@ module.exports = function (appDb) {
     sex: {
       type: String,
       enum: ['男', '女'],
-      default:'男'
+      default: '男'
     },
     //上级id
     parent: {
@@ -83,7 +83,10 @@ module.exports = function (appDb) {
     job_status: {
       type: String,
       enum: ['在职', '离职', '请假'],
-      default:'在职'
+      default: '在职'
+    },
+    path: {
+      type:String
     },
     company: {
       type: Schema.Types.ObjectId,

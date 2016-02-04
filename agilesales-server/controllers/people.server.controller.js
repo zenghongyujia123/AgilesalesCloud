@@ -24,3 +24,14 @@ exports.getPeoples = function (req, res, next) {
   });
 };
 
+exports.updatePeoplesPaths = function (req, res, next) {
+  peopleService.updatePeoplesPath(req.user.company, function (err, result) {
+    if (err) {
+    }
+    console.log(result);
+  });
+
+  return res.send(result);
+
+};
+
