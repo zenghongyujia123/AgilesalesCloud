@@ -30,8 +30,18 @@ exports.requireTodayPunch = function (req, res, next) {
         offduty: new PunchDetail({}),
         photos: []
       });
+
+      punch.save(function (err, savePunch) {
+        if (err || !savePunch) {
+          return res.send({err: error.system.db_error});
+        }
+        req.todayPunch = savePunch;
+        return next();
+      });
     }
-    req.todayPunch = punch;
-    return next();
+    else {
+      req.todayPunch = punch;
+      return next();
+    }
   });
 };
