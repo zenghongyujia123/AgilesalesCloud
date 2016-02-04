@@ -57,6 +57,9 @@ module.exports = function (appDb) {
     duty_time: {
       type: Number
     },
+    duty_hour: {
+      type: String
+    },
     photos: [],
     company: {
       type: Schema.Types.ObjectId,
@@ -70,6 +73,14 @@ module.exports = function (appDb) {
     }
     if (this.offduty && this.offduty.done_time) {
       this.offduty.done_time_format = moment(this.offduty.done_time).format('HH:mm');
+    }
+
+    if (this.offduty && this.offduty.done_time && this.onduty && this.onduty.done_time) {
+      this.duty_time = new Date(this.offduty.done_time).getTime() - new Date(this.onduty.done_time).getTime();
+      var hourDiff = this.duty_time / (1000 * 60 * 60);
+      this.duty_hour = parseInt(hourDiff);
+      var minuite = parseInt((hourDiff - this.duty_hour) * 60);
+      this.duty_hour = this.duty_hour + '小时' + minuite + '分';
     }
 
     next();

@@ -1537,7 +1537,7 @@ angular.module('agilisales')
       var info = {};
       if ($scope.todayPunch.onduty.is_done) {
         info.title = '查看';
-        info.sub_title = '上班打卡信息';
+        info.sub_title = '上班打卡:'+$scope.todayPunch.offduty.done_time_format;
         info.is_browser = true;
         info.submit_text = '确认';
         info.photos = [{value: $scope.todayPunch.onduty.photo}]
@@ -1562,14 +1562,14 @@ angular.module('agilisales')
       var info = {};
       if ($scope.todayPunch.offduty.is_done) {
         info.title = '查看';
-        info.sub_title = '下班打卡信息';
+        info.sub_title = '下班打卡:'+$scope.todayPunch.offduty.done_time_format;
         info.submit_text = '确认';
         info.is_browser = true;
         info.photos = [{value: $scope.todayPunch.offduty.photo}]
       }
       else {
         info.title = '下班打卡拍照';
-        info.sub_title = '下班打卡照片';
+        info.sub_title = '下班打卡';
         info.submit_text = '提交';
         info.is_browser = false;
         info.number = 1;
