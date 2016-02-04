@@ -7,4 +7,5 @@ var filter = require('../filters/all');
 
 module.exports = function (app) {
   app.route('/app/punch/today').get(filter.user.requireUser, filter.punch.requireTodayPunch, all.punch.getTodayPunch);
+  app.route('/app/punch').post(filter.user.requireUser, filter.punch.requireTodayPunch, all.punch.punch);
 };
