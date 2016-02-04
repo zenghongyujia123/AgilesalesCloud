@@ -17,7 +17,7 @@
     <div class="camera-entrance" ng-show="info.is_browser===false">
       <div class="camera" ng-click="getPicture()">陈列拍照</div>
 
-      <div class="number">4/3</div>
+      <div class="number">{{info.photos.length}}</div>
     </div>
     <div class="camera-submit" ng-click="submit()">确认</div>
   </ion-content>
