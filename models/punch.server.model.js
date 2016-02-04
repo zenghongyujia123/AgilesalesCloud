@@ -8,6 +8,7 @@
 
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
+  moment = require('moment'),
   timestamps = require('mongoose-timestamp');
 
 module.exports = function (appDb) {
@@ -21,6 +22,9 @@ module.exports = function (appDb) {
     },
     done_time: {
       type: Date
+    },
+    done_time_format: {
+      type: String
     },
     location: [{
       type: Number
@@ -61,6 +65,13 @@ module.exports = function (appDb) {
   });
 
   PunchSchema.pre('save', function (next) {
+    if (this.onduty && this.onduty.done_time) {
+      this.onduty.done_time_format = moment(this.onduty.done_time).format('HH:mm');
+    }
+    if (this.offduty && this.offduty.done_time) {
+      this.offduty.done_time_format = moment(this.offduty.done_time).format('HH:mm');
+    }
+
     next();
   });
 

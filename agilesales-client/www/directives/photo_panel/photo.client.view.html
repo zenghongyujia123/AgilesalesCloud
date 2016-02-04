@@ -15,10 +15,10 @@
       </div>
     </div>
     <div class="camera-entrance" ng-show="info.is_browser===false&&(info.photos.length<info.number)">
-      <div class="camera" ng-click="getPicture()">陈列拍照</div>
+      <div class="camera" ng-click="getPicture()">拍照</div>
 
       <div class="number">{{info.photos.length}}</div>
     </div>
-    <div class="camera-submit" ng-click="submit()">确认</div>
+    <div class="camera-submit" ng-click="submit()">{{info.submit_text}}</div>
   </ion-content>
 </div>

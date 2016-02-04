@@ -19,6 +19,9 @@ angular.module('agilisales')
 
     $scope.punch = function (type, photo) {
       PunchService.punch(type, photo).then(function (data) {
+        if(!data.err){
+          $scope.todayPunch = data;
+        }
         console.log(data);
       }, function (data) {
         console.log(data);
@@ -35,12 +38,14 @@ angular.module('agilisales')
         info.title = '查看';
         info.sub_title = '上班打卡信息';
         info.is_browser = true;
+        info.submit_text = '确认';
         info.photos = [{value:$scope.todayPunch.onduty.photo}]
       }
       else {
         info.title = '上班打卡拍照';
         info.sub_title = '上班打卡照片';
         info.is_browser = false;
+        info.submit_text = '提交';
         info.number = 1;
         info.photos = [];
       }
@@ -49,12 +54,28 @@ angular.module('agilisales')
     };
 
     $scope.clickOffduty = function () {
+      var info = {
+        callback: function (info) {
+          $scope.punch('offduty', info.photos[0].value);
+        }
+      };
       if ($scope.todayPunch.offduty.is_done) {
-
+        info.title = '查看';
+        info.sub_title = '下班打卡信息';
+        info.submit_text = '确认';
+        info.is_browser = true;
+        info.photos = [{value:$scope.todayPunch.offduty.photo}]
       }
       else {
+        info.title = '下班打卡拍照';
+        info.sub_title = '下班打卡照片';
+        info.submit_text = '提交';
+        info.is_browser = false;
+        info.number = 1;
+        info.photos = [];
       }
-      $rootScope.$broadcast('show.photoPanel');
+
+      $rootScope.$broadcast('show.photoPanel', info);
     };
 
     $scope.getTodayPunch();
