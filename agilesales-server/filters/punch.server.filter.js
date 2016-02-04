@@ -14,7 +14,7 @@ var appDb = require('./../../libraries/mongoose').appDb,
 
 exports.requireTodayPunch = function (req, res, next) {
   var user = req.user;
-  var today = moment().format("MM-DD-YYYY");
+  var today = moment().format("YYYY-MM-DD");
 
   Punch.findOne({'user._id': user._id, date: today}).exec(function (err, punch) {
     if (err) {
