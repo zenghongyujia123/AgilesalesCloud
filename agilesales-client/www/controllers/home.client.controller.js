@@ -38,9 +38,9 @@ angular.module('agilisales').controller('MenuCtrl', function ($scope, $ionicModa
       }, 1000);
     };
   })
-  .controller('HomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
-    $scope.showMap = function () {
-      $rootScope.$broadcast('show.mapPanel');
+  .controller('HomeCtrl', ['$scope', '$rootScope', 'AuthService', function ($scope, $rootScope, AuthService) {
+    if (!AuthService.isLoggedIn()) {
+      $rootScope.$broadcast('show.signinPanel');
     }
   }])
   .controller('IndexCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {

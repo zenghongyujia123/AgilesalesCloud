@@ -559,31 +559,6 @@ angular.module('agilisales').factory('PublicInterceptor', ['AuthService', functi
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agEventsSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/events_panel/events_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.eventsSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agDailyCreatePanel', [function () {
   return {
     restrict: 'AE',
@@ -600,6 +575,31 @@ angular.module('agilisales').directive('agDailyCreatePanel', [function () {
       };
 
       $scope.$on('show.dailyCreatePanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agEventsSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/events_panel/events_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.eventsSelectPanel', function () {
         $scope.show();
       });
     }
@@ -936,19 +936,21 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
 
         $scope.goSignin = function () {
           UserService.signin($scope.info.username, $scope.info.password).then(function (data) {
-            if (!data.err && data.access_token) {
-              AuthService.setToken(data.access_token);
-
-              UserService.getMe().then(function (data) {
-                if (!data.err) {
-                  AuthService.setUser(data);
-                  $scope.hide();
-                  $state.go('menu.home');
-                }
-              }, function (data) {
-
-              });
+            if (data.err) {
+              return alert(data.err.zh_message);
             }
+            AuthService.setToken(data.access_token);
+
+            UserService.getMe().then(function (data) {
+              if (data.err) {
+                return alert(data.err.zh_message);
+              }
+              AuthService.setUser(data);
+              $scope.hide();
+              $state.go('menu.home');
+            }, function (data) {
+
+            });
             console.log(data);
           }, function (data) {
             console.log(data);
@@ -983,25 +985,6 @@ angular.module('agilisales').directive('agStatisticsPanel', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-multi-select-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">请选择</div>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $element.click(function () {
-        $rootScope.$broadcast('show.multiSelectPanel');
-      });
-    }
-  };
-}]);
-
 angular.module('agilisales').directive('agBlankQuestion', [function () {
   return {
     restrict: 'AE',
@@ -1017,6 +1000,25 @@ angular.module('agilisales').directive('agBlankQuestion', [function () {
     scope: {},
     link: function ($scope, $element, $attrs) {
 
+    }
+  };
+}]);
+
+angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-multi-select-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">请选择</div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $element.click(function () {
+        $rootScope.$broadcast('show.multiSelectPanel');
+      });
     }
   };
 }]);
@@ -1277,9 +1279,9 @@ angular.module('agilisales').controller('MenuCtrl', function ($scope, $ionicModa
       }, 1000);
     };
   })
-  .controller('HomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
-    $scope.showMap = function () {
-      $rootScope.$broadcast('show.mapPanel');
+  .controller('HomeCtrl', ['$scope', '$rootScope', 'AuthService', function ($scope, $rootScope, AuthService) {
+    if (!AuthService.isLoggedIn()) {
+      $rootScope.$broadcast('show.signinPanel');
     }
   }])
   .controller('IndexCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {

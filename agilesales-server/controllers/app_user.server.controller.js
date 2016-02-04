@@ -15,7 +15,7 @@ exports.signin = function (req, res, next) {
 
   userService.signin(username, password, function (err, user) {
     if (err) {
-      res.send(err);
+      return res.send(err);
     }
     var token = cryptoLib.encrypToken({_id: user._id, time: new Date()}, 'secret');
     return res.send({access_token: token});
