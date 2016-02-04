@@ -639,6 +639,31 @@ angular.module('agilisales').directive('agFiltratePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.peopleSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -732,31 +757,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
         }
         geolocation.watchPosition();
       }
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
-angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.peopleSelectPanel', function () {
-        $scope.show();
-      });
     }
   };
 }]);
@@ -914,7 +914,7 @@ angular.module('agilisales').directive('agShopCreatePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agSigninPanel', [function () {
+angular.module('agilisales').directive('agSigninPanel', ['$state', function ($state) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/signin_panel/signin.client.view.html',
@@ -927,6 +927,7 @@ angular.module('agilisales').directive('agSigninPanel', [function () {
 
       $scope.hide = function () {
         $element.removeClass('show');
+        $state.go('menu.home');
       };
 
       $scope.$on('show.signinPanel', function () {

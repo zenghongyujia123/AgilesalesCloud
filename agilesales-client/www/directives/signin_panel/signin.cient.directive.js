@@ -1,7 +1,7 @@
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agSigninPanel', [function () {
+angular.module('agilisales').directive('agSigninPanel', ['$state', function ($state) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/signin_panel/signin.client.view.html',
@@ -14,6 +14,7 @@ angular.module('agilisales').directive('agSigninPanel', [function () {
 
       $scope.hide = function () {
         $element.removeClass('show');
+        $state.go('menu.home');
       };
 
       $scope.$on('show.signinPanel', function () {
