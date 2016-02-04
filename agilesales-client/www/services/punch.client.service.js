@@ -4,8 +4,8 @@
 angular.module('agilisales').factory('PunchService', ['HttpService', function (HttpService) {
   return {
     //onduty offduty
-    punch: function () {
-
+    getTodayPunch: function () {
+      return HttpService.get('/app/punch/today', {});
     }
   };
 }]);

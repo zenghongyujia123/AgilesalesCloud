@@ -522,6 +522,18 @@ angular.module('agilisales').factory('HttpService', ['$http', '$q', 'ConfigServi
 /**
  * Created by zenghong on 16/2/4.
  */
+angular.module('agilisales').factory('PunchService', ['HttpService', function (HttpService) {
+  return {
+    //onduty offduty
+    getTodayPunch: function () {
+      return HttpService.get('/app/punch/today', {});
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 16/2/4.
+ */
 angular.module('agilisales').factory('UserService', ['HttpService', function (HttpService) {
   return {
     getMe: function () {
@@ -559,31 +571,6 @@ angular.module('agilisales').factory('PublicInterceptor', ['AuthService', functi
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agDailyCreatePanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/daily_panel/daily_create.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.dailyCreatePanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agEventsSelectPanel', [function () {
   return {
     restrict: 'AE',
@@ -600,6 +587,31 @@ angular.module('agilisales').directive('agEventsSelectPanel', [function () {
       };
 
       $scope.$on('show.eventsSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agDailyCreatePanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/daily_panel/daily_create.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.dailyCreatePanel', function () {
         $scope.show();
       });
     }
@@ -1001,25 +1013,6 @@ angular.module('agilisales').directive('agStatisticsPanel', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-multi-select-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">请选择</div>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $element.click(function () {
-        $rootScope.$broadcast('show.multiSelectPanel');
-      });
-    }
-  };
-}]);
-
 angular.module('agilisales').directive('agBlankQuestion', [function () {
   return {
     restrict: 'AE',
@@ -1039,26 +1032,20 @@ angular.module('agilisales').directive('agBlankQuestion', [function () {
   };
 }]);
 
-/**
- * Created by zenghong on 15/12/27.
- */
-angular.module('agilisales').directive('agMultiSelectPanel', [function () {
+angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/questions/multi_select_panel/multi_select.client.view.html',
+    template: ' <div class="ag-row-container ag-multi-select-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">请选择</div>\
+                  </div> \
+                </div>',
     replace: true,
     scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.multiSelectPanel', function () {
-        $scope.show();
+    link: function ($scope, $element, $attrs) {
+      $element.click(function () {
+        $rootScope.$broadcast('show.multiSelectPanel');
       });
     }
   };
@@ -1089,6 +1076,31 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
   };
 }]);
 
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agMultiSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/questions/multi_select_panel/multi_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.multiSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
 
 angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
   return {
@@ -1411,7 +1423,23 @@ angular.module('agilisales')
  * Created by zenghong on 16/1/5.
  */
 angular.module('agilisales')
-  .controller('PunchCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
+  .controller('PunchCtrl', ['$scope', '$rootScope', '$state', 'PunchService', function ($scope, $rootScope, $state, PunchService) {
+    $scope.todayPunch = {};
+    $scope.getTodayPunch = function () {
+      PunchService.getTodayPunch().then(function (data) {
+        console.log(data);
+        if (data.err) {
+          return;
+        }
+        $scope.todayPunch = data;
+
+      }, function (data) {
+        console.log(data);
+      });
+    };
+
+    $scope.getTodayPunch();
+
     $scope.goDetail = function () {
       $state.go('menu.punch_detail');
     };
@@ -1423,6 +1451,7 @@ angular.module('agilisales')
     $scope.showPhotoPanel = function () {
       $rootScope.$broadcast('show.photoPanel');
     };
+
   }]);
 
 /**
