@@ -33,5 +33,6 @@ exports = _.extend(exports, {
   photo: require('./photo'),
   product: require('./product'),
   punch: require('./punch'),
+  qiniu: require('./qiniu'),
   shop: require('./shop')
 });

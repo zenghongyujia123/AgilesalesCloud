@@ -478,11 +478,37 @@ angular.module('agilisales').factory('AuthService', ['localStorageService', '$ro
 }]);
 
 /**
+ * Created by zenghong on 15/1/30.
+ */
+angular.module('agilisales').factory('CameraService', [
+  '$q',
+  '$cordovaCamera',
+  function ($q, $cordovaCamera) {
+    var options = {
+      destinationType: Camera.DestinationType.FILE_URI,
+      sourceType: Camera.PictureSourceType.CAMERA,
+      targetWidth: 800,
+      targetHeight: 800
+    };
+    return {
+      getPicture: function () {
+        var q = $q.defer();
+        $cordovaCamera.getPicture(options).then(function (imageURI) {
+          q.resolve(imageURI);
+        }, function (err) {
+          q.resolve(err);
+        });
+        return q.promise;
+      }
+    }
+  }]);
+
+/**
  * Created by zenghong on 16/2/4.
  */
 angular.module('agilisales').factory('ConfigService', ['$http', '$q', function ($http, $q) {
   return {
-    server: 'http://localhost:3002'
+    server: 'http://192.168.11.128:3002'
   };
 }]);
 
@@ -527,9 +553,65 @@ angular.module('agilisales').factory('PunchService', ['HttpService', function (H
     //onduty offduty
     getTodayPunch: function () {
       return HttpService.get('/app/punch/today', {});
+    },
+    punch: function (type, photo) {
+      return HttpService.post('/app/punch', {type: type, photo: photo});
     }
   };
 }]);
+
+angular.module('agilisales').factory('Qiniu', [
+  '$cordovaFileTransfer',
+  '$window',
+  '$q',
+  '$http',
+  'Config',
+  'DriverService',
+  function ($cordovaFileTransfer, $window, $q, $http, Config, DriverService) {
+    var config = Config.getConfig();
+    var qiniuAddress = 'http://liuyipublic.qiniudn.com/';
+
+    return {
+      getUptoken: function () {
+        var q = $q.defer();
+
+        $http.get(config.zzvanAddress + 'users/uptoken', {
+          params:{
+            access_token: DriverService.getInfo().access_token
+          }
+        })
+          .success(function (result) {
+            q.resolve(result.uptoken);
+          })
+          .error(function (err) {
+            q.reject(err);
+          });
+        return q.promise;
+      },
+
+      uploadImage: function (imageUrl, uptoken) {
+        var q = $q.defer();
+        $window.resolveLocalFileSystemURI(imageUrl, function (fileEntry) {
+          var interUrl = fileEntry.toInternalURL();
+          $cordovaFileTransfer.upload(encodeURI('http://up.qiniu.com'), interUrl, {
+            fileKey: 'file',
+            fileName: interUrl.substr(interUrl.lastIndexOf('/') + 1),
+            chunkedMode: false,
+            trustAllHosts: true,
+            mimeType: 'image/jpeg',
+            params: {
+              token: uptoken
+            }
+          }, true).then(function (result) {
+            q.resolve(qiniuAddress + JSON.parse(result.response).key);
+          }, function (err) {
+            q.reject(err);
+          })
+        });
+        return q.promise;
+      }
+    }
+  }]);
 
 /**
  * Created by zenghong on 16/2/4.
@@ -1441,10 +1523,20 @@ angular.module('agilisales')
       });
     };
 
+    $scope.punch = function (type, photo) {
+      PunchService.punch(type, photo).then(function (data) {
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    };
+
     $scope.clickOnduty = function () {
       var info = {
         callback: function (info) {
-          console.log(info);
+          if (info.type) {
+
+          }
         }
       };
       if ($scope.todayPunch.onduty.is_done) {
