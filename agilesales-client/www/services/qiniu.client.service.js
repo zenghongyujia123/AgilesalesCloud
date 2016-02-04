@@ -2,44 +2,32 @@ angular.module('agilisales').factory('Qiniu', [
   '$cordovaFileTransfer',
   '$window',
   '$q',
-  '$http',
-  'Config',
-  'DriverService',
-  function ($cordovaFileTransfer, $window, $q, $http, Config, DriverService) {
-    var qiniuAddress = 'http://liuyipublic.qiniudn.com/';
+  'HttpService',
+  'ConfigService',
+  function ($cordovaFileTransfer, $window,$q, HttpService, ConfigService) {
+    var qiniuUploadAddress = 'http://upload.qiniu.com';
+    var qiniuAddress = 'http://7xiwrb.com1.z0.glb.clouddn.com/';
 
     return {
       getUptoken: function () {
-        var q = $q.defer();
-
-        $http.get(config.zzvanAddress + 'users/uptoken', {
-          params:{
-            access_token: DriverService.getInfo().access_token
-          }
-        })
-          .success(function (result) {
-            q.resolve(result.uptoken);
-          })
-          .error(function (err) {
-            q.reject(err);
-          });
-        return q.promise;
+        return HttpService.get('/app/qiniu/uptoken',{});
       },
 
-      uploadImage: function (imageUrl, uptoken) {
+      uploadImage: function (imageUrl, token) {
         var q = $q.defer();
-        $window.resolveLocalFileSystemURI(imageUrl, function (fileEntry) {
+        $window.resolveLocalFileSystemURL(imageUrl, function (fileEntry) {
           var interUrl = fileEntry.toInternalURL();
-          $cordovaFileTransfer.upload(encodeURI('http://up.qiniu.com'), interUrl, {
+          $cordovaFileTransfer.upload(encodeURI('http://upload.qiniu.com'), interUrl, {
             fileKey: 'file',
             fileName: interUrl.substr(interUrl.lastIndexOf('/') + 1),
             chunkedMode: false,
             trustAllHosts: true,
             mimeType: 'image/jpeg',
             params: {
-              token: uptoken
+              token: token
             }
           }, true).then(function (result) {
+            console.log(result);
             q.resolve(qiniuAddress + JSON.parse(result.response).key);
           }, function (err) {
             q.reject(err);

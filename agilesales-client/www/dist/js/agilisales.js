@@ -508,7 +508,7 @@ angular.module('agilisales').factory('CameraService', [
  */
 angular.module('agilisales').factory('ConfigService', ['$http', '$q', function ($http, $q) {
   return {
-    server: 'http://192.168.11.128:3002'
+    server: 'http://192.168.99.178:3002'
   };
 }]);
 
@@ -564,45 +564,32 @@ angular.module('agilisales').factory('Qiniu', [
   '$cordovaFileTransfer',
   '$window',
   '$q',
-  '$http',
-  'Config',
-  'DriverService',
-  function ($cordovaFileTransfer, $window, $q, $http, Config, DriverService) {
-    var config = Config.getConfig();
-    var qiniuAddress = 'http://liuyipublic.qiniudn.com/';
+  'HttpService',
+  'ConfigService',
+  function ($cordovaFileTransfer, $window,$q, HttpService, ConfigService) {
+    var qiniuUploadAddress = 'http://upload.qiniu.com';
+    var qiniuAddress = 'http://7xiwrb.com1.z0.glb.clouddn.com/';
 
     return {
       getUptoken: function () {
-        var q = $q.defer();
-
-        $http.get(config.zzvanAddress + 'users/uptoken', {
-          params:{
-            access_token: DriverService.getInfo().access_token
-          }
-        })
-          .success(function (result) {
-            q.resolve(result.uptoken);
-          })
-          .error(function (err) {
-            q.reject(err);
-          });
-        return q.promise;
+        return HttpService.get('/app/qiniu/uptoken',{});
       },
 
-      uploadImage: function (imageUrl, uptoken) {
+      uploadImage: function (imageUrl, token) {
         var q = $q.defer();
-        $window.resolveLocalFileSystemURI(imageUrl, function (fileEntry) {
+        $window.resolveLocalFileSystemURL(imageUrl, function (fileEntry) {
           var interUrl = fileEntry.toInternalURL();
-          $cordovaFileTransfer.upload(encodeURI('http://up.qiniu.com'), interUrl, {
+          $cordovaFileTransfer.upload(encodeURI('http://upload.qiniu.com'), interUrl, {
             fileKey: 'file',
             fileName: interUrl.substr(interUrl.lastIndexOf('/') + 1),
             chunkedMode: false,
             trustAllHosts: true,
             mimeType: 'image/jpeg',
             params: {
-              token: uptoken
+              token: token
             }
           }, true).then(function (result) {
+            console.log(result);
             q.resolve(qiniuAddress + JSON.parse(result.response).key);
           }, function (err) {
             q.reject(err);
@@ -853,7 +840,7 @@ angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$rootScope', function ($cordovaCamera, $rootScope) {
+angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$rootScope', 'Qiniu', function ($cordovaCamera, $rootScope, Qiniu) {
   return {
     restrict: 'AE',
     templateUrl: 'directives/photo_panel/photo.client.view.html',
@@ -864,7 +851,7 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
       document.addEventListener("deviceready", function () {
         options = {
           quality: 50,
-          destinationType: Camera.DestinationType.DATA_URL,
+          destinationType: Camera.DestinationType.FILE_URI,
           sourceType: Camera.PictureSourceType.CAMERA,
           //allowEdit: true,
           encodingType: Camera.EncodingType.JPEG,
@@ -885,14 +872,14 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
         $element.removeClass('show');
       };
 
-      $scope.$on('show.photoPanel', function (event,data) {
+      $scope.$on('show.photoPanel', function (event, data) {
         $scope.show();
         $scope.info = data;
 
       });
 
       $scope.showPhotoDetailPanel = function () {
-        $rootScope.$broadcast('show.photoDetailPanel', $scope.photos);
+        $rootScope.$broadcast('show.photoDetailPanel', $scope.info.photos);
       };
 
       $scope.info = {
@@ -902,7 +889,7 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
         callback: function () {
 
         },
-        photo_number:1,
+        photo_number: 1,
         photos: []
       };
 
@@ -921,13 +908,43 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
             key: $scope.photos.length + 1,
             value: "data:image/jpeg;base64," + imageData
           });
+
+          Qiniu.getUptoken().then(function (data) {
+            console.log(data);
+            Qiniu.uploadImage(imageData, data.token).then(function (result) {
+              console.log(result);
+              $scope.info.photos.push({value: result});
+            }, function (data) {
+              console.log(data);
+            });
+          }, function (err) {
+            console.log(err);
+          });
         }, function (err) {
           console.log(err);
         });
+      };
+
+
+      $scope.uploadImage = function () {
+        var pic = "填写你的base64后的字符串";
+        var url = "http://up.qiniu.com/putb64/20264";
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            document.getElementById("myDiv").innerHTML = xhr.responseText;
+          }
+          ;
+          xhr.open("POST", url, true);
+          xhr.setRequestHeader("Content-Type", "application/octet-stream");
+          xhr.setRequestHeader("Authorization", "UpToken  填写你从服务端获取的上传token");
+          xhr.send(pic);
+        }
       }
     }
   };
-}]);
+}])
+;
 
 /**
  * Created by zenghong on 15/12/27.
@@ -1098,25 +1115,6 @@ angular.module('agilisales').directive('agStatisticsPanel', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-multi-select-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">请选择</div>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $element.click(function () {
-        $rootScope.$broadcast('show.multiSelectPanel');
-      });
-    }
-  };
-}]);
-
 angular.module('agilisales').directive('agBlankQuestion', [function () {
   return {
     restrict: 'AE',
@@ -1132,6 +1130,25 @@ angular.module('agilisales').directive('agBlankQuestion', [function () {
     scope: {},
     link: function ($scope, $element, $attrs) {
 
+    }
+  };
+}]);
+
+angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-multi-select-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">请选择</div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $element.click(function () {
+        $rootScope.$broadcast('show.multiSelectPanel');
+      });
     }
   };
 }]);
@@ -1534,20 +1551,21 @@ angular.module('agilisales')
     $scope.clickOnduty = function () {
       var info = {
         callback: function (info) {
-          if (info.type) {
-
-          }
+          $scope.punch('onduty', info.photos[0].value);
         }
       };
       if ($scope.todayPunch.onduty.is_done) {
         info.title = '查看';
         info.sub_title = '上班打卡信息';
         info.is_browser = true;
+        info.photos = [{value:$scope.todayPunch.onduty.photo}]
       }
       else {
         info.title = '上班打卡拍照';
         info.sub_title = '上班打卡照片';
         info.is_browser = false;
+        info.number = 1;
+        info.photos = [];
       }
 
       $rootScope.$broadcast('show.photoPanel', info);

@@ -16,7 +16,7 @@ exports.requireTodayPunch = function (req, res, next) {
   var user = req.user;
   var today = moment().format("MM-DD-YYYY");
 
-  Punch.findOne({'user._id': user._id.toString(), date: today}).exec(function (err, punch) {
+  Punch.findOne({'user._id': user._id, date: today}).exec(function (err, punch) {
     if (err) {
       return res.send({err: error.system.db_error});
     }

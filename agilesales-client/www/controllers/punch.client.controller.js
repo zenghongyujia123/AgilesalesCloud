@@ -28,20 +28,21 @@ angular.module('agilisales')
     $scope.clickOnduty = function () {
       var info = {
         callback: function (info) {
-          if (info.type) {
-
-          }
+          $scope.punch('onduty', info.photos[0].value);
         }
       };
       if ($scope.todayPunch.onduty.is_done) {
         info.title = '查看';
         info.sub_title = '上班打卡信息';
         info.is_browser = true;
+        info.photos = [{value:$scope.todayPunch.onduty.photo}]
       }
       else {
         info.title = '上班打卡拍照';
         info.sub_title = '上班打卡照片';
         info.is_browser = false;
+        info.number = 1;
+        info.photos = [];
       }
 
       $rootScope.$broadcast('show.photoPanel', info);

@@ -14,7 +14,7 @@
         <img ng-src="{{photo.value}}" class="item">
       </div>
     </div>
-    <div class="camera-entrance" ng-show="info.is_browser===false">
+    <div class="camera-entrance" ng-show="info.is_browser===false&&(info.photos.length<info.number)">
       <div class="camera" ng-click="getPicture()">陈列拍照</div>
 
       <div class="number">{{info.photos.length}}</div>

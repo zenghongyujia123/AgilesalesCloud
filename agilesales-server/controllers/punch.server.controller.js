@@ -9,8 +9,12 @@ exports.getTodayPunch = function (req, res, next) {
 };
 
 exports.punch = function (req, res, next) {
+  var info = {
+    photo: req.body.photo || '',
+    type: req.body.type || ''
+  };
   punchService.punch(
-    req.body.info,
+    info,
     req.todayPunch,
     function (err, result) {
       if (err) {

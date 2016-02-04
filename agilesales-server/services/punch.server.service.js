@@ -13,7 +13,6 @@ exports.punch = function (info, todayPunch, callback) {
     if (todayPunch.onduty.is_done === true) {
       return callback(null, todayPunch)
     }
-
     todayPunch.onduty.photo = info.photo;
     todayPunch.onduty.is_done = true;
     todayPunch.onduty.done_time = new Date();
