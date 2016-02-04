@@ -3,7 +3,9 @@
     <div class="title title-center header-item">登录</div>
   </div>
   <ion-content class="has-header">
-    <div>this is signin </div>
-    <button ng-click="hide()"> denglu </button>
+
+    <input class="username" ng-model="info.username">
+    <input class="password" ng-model="info.password">
+    <button class="signin" ng-click="goSignin()">登录</button>
   </ion-content>
 </div>

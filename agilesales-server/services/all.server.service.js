@@ -8,6 +8,7 @@ exports = _.extend(exports, {
   area: require('./area'),
   company: require('./company'),
   user: require('./user'),
+  app_user: require('./app_user'),
   people: require('./people'),
   product: require('./product'),
   shop: require('./shop'),

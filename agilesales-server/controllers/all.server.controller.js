@@ -23,6 +23,7 @@ exports.download = function (req, res, next) {
 
 exports = _.extend(exports, {
   user: require('./user'),
+  app_user: require('./app_user'),
   area: require('./area'),
   card: require('./card'),
   people: require('./people'),
