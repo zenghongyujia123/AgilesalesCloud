@@ -17,10 +17,20 @@ angular.module('agilisales')
       });
     };
 
+    $scope.punch = function (type, photo) {
+      PunchService.punch(type, photo).then(function (data) {
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+    };
+
     $scope.clickOnduty = function () {
       var info = {
         callback: function (info) {
-          console.log(info);
+          if (info.type) {
+
+          }
         }
       };
       if ($scope.todayPunch.onduty.is_done) {
