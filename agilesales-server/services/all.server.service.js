@@ -12,6 +12,7 @@ exports = _.extend(exports, {
   people: require('./people'),
   product: require('./product'),
   shop: require('./shop'),
+  punch: require('./punch'),
   customer: require('./customer'),
   card: require('./card')
 });

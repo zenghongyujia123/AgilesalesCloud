@@ -61,7 +61,7 @@ module.exports = function (appDb) {
   });
 
   PunchSchema.pre('save', function (next) {
-
+    next();
   });
 
   PunchDetailSchema.plugin(timestamps, {
