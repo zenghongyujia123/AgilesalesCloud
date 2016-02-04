@@ -19,7 +19,7 @@ angular.module('agilisales')
 
     $scope.punch = function (type, photo) {
       PunchService.punch(type, photo).then(function (data) {
-        if(!data.err){
+        if (!data.err) {
           $scope.todayPunch = data;
         }
         console.log(data);
@@ -29,17 +29,13 @@ angular.module('agilisales')
     };
 
     $scope.clickOnduty = function () {
-      var info = {
-        callback: function (info) {
-          $scope.punch('onduty', info.photos[0].value);
-        }
-      };
+      var info = {};
       if ($scope.todayPunch.onduty.is_done) {
         info.title = '查看';
-        info.sub_title = '上班打卡信息';
+        info.sub_title = '上班打卡:'+$scope.todayPunch.offduty.done_time_format;
         info.is_browser = true;
         info.submit_text = '确认';
-        info.photos = [{value:$scope.todayPunch.onduty.photo}]
+        info.photos = [{value: $scope.todayPunch.onduty.photo}]
       }
       else {
         info.title = '上班打卡拍照';
@@ -48,31 +44,34 @@ angular.module('agilisales')
         info.submit_text = '提交';
         info.number = 1;
         info.photos = [];
+        info.callback = function (info) {
+          $scope.punch('onduty', info.photos[0].value);
+        }
+
       }
 
       $rootScope.$broadcast('show.photoPanel', info);
     };
 
     $scope.clickOffduty = function () {
-      var info = {
-        callback: function (info) {
-          $scope.punch('offduty', info.photos[0].value);
-        }
-      };
+      var info = {};
       if ($scope.todayPunch.offduty.is_done) {
         info.title = '查看';
-        info.sub_title = '下班打卡信息';
+        info.sub_title = '下班打卡:'+$scope.todayPunch.offduty.done_time_format;
         info.submit_text = '确认';
         info.is_browser = true;
-        info.photos = [{value:$scope.todayPunch.offduty.photo}]
+        info.photos = [{value: $scope.todayPunch.offduty.photo}]
       }
       else {
         info.title = '下班打卡拍照';
-        info.sub_title = '下班打卡照片';
+        info.sub_title = '下班打卡';
         info.submit_text = '提交';
         info.is_browser = false;
         info.number = 1;
         info.photos = [];
+        info.callback = function (info) {
+          $scope.punch('offduty', info.photos[0].value);
+        }
       }
 
       $rootScope.$broadcast('show.photoPanel', info);
