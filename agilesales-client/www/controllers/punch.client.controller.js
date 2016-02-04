@@ -14,4 +14,5 @@ angular.module('agilisales')
     $scope.showPhotoPanel = function () {
       $rootScope.$broadcast('show.photoPanel');
     };
+
   }]);

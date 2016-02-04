@@ -8,5 +8,6 @@ module.exports = function (appDb) {
   require('./customer')(appDb);
   require('./shop')(appDb);
   require('./product')(appDb);
+  require('./punch')(appDb);
   require('./card_template')(appDb);
 };
