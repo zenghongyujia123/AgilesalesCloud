@@ -14,10 +14,12 @@
       </div>
     </div>
     <div class="footer">
-      <div class="punch-item left" ng-click="showPhotoPanel()">
+      <div class="punch-item left" ng-if="todayPunch.onduty" ng-click="clickOnduty()"
+           ng-class="{done:todayPunch.onduty.is_done===true}">
         上班打卡
       </div>
-      <div class="punch-item right" ng-click="showPhotoPanel()">
+      <div class="punch-item right" ng-if="todayPunch.onduty" ng-click="clickOffduty()"
+           ng-class="{done:todayPunch.onduty.is_done===true}">
         下班打卡
       </div>
     </div>

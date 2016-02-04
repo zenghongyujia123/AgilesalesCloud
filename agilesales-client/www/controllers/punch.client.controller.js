@@ -17,6 +17,35 @@ angular.module('agilisales')
       });
     };
 
+    $scope.clickOnduty = function () {
+      var info = {
+        callback: function (info) {
+          console.log(info);
+        }
+      };
+      if ($scope.todayPunch.onduty.is_done) {
+        info.title = '查看';
+        info.sub_title = '上班打卡信息';
+        info.is_browser = true;
+      }
+      else {
+        info.title = '上班打卡拍照';
+        info.sub_title = '上班打卡照片';
+        info.is_browser = false;
+      }
+
+      $rootScope.$broadcast('show.photoPanel', info);
+    };
+
+    $scope.clickOffduty = function () {
+      if ($scope.todayPunch.offduty.is_done) {
+
+      }
+      else {
+      }
+      $rootScope.$broadcast('show.photoPanel');
+    };
+
     $scope.getTodayPunch();
 
     $scope.goDetail = function () {

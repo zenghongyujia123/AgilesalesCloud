@@ -33,8 +33,10 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
         $element.removeClass('show');
       };
 
-      $scope.$on('show.photoPanel', function () {
+      $scope.$on('show.photoPanel', function (event,data) {
         $scope.show();
+        $scope.info = data;
+
       });
 
       $scope.showPhotoDetailPanel = function () {
@@ -48,6 +50,7 @@ angular.module('agilisales').directive('agPhotoPanel', ['$cordovaCamera', '$root
         callback: function () {
 
         },
+        photo_number:1,
         photos: []
       };
 

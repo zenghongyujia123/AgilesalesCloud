@@ -567,6 +567,9 @@ a {
   text-align: center;
   line-height: 80px;
 }
+.ag-punch-page .footer .punch-item.done {
+  color: #74b44d;
+}
 .ag-shop-list-page .ag-row-item {
   padding: 0px 10px;
   line-height: 50px;
