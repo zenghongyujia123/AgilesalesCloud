@@ -521,10 +521,10 @@ angular.module('agilisales').factory('ConfigService', ['$http', '$q', function (
 angular.module('agilisales').factory('DashboardService', ['HttpService', function (HttpService) {
   return {
     //onduty offduty
-    getMultiPeopleRange: function (url, data) {
+    getMultiDutyTimeRange: function (url, data) {
       return HttpService.get(url, data);
     },
-    getSinglePeopleRange: function (url, data) {
+    getSingleDutyTimeRange: function (url, data) {
       return HttpService.get(url, data);
     }
   };
@@ -752,6 +752,31 @@ angular.module('agilisales').directive('agFiltratePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.peopleSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -844,31 +869,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
         }
         geolocation.watchPosition();
       }
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
-angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.peopleSelectPanel', function () {
-        $scope.show();
-      });
     }
   };
 }]);
@@ -1096,7 +1096,7 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
         });
 
         $scope.info = {
-          username: '13800001190',
+          username: '13800001757',
           password: '111111'
         };
 

@@ -27,6 +27,7 @@ exports.uploadMultiPeoples = function (company, peoples, callback) {
       user.number = people.number;
       user.job_number = people.job_number;
       user.nickname = people.nickname;
+      user.name = people.name;
       user.job = people.job;
       user.duty = people.duty;
       user.email = people.email;

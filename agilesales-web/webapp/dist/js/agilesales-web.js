@@ -2089,7 +2089,7 @@ angular.module('agilesales-web').controller('BasedataPeopleCtrl', ['$scope', '$r
       console.log(data);
     });
   };
-  $scope.updatePeoplesPaths();
+  //$scope.updatePeoplesPaths();
 
   $scope.getPeoples = function () {
     PeopleService.getPeoples().then(function (data) {

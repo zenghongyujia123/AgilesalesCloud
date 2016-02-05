@@ -22,7 +22,7 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
         });
 
         $scope.info = {
-          username: '13800001190',
+          username: '13800001757',
           password: '111111'
         };
 
