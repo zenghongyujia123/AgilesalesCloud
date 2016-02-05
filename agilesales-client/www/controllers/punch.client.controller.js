@@ -32,7 +32,7 @@ angular.module('agilisales')
       var info = {};
       if ($scope.todayPunch.onduty.is_done) {
         info.title = '查看';
-        info.sub_title = '上班打卡:'+$scope.todayPunch.offduty.done_time_format;
+        info.sub_title = '上班打卡:' + $scope.todayPunch.offduty.done_time_format;
         info.is_browser = true;
         info.submit_text = '确认';
         info.photos = [{value: $scope.todayPunch.onduty.photo}]
@@ -47,9 +47,7 @@ angular.module('agilisales')
         info.callback = function (info) {
           $scope.punch('onduty', info.photos[0].value);
         }
-
       }
-
       $rootScope.$broadcast('show.photoPanel', info);
     };
 
@@ -57,7 +55,7 @@ angular.module('agilisales')
       var info = {};
       if ($scope.todayPunch.offduty.is_done) {
         info.title = '查看';
-        info.sub_title = '下班打卡:'+$scope.todayPunch.offduty.done_time_format;
+        info.sub_title = '下班打卡:' + $scope.todayPunch.offduty.done_time_format;
         info.submit_text = '确认';
         info.is_browser = true;
         info.photos = [{value: $scope.todayPunch.offduty.photo}]
@@ -73,7 +71,6 @@ angular.module('agilisales')
           $scope.punch('offduty', info.photos[0].value);
         }
       }
-
       $rootScope.$broadcast('show.photoPanel', info);
     };
 
@@ -84,7 +81,7 @@ angular.module('agilisales')
     };
 
     $scope.goDashboard = function () {
-      $state.go('menu.dashboard_multi');
+      $state.go('menu.dashboard_multi', {type: 'multi_dutytime'});
     };
 
     $scope.showPhotoPanel = function () {

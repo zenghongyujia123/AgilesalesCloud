@@ -85,7 +85,7 @@ angular.module('agilisales', [
         }
       })
       .state('menu.dashboard_multi', {
-        url: '/dashboard_multi',
+        url: '/dashboard_multi/:type',
         views: {
           'menuContent': {
             templateUrl: 'templates/dashboard_multi.client.view.html',

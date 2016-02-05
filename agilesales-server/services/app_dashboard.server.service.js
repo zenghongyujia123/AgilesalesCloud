@@ -12,7 +12,7 @@ function getUserAllChildsUserIds(user, callback) {
   User.aggregate([
     {
       $match: {
-        path: /,user.job_number,/
+        path: {$regex: ',' + user.job_number + ',', $options: 'i'}
       }
     },
     {
@@ -49,10 +49,18 @@ exports.getMultiDutyTimeRange = function (user, info, callback) {
         }
       },
       {
+        $project: {
+          user_info: '$_id',
+          count: '$count',
+          duty_time: '$duty_time',
+          _id:0
+        }
+      },
+      {
         $sort: {duty_time: -1}
       }
     ]).exec(function (err, punchs) {
-      if (err || !result) {
+      if (err || !punchs) {
         return callback({err: error.system.db_error});
       }
       return callback(null, punchs);

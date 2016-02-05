@@ -85,7 +85,7 @@ angular.module('agilisales', [
         }
       })
       .state('menu.dashboard_multi', {
-        url: '/dashboard_multi',
+        url: '/dashboard_multi/:type',
         views: {
           'menuContent': {
             templateUrl: 'templates/dashboard_multi.client.view.html',
@@ -521,11 +521,19 @@ angular.module('agilisales').factory('ConfigService', ['$http', '$q', function (
 angular.module('agilisales').factory('DashboardService', ['HttpService', function (HttpService) {
   return {
     //onduty offduty
-    getMultiDutyTimeRange: function (url, data) {
-      return HttpService.get(url, data);
+    getRange: function (type, info) {
+      switch (type) {
+        case 'multi_dutytime':
+          return this.getMultiDutyTimeRange(info);
+        case 'single_dutytime':
+          return this.getMultiDutyTimeRange(info);
+      }
     },
-    getSingleDutyTimeRange: function (url, data) {
-      return HttpService.get(url, data);
+    getMultiDutyTimeRange: function (info) {
+      return HttpService.get('/app/dashboard/multi/dutytime', info);
+    },
+    getSingleDutyTimeRange: function (info) {
+      return HttpService.get('/app/dashboard/single/dutytime', info);
     }
   };
 }]);
@@ -752,31 +760,6 @@ angular.module('agilisales').directive('agFiltratePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.peopleSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -869,6 +852,31 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
         }
         geolocation.watchPosition();
       }
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.peopleSelectPanel', function () {
+        $scope.show();
+      });
     }
   };
 }]);
@@ -1366,16 +1374,29 @@ angular.module('agilisales')
  * Created by zenghong on 16/1/5.
  */
 angular.module('agilisales')
-  .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
-    $scope.showFiltrate = function () {
-      $rootScope.$broadcast('show.filtratePanel');
-    };
+  .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService',
+    function ($scope, $rootScope, $state, $stateParams, DashboardService) {
+      var type = $stateParams.type;
 
-    $scope.goSingle = function () {
-      $rootScope.$broadcast('show.peopleSelectPanel');
-      //$state.go('menu.dashboard_single');
-    }
-  }]);
+      $scope.getDashboard = function (type) {
+        DashboardService.getRange(type, {}).then(function (data) {
+          console.log(data);
+        }, function (data) {
+          console.log(data);
+        });
+      };
+
+      $scope.getDashboard(type);
+
+      $scope.showFiltrate = function () {
+        $rootScope.$broadcast('show.filtratePanel');
+      };
+
+      $scope.goSingle = function () {
+        $rootScope.$broadcast('show.peopleSelectPanel');
+        //$state.go('menu.dashboard_single');
+      }
+    }]);
 
 /**
  * Created by zenghong on 16/1/5.
@@ -1573,7 +1594,7 @@ angular.module('agilisales')
       var info = {};
       if ($scope.todayPunch.onduty.is_done) {
         info.title = '查看';
-        info.sub_title = '上班打卡:'+$scope.todayPunch.offduty.done_time_format;
+        info.sub_title = '上班打卡:' + $scope.todayPunch.offduty.done_time_format;
         info.is_browser = true;
         info.submit_text = '确认';
         info.photos = [{value: $scope.todayPunch.onduty.photo}]
@@ -1588,9 +1609,7 @@ angular.module('agilisales')
         info.callback = function (info) {
           $scope.punch('onduty', info.photos[0].value);
         }
-
       }
-
       $rootScope.$broadcast('show.photoPanel', info);
     };
 
@@ -1598,7 +1617,7 @@ angular.module('agilisales')
       var info = {};
       if ($scope.todayPunch.offduty.is_done) {
         info.title = '查看';
-        info.sub_title = '下班打卡:'+$scope.todayPunch.offduty.done_time_format;
+        info.sub_title = '下班打卡:' + $scope.todayPunch.offduty.done_time_format;
         info.submit_text = '确认';
         info.is_browser = true;
         info.photos = [{value: $scope.todayPunch.offduty.photo}]
@@ -1614,7 +1633,6 @@ angular.module('agilisales')
           $scope.punch('offduty', info.photos[0].value);
         }
       }
-
       $rootScope.$broadcast('show.photoPanel', info);
     };
 
@@ -1625,7 +1643,7 @@ angular.module('agilisales')
     };
 
     $scope.goDashboard = function () {
-      $state.go('menu.dashboard_multi');
+      $state.go('menu.dashboard_multi', {type: 'multi_dutytime'});
     };
 
     $scope.showPhotoPanel = function () {

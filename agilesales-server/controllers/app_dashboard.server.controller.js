@@ -9,7 +9,7 @@ var appDashboardService = require('./../services/all').app_dashboard;
 
 exports.getMultiDutyTimeRange = function (req, res, next) {
   appDashboardService.getMultiDutyTimeRange(
-    req.body.user,
+    req.user,
     req.body.info,
     function (err, result) {
       if (err) {
@@ -21,7 +21,7 @@ exports.getMultiDutyTimeRange = function (req, res, next) {
 
 exports.getSingleDutyTimeRange = function (req, res, next) {
   appDashboardService.getSingleDutyTimeRange (
-    req.body.user,
+    req.user,
     req.body.info,
     function (err, result) {
       if (err) {
