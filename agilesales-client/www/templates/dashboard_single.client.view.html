@@ -11,66 +11,20 @@
         '>'
       </div>
     </div>
-    <div class="ag-dashboard-result">
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
+    <!--<div class="ag-dashboard-result" ng-repeat="item in sortItems">-->
+      <!--<div class="result-item">-->
+        <!--<span class="number">{{item.sort_text}}</span>-->
+        <!--<span class="value"></span>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="ag-dashboard-result" ng-repeat="item in sortItems">
+      <div class="result-left-item">
+        <span class="name">{{item.sort_text}}</span>
       </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
-      </div>
-      <div class="result-item">
-        <span class="number">2013-2-1</span>
-        <span class="value">10.2小时</span>
+      <div class="result-right-item">
+        <!--<div class="result-item" ng-style="{width:getItemWidth(item,$index)}">-->
+          <!--<span class="value"></span>-->
+        <!--</div>-->
       </div>
     </div>
   </ion-content>

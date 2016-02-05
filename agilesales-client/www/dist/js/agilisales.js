@@ -1229,30 +1229,6 @@ angular.module('agilisales').directive('agMultiSelectPanel', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-true-false-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">是否符合标准</div> \
-                    <div class="right">\
-                    <label>\
-                    <input type="checkbox">\
-                    <div class="ag-track">\
-                        <div class="ag-handle"></div> \
-                      </div> \
-                    </div> \
-                    </label>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  };
-}]);
-
 /**
  * Created by zenghong on 16/1/14.
  */
@@ -1278,6 +1254,30 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
   };
 }]);
 
+
+angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-true-false-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">是否符合标准</div> \
+                    <div class="right">\
+                    <label>\
+                    <input type="checkbox">\
+                    <div class="ag-track">\
+                        <div class="ag-handle"></div> \
+                      </div> \
+                    </div> \
+                    </label>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  };
+}]);
 
 /**
  * Created by zenghong on 15/12/27.
@@ -1447,13 +1447,30 @@ angular.module('agilisales')
     function ($scope, $rootScope, $state, $stateParams, DashboardService) {
       $scope.type = $stateParams.type;
       $scope.user_id = $stateParams.user_id;
-
-      DashboardService.getRange(false,$scope.type, {user_id: $scope.user_id}).then(function (data) {
+      $scope.sortItems = [];
+      DashboardService.getRange(false, $scope.type, {user_id: $scope.user_id}).then(function (data) {
+        if (!data.err) {
+          $scope.setItemText(data)
+        }
         console.log(data);
       }, function (data) {
         console.log(data);
       });
 
+      $scope.setItemText = function (items) {
+        switch ($scope.type) {
+          case 'dutytime':
+            $scope.setDutyItemText(items);
+            break;
+        }
+      };
+
+      $scope.setDutyItemText = function (items) {
+        items.forEach(function (item) {
+          item.sort_text = item.date + ' ' + item.onduty.done_time_format + ' - ' + item.offduty.done_time_format;
+        });
+        $scope.sortItems = items;
+      };
 
       $scope.showFiltrate = function () {
         $rootScope.$broadcast('show.filtratePanel');
