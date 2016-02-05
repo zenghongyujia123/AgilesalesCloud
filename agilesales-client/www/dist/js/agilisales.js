@@ -717,10 +717,10 @@ angular.module('agilisales').directive('agDailyCreatePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agEventsSelectPanel', [function () {
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/events_panel/events_select.client.view.html',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
     replace: true,
     scope: {},
     controller: function ($scope, $element) {
@@ -732,32 +732,7 @@ angular.module('agilisales').directive('agEventsSelectPanel', [function () {
         $element.removeClass('show');
       };
 
-      $scope.$on('show.eventsSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
-angular.module('agilisales').directive('agFiltratePanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.filtratePanel', function () {
+      $scope.$on('show.peopleSelectPanel', function () {
         $scope.show();
       });
     }
@@ -866,10 +841,10 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+angular.module('agilisales').directive('agFiltratePanel', [function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    templateUrl: 'directives/filtrate_panel/filtrate.client.view.html',
     replace: true,
     scope: {},
     controller: function ($scope, $element) {
@@ -881,7 +856,32 @@ angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
         $element.removeClass('show');
       };
 
-      $scope.$on('show.peopleSelectPanel', function () {
+      $scope.$on('show.filtratePanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agEventsSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/events_panel/events_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.eventsSelectPanel', function () {
         $scope.show();
       });
     }
@@ -1166,20 +1166,26 @@ angular.module('agilisales').directive('agStatisticsPanel', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agMultiSelectPanel', [function () {
   return {
     restrict: 'AE',
-    template: ' <div class="ag-row-container ag-multi-select-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">请选择</div>\
-                  </div> \
-                </div>',
+    templateUrl: 'directives/questions/multi_select_panel/multi_select.client.view.html',
     replace: true,
     scope: {},
-    link: function ($scope, $element, $attrs) {
-      $element.click(function () {
-        $rootScope.$broadcast('show.multiSelectPanel');
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.multiSelectPanel', function () {
+        $scope.show();
       });
     }
   };
@@ -1204,26 +1210,20 @@ angular.module('agilisales').directive('agBlankQuestion', [function () {
   };
 }]);
 
-/**
- * Created by zenghong on 15/12/27.
- */
-angular.module('agilisales').directive('agMultiSelectPanel', [function () {
+angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/questions/multi_select_panel/multi_select.client.view.html',
+    template: ' <div class="ag-row-container ag-multi-select-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">请选择</div>\
+                  </div> \
+                </div>',
     replace: true,
     scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.multiSelectPanel', function () {
-        $scope.show();
+    link: function ($scope, $element, $attrs) {
+      $element.click(function () {
+        $rootScope.$broadcast('show.multiSelectPanel');
       });
     }
   };
@@ -1406,12 +1406,12 @@ angular.module('agilisales')
       $scope.setItemText = function (items) {
         switch ($scope.type) {
           case 'dutytime':
-            $scope.setMultiDutyText(items);
+            $scope.setDutyText(items);
             break;
         }
       };
 
-      $scope.setMultiDutyText = function (datas) {
+      $scope.setDutyText = function (datas) {
         datas.forEach(function (data) {
           var hourDiff = data.duty_time / (1000 * 60 * 60);
 
@@ -1427,6 +1427,10 @@ angular.module('agilisales')
 
       $scope.showFiltrate = function () {
         $rootScope.$broadcast('show.filtratePanel');
+      };
+
+      $scope.showSelectPeople = function () {
+        $rootScope.$broadcast('show.peopleSelectPanel');
       };
 
       //$scope.goSingle = function () {

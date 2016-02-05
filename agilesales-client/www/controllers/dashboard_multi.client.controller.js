@@ -27,12 +27,12 @@ angular.module('agilisales')
       $scope.setItemText = function (items) {
         switch ($scope.type) {
           case 'dutytime':
-            $scope.setMultiDutyText(items);
+            $scope.setDutyText(items);
             break;
         }
       };
 
-      $scope.setMultiDutyText = function (datas) {
+      $scope.setDutyText = function (datas) {
         datas.forEach(function (data) {
           var hourDiff = data.duty_time / (1000 * 60 * 60);
 
@@ -48,6 +48,10 @@ angular.module('agilisales')
 
       $scope.showFiltrate = function () {
         $rootScope.$broadcast('show.filtratePanel');
+      };
+
+      $scope.showSelectPeople = function () {
+        $rootScope.$broadcast('show.peopleSelectPanel');
       };
 
       //$scope.goSingle = function () {
