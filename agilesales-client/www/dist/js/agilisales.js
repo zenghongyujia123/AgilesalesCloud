@@ -508,7 +508,25 @@ angular.module('agilisales').factory('CameraService', [
  */
 angular.module('agilisales').factory('ConfigService', ['$http', '$q', function ($http, $q) {
   return {
-    server: 'http://192.168.99.178:3002'
+    server: 'http://192.168.11.128:3002'
+  };
+}]);
+
+/**
+ * Created by zenghong on 16/2/5.
+ */
+/**
+ * Created by zenghong on 16/2/4.
+ */
+angular.module('agilisales').factory('DashboardService', ['HttpService', function (HttpService) {
+  return {
+    //onduty offduty
+    getMultiPeopleRange: function (url, data) {
+      return HttpService.get(url, data);
+    },
+    getSinglePeopleRange: function (url, data) {
+      return HttpService.get(url, data);
+    }
   };
 }]);
 
@@ -541,6 +559,25 @@ angular.module('agilisales').factory('HttpService', ['$http', '$q', 'ConfigServi
           q.reject(data);
         });
       return q.promise;
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 16/2/4.
+ */
+angular.module('agilisales').factory('LocationService', ['$http', '$q', function ($http, $q) {
+  var curLocation = [];
+  return {
+    setLocation: function (lng, lat) {
+      if (lng && lat) {
+        curLocation = [];
+        curLocation.push(lng);
+        curLocation.push(lat);
+      }
+    },
+    getLocation:function(){
+
     }
   };
 }]);
@@ -770,7 +807,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
 
       var androidLocationMk = null;
       function initAndroidLocation() {
-
         window.plugins.AMapLocationService.getCurrentPosition(function (result) {
           console.log(result);
           if (result.position && result.position.lng) {

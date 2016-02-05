@@ -1,7 +1,7 @@
 /**
  * Created by zenghong on 16/2/4.
  */
-angular.module('agilisales').factory('ConfigService', ['$http', '$q', function ($http, $q) {
+angular.module('agilisales').factory('LocationService', ['$http', '$q', function ($http, $q) {
   var curLocation = [];
   return {
     setLocation: function (lng, lat) {
