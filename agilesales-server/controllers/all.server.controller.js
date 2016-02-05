@@ -30,6 +30,7 @@ exports = _.extend(exports, {
   customer: require('./customer'),
   daily: require('./daily'),
   dashboard: require('./dashboard'),
+  app_dashboard: require('./app_dashboard'),
   photo: require('./photo'),
   product: require('./product'),
   punch: require('./punch'),

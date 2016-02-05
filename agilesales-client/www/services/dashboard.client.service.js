@@ -7,10 +7,10 @@
 angular.module('agilisales').factory('DashboardService', ['HttpService', function (HttpService) {
   return {
     //onduty offduty
-    getMultiPeopleRange: function (url, data) {
+    getMultiDutyTimeRange: function (url, data) {
       return HttpService.get(url, data);
     },
-    getSinglePeopleRange: function (url, data) {
+    getSingleDutyTimeRange: function (url, data) {
       return HttpService.get(url, data);
     }
   };

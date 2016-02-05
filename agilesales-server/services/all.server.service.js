@@ -14,5 +14,6 @@ exports = _.extend(exports, {
   shop: require('./shop'),
   punch: require('./punch'),
   customer: require('./customer'),
+  app_dashboard: require('./app_dashboard'),
   card: require('./card')
 });
