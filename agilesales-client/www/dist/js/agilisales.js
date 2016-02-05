@@ -94,7 +94,7 @@ angular.module('agilisales', [
         }
       })
       .state('menu.dashboard_single', {
-        url: '/dashboard_single',
+        url: '/dashboard_single/:type/:user_id',
         views: {
           'menuContent': {
             templateUrl: 'templates/dashboard_single.client.view.html',
@@ -521,13 +521,20 @@ angular.module('agilisales').factory('ConfigService', ['$http', '$q', function (
 angular.module('agilisales').factory('DashboardService', ['HttpService', function (HttpService) {
   return {
     //onduty offduty
-    getRange: function (type, info) {
-      switch (type) {
-        case 'multi_dutytime':
-          return this.getMultiDutyTimeRange(info);
-        case 'single_dutytime':
-          return this.getMultiDutyTimeRange(info);
+    getRange: function (isMulti,type ,info) {
+      if(isMulti){
+        switch (type) {
+          case 'dutytime':
+            return this.getMultiDutyTimeRange(info);
+        }
       }
+      else{
+        switch (type) {
+          case 'dutytime':
+            return this.getSingleDutyTimeRange(info);
+        }
+      }
+
     },
     getMultiDutyTimeRange: function (info) {
       return HttpService.get('/app/dashboard/multi/dutytime', info);
@@ -760,31 +767,6 @@ angular.module('agilisales').directive('agFiltratePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.peopleSelectPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -877,6 +859,31 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
         }
         geolocation.watchPosition();
       }
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.peopleSelectPanel', function () {
+        $scope.show();
+      });
     }
   };
 }]);
@@ -1178,6 +1185,25 @@ angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', f
   };
 }]);
 
+angular.module('agilisales').directive('agBlankQuestion', [function () {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-blank-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">\
+                      <input type="text" placeholder="请输入">\
+                    </div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  };
+}]);
+
 /**
  * Created by zenghong on 15/12/27.
  */
@@ -1203,15 +1229,20 @@ angular.module('agilisales').directive('agMultiSelectPanel', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agBlankQuestion', [function () {
+angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
   return {
     restrict: 'AE',
-    template: ' <div class="ag-row-container ag-blank-question"> \
+    template: ' <div class="ag-row-container ag-true-false-question"> \
                   <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
+                    <div class="left">是否符合标准</div> \
                     <div class="right">\
-                      <input type="text" placeholder="请输入">\
-                    </div>\
+                    <label>\
+                    <input type="checkbox">\
+                    <div class="ag-track">\
+                        <div class="ag-handle"></div> \
+                      </div> \
+                    </div> \
+                    </label>\
                   </div> \
                 </div>',
     replace: true,
@@ -1247,30 +1278,6 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
   };
 }]);
 
-
-angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-true-false-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">是否符合标准</div> \
-                    <div class="right">\
-                    <label>\
-                    <input type="checkbox">\
-                    <div class="ag-track">\
-                        <div class="ag-handle"></div> \
-                      </div> \
-                    </div> \
-                    </label>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  };
-}]);
 
 /**
  * Created by zenghong on 15/12/27.
@@ -1376,12 +1383,12 @@ angular.module('agilisales')
 angular.module('agilisales')
   .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService',
     function ($scope, $rootScope, $state, $stateParams, DashboardService) {
-      var type = $stateParams.type;
+      $scope.type = $stateParams.type;
       $scope.sortItems = [];
-      $scope.getDashboard = function (type) {
-        DashboardService.getRange(type, {}).then(function (data) {
+      $scope.getDashboard = function () {
+        DashboardService.getRange(true, $scope.type, {}).then(function (data) {
           if (!data.err) {
-            $scope.setItemText(type, data)
+            $scope.setItemText(data)
           }
           console.log(data);
         }, function (data) {
@@ -1396,9 +1403,9 @@ angular.module('agilisales')
         return parseInt(item.sort_value / $scope.sortItems[0].sort_value * 100) + '%';
       };
 
-      $scope.setItemText = function (type, items) {
-        switch (type) {
-          case 'multi_dutytime':
+      $scope.setItemText = function (items) {
+        switch ($scope.type) {
+          case 'dutytime':
             $scope.setMultiDutyText(items);
             break;
         }
@@ -1416,15 +1423,19 @@ angular.module('agilisales')
         $scope.sortItems = datas;
       };
 
-      $scope.getDashboard(type);
+      $scope.getDashboard();
 
       $scope.showFiltrate = function () {
         $rootScope.$broadcast('show.filtratePanel');
       };
 
-      $scope.goSingle = function () {
-        $rootScope.$broadcast('show.peopleSelectPanel');
-        //$state.go('menu.dashboard_single');
+      //$scope.goSingle = function () {
+      //  $rootScope.$broadcast('show.peopleSelectPanel');
+      //  //$state.go('menu.dashboard_single');
+      //};
+
+      $scope.goSingle = function (user_id) {
+        $state.go('menu.dashboard_single', {type: $scope.type, user_id: user_id})
       }
     }]);
 
@@ -1432,11 +1443,22 @@ angular.module('agilisales')
  * Created by zenghong on 16/1/5.
  */
 angular.module('agilisales')
-  .controller('DashboardSingleCtrl', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
-    $scope.showFiltrate = function () {
-      $rootScope.$broadcast('show.filtratePanel');
-    };
-  }]);
+  .controller('DashboardSingleCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService',
+    function ($scope, $rootScope, $state, $stateParams, DashboardService) {
+      $scope.type = $stateParams.type;
+      $scope.user_id = $stateParams.user_id;
+
+      DashboardService.getRange(false,$scope.type, {user_id: $scope.user_id}).then(function (data) {
+        console.log(data);
+      }, function (data) {
+        console.log(data);
+      });
+
+
+      $scope.showFiltrate = function () {
+        $rootScope.$broadcast('show.filtratePanel');
+      };
+    }]);
 
 angular.module('agilisales').controller('MenuCtrl', function ($scope, $ionicModal, $timeout) {
 
@@ -1673,7 +1695,7 @@ angular.module('agilisales')
     };
 
     $scope.goDashboard = function () {
-      $state.go('menu.dashboard_multi', {type: 'multi_dutytime'});
+      $state.go('menu.dashboard_multi', {type: 'dutytime'});
     };
 
     $scope.showPhotoPanel = function () {

@@ -7,13 +7,20 @@
 angular.module('agilisales').factory('DashboardService', ['HttpService', function (HttpService) {
   return {
     //onduty offduty
-    getRange: function (type, info) {
-      switch (type) {
-        case 'multi_dutytime':
-          return this.getMultiDutyTimeRange(info);
-        case 'single_dutytime':
-          return this.getMultiDutyTimeRange(info);
+    getRange: function (isMulti,type ,info) {
+      if(isMulti){
+        switch (type) {
+          case 'dutytime':
+            return this.getMultiDutyTimeRange(info);
+        }
       }
+      else{
+        switch (type) {
+          case 'dutytime':
+            return this.getSingleDutyTimeRange(info);
+        }
+      }
+
     },
     getMultiDutyTimeRange: function (info) {
       return HttpService.get('/app/dashboard/multi/dutytime', info);

@@ -23,6 +23,8 @@ module.exports = {
     message: 'user admin authentication failed',
     zh_message: '需要管理员权限'
   },
+  user_id_empty: {type: 'user_id_empty', message: 'user id empty', zh_message: '该用户id为空'},
+  user_id_invalid: {type: 'user_id_invalid', message: 'user id invalid', zh_message: '该用户id无效'},
   //<editor-fold>
 
   //<editor-fold desc="company relative">

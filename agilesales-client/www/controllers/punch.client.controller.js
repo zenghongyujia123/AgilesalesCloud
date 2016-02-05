@@ -81,7 +81,7 @@ angular.module('agilisales')
     };
 
     $scope.goDashboard = function () {
-      $state.go('menu.dashboard_multi', {type: 'multi_dutytime'});
+      $state.go('menu.dashboard_multi', {type: 'dutytime'});
     };
 
     $scope.showPhotoPanel = function () {

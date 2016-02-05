@@ -94,7 +94,7 @@ angular.module('agilisales', [
         }
       })
       .state('menu.dashboard_single', {
-        url: '/dashboard_single',
+        url: '/dashboard_single/:type/:user_id',
         views: {
           'menuContent': {
             templateUrl: 'templates/dashboard_single.client.view.html',

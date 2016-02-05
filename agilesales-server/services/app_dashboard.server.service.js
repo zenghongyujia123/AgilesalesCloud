@@ -53,8 +53,9 @@ exports.getMultiDutyTimeRange = function (user, info, callback) {
           user_info: '$_id',
           count: '$count',
           duty_time: '$duty_time',
-          sort_value:'$duty_time',
-          _id:0
+          sort_value: '$duty_time',
+          user_id: '$_id.user_id',
+          _id: 0
         }
       },
       {
@@ -78,6 +79,9 @@ exports.getSingleDutyTimeRange = function (user, info, callback) {
       $match: {
         'user._id': user._id
       }
+    },
+    {
+      $sort: {date: -1}
     }
   ]).exec(function (err, result) {
     if (err || !result) {

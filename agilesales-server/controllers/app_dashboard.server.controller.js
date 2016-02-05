@@ -21,7 +21,7 @@ exports.getMultiDutyTimeRange = function (req, res, next) {
 
 exports.getSingleDutyTimeRange = function (req, res, next) {
   appDashboardService.getSingleDutyTimeRange (
-    req.user,
+    req.otherUser,
     req.body.info,
     function (err, result) {
       if (err) {

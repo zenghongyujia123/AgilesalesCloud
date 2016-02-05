@@ -4,12 +4,12 @@
 angular.module('agilisales')
   .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService',
     function ($scope, $rootScope, $state, $stateParams, DashboardService) {
-      var type = $stateParams.type;
+      $scope.type = $stateParams.type;
       $scope.sortItems = [];
-      $scope.getDashboard = function (type) {
-        DashboardService.getRange(type, {}).then(function (data) {
+      $scope.getDashboard = function () {
+        DashboardService.getRange(true, $scope.type, {}).then(function (data) {
           if (!data.err) {
-            $scope.setItemText(type, data)
+            $scope.setItemText(data)
           }
           console.log(data);
         }, function (data) {
@@ -24,9 +24,9 @@ angular.module('agilisales')
         return parseInt(item.sort_value / $scope.sortItems[0].sort_value * 100) + '%';
       };
 
-      $scope.setItemText = function (type, items) {
-        switch (type) {
-          case 'multi_dutytime':
+      $scope.setItemText = function (items) {
+        switch ($scope.type) {
+          case 'dutytime':
             $scope.setMultiDutyText(items);
             break;
         }
@@ -44,14 +44,18 @@ angular.module('agilisales')
         $scope.sortItems = datas;
       };
 
-      $scope.getDashboard(type);
+      $scope.getDashboard();
 
       $scope.showFiltrate = function () {
         $rootScope.$broadcast('show.filtratePanel');
       };
 
-      $scope.goSingle = function () {
-        $rootScope.$broadcast('show.peopleSelectPanel');
-        //$state.go('menu.dashboard_single');
+      //$scope.goSingle = function () {
+      //  $rootScope.$broadcast('show.peopleSelectPanel');
+      //  //$state.go('menu.dashboard_single');
+      //};
+
+      $scope.goSingle = function (user_id) {
+        $state.go('menu.dashboard_single', {type: $scope.type, user_id: user_id})
       }
     }]);

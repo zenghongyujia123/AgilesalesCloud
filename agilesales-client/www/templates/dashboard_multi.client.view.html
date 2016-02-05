@@ -16,7 +16,7 @@
         '>'
       </div>
     </div>
-    <div class="ag-dashboard-result" ng-repeat="item in sortItems">
+    <div class="ag-dashboard-result" ng-repeat="item in sortItems" ng-click="goSingle(item.user_id)">
       <div class="result-left-item">
         <span class="number">{{$index+1}}.</span>
         <span class="name">{{item.sort_text}}</span>
