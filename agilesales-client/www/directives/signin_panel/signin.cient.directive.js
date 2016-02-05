@@ -26,6 +26,14 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
           password: '111111'
         };
 
+        function getPeopleUnderlings (){
+          UserService.getPeopleUnderlings().then(function (data) {
+            console.log(data);
+          },function(data){
+            console.log(data);
+          });
+        }
+
         $scope.goSignin = function () {
           UserService.signin($scope.info.username, $scope.info.password).then(function (data) {
             if (data.err) {
@@ -40,6 +48,10 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
               AuthService.setUser(data);
               $scope.hide();
               $state.go('menu.home');
+
+              getPeopleUnderlings();
+
+
             }, function (data) {
 
             });

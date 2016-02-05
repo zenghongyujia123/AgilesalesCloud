@@ -6,6 +6,9 @@ angular.module('agilisales').factory('UserService', ['HttpService', function (Ht
     getMe: function () {
       return HttpService.get('/app/user/me', {});
     },
+    getPeopleUnderlings: function () {
+      return HttpService.get('/app/peoples/underlings', {});
+    },
     signin: function (username, password) {
       return HttpService.post('/app/user/signin', {username: username, password: password});
     }

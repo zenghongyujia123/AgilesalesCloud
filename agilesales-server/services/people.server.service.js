@@ -127,11 +127,13 @@ function getPeopleUnderlings(parent, callback) {
 }
 
 exports.getPeopleUnderlings = function (user, company, callback) {
+  if (user.toObject)
+    user = user.toObject();
   User.aggregate([
     {
       $match: {
         parent_number: user.job_number,
-        company: company
+        company: company._id
       }
     },
     {

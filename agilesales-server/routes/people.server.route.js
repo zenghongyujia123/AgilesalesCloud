@@ -9,5 +9,5 @@ module.exports = function (app) {
   app.route('/webapp/people/multi/upload').post(filter.requireUser, all.people.uploadMultiPeoples);
   app.route('/webapp/peoples').get(filter.requireUser, all.people.getPeoples);
   app.route('/webapp/peoples/path/update').post(filter.requireUser, all.people.updatePeoplesPaths);
-  app.route('/webapp/peoples/underlings').get(filter.requireUser, all.people.getPeopleUnderlings);
+  app.route('/app/peoples/underlings').get(filter.requireUser, all.people.getPeopleUnderlings);
 };

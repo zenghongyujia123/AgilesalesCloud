@@ -35,10 +35,6 @@ exports.updatePeoplesPaths = function (req, res, next) {
 
 };
 
-exports.getPeopleUnderlings({job_number: '000216'}, function (err, user) {
-  console.log(user);
-});
-
 exports.getPeopleUnderlings = function (req, res, next) {
   peopleService.getPeopleUnderlings(
     req.user,
