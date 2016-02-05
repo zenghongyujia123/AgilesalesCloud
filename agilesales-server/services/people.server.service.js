@@ -74,7 +74,7 @@ function updateChildPath(company, parent, callback) {
     }
 
     async.eachSeries(users, function (user, eachCallback) {
-      user.path = (parent.path || '') + parent.job_number+',';
+      user.path = (parent.path || '') + parent.job_number + ',';
 
       user.save(function (err, saveUser) {
         console.log(saveUser.path);
@@ -101,3 +101,59 @@ exports.updatePeoplesPath = function (company, callback) {
     });
   });
 };
+
+function getPeopleUnderlings(parent, callback) {
+  User.aggregate([
+    {
+      $match: {
+        parent_number: parent.job_number
+      }
+    },
+    {
+      $project: {
+        _id: '$_id',
+        job_number: '$job_number',
+        name: '$name',
+        duty: '$duty'
+      }
+    }
+  ]).exec(function (err, result) {
+    if (err || !result || result.length === 0) {
+      return callback();
+    }
+    parent.childs = result;
+
+  });
+}
+
+exports.getPeopleUnderlings = function (user, company, callback) {
+  User.aggregate([
+    {
+      $match: {
+        parent_number: user.job_number,
+        company: company
+      }
+    },
+    {
+      $project: {
+        _id: '$_id',
+        job_number: '$job_number',
+        name: '$name',
+        duty: '$duty'
+      }
+    }
+  ]).exec(function (err, result) {
+    if (err || !result) {
+      return callback(null, []);
+    }
+    user.childs = result;
+    async.each(result, function (parent, eachCallback) {
+      return exports.getPeopleUnderlings(parent, company, eachCallback);
+    }, function (err) {
+      console.log(user);
+      return callback(err, user);
+    });
+  });
+};
+
+
