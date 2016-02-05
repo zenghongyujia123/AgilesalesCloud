@@ -53,6 +53,7 @@ exports.getMultiDutyTimeRange = function (user, info, callback) {
           user_info: '$_id',
           count: '$count',
           duty_time: '$duty_time',
+          sort_value:'$duty_time',
           _id:0
         }
       },

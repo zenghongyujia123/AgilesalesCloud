@@ -760,6 +760,31 @@ angular.module('agilisales').directive('agFiltratePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.peopleSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$ionicPlatform', '$timeout', function ($cordovaGeolocation, $ionicPlatform, $timeout) {
   return {
     restrict: 'AE',
@@ -852,31 +877,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
         }
         geolocation.watchPosition();
       }
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
-angular.module('agilisales').directive('agPeopleSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/people_select_panel/people_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.peopleSelectPanel', function () {
-        $scope.show();
-      });
     }
   };
 }]);
@@ -1178,25 +1178,6 @@ angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', f
   };
 }]);
 
-angular.module('agilisales').directive('agBlankQuestion', [function () {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-blank-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">\
-                      <input type="text" placeholder="请输入">\
-                    </div>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-
-    }
-  };
-}]);
-
 /**
  * Created by zenghong on 15/12/27.
  */
@@ -1218,6 +1199,25 @@ angular.module('agilisales').directive('agMultiSelectPanel', [function () {
       $scope.$on('show.multiSelectPanel', function () {
         $scope.show();
       });
+    }
+  };
+}]);
+
+angular.module('agilisales').directive('agBlankQuestion', [function () {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-blank-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">\
+                      <input type="text" placeholder="请输入">\
+                    </div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
     }
   };
 }]);
@@ -1377,13 +1377,43 @@ angular.module('agilisales')
   .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService',
     function ($scope, $rootScope, $state, $stateParams, DashboardService) {
       var type = $stateParams.type;
-
+      $scope.sortItems = [];
       $scope.getDashboard = function (type) {
         DashboardService.getRange(type, {}).then(function (data) {
+          if (!data.err) {
+            $scope.setItemText(type, data)
+          }
           console.log(data);
         }, function (data) {
           console.log(data);
         });
+      };
+
+      $scope.getItemWidth = function (item, index) {
+        if (index === 0) {
+          return '100%';
+        }
+        return parseInt(item.sort_value / $scope.sortItems[0].sort_value * 100) + '%';
+      };
+
+      $scope.setItemText = function (type, items) {
+        switch (type) {
+          case 'multi_dutytime':
+            $scope.setMultiDutyText(items);
+            break;
+        }
+      };
+
+      $scope.setMultiDutyText = function (datas) {
+        datas.forEach(function (data) {
+          var hourDiff = data.duty_time / (1000 * 60 * 60);
+
+          var hour = parseInt(hourDiff);
+          var minuite = parseInt((hourDiff - hour) * 60);
+          hour = hour + '小时' + minuite + '分';
+          data.sort_text = (data.user_info.name || '未知姓名') + ' ' + hour;
+        });
+        $scope.sortItems = datas;
       };
 
       $scope.getDashboard(type);
