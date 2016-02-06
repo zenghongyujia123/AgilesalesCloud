@@ -3,6 +3,6 @@
  */
 angular.module('agilisales').factory('ConfigService', ['$http', '$q', function ($http, $q) {
   return {
-    server: 'http://192.168.11.128:3002'
+    server: 'http://192.168.99.178:3002'
   };
 }]);

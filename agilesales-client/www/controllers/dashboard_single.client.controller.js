@@ -26,7 +26,7 @@ angular.module('agilisales')
 
       $scope.setDutyItemText = function (items) {
         items.forEach(function (item) {
-          item.sort_text = item.date + ' ' + item.onduty.done_time_format + ' - ' + item.offduty.done_time_format;
+          item.sort_text = item.date + ' ' + item.onduty.done_time_format + ' - ' + (item.offduty.done_time_format||'未知');
         });
         $scope.sortItems = items;
       };

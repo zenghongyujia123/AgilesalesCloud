@@ -4,6 +4,6 @@
 angular.module('agilisales')
   .controller('DashboardCtrl', ['$scope', '$state', function ($scope, $state) {
     $scope.goMuti = function(){
-      $state.go('menu.dashboard_multi');
+      $state.go('menu.dashboard_multi',{type:'dutytime'});
     }
   }]);

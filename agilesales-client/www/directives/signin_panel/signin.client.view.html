@@ -1,11 +1,9 @@
 <div class="ag-panel ag-signin-panel">
-  <div class="bar-stable bar bar-header">
-    <div class="title title-center header-item">登录</div>
+  <div class="input-container">
+    <input class="input username" ng-model="info.username" placeholder="请输入用户名">
+    <input class="input password" ng-model="info.password" placeholder="请输入密码">
   </div>
-  <ion-content class="has-header">
-
-    <input class="username" ng-model="info.username">
-    <input class="password" ng-model="info.password">
-    <button class="signin" ng-click="goSignin()">登录</button>
-  </ion-content>
+  <div class="signin-btn-container">
+    <div class="signin-btn" ng-click="clickSignin()">登录</div>
+  </div>
 </div>

@@ -2,10 +2,11 @@
  * Created by zenghong on 16/1/5.
  */
 angular.module('agilisales')
-  .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService',
-    function ($scope, $rootScope, $state, $stateParams, DashboardService) {
+  .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService', 'AuthService',
+    function ($scope, $rootScope, $state, $stateParams, DashboardService, AuthService) {
       $scope.type = $stateParams.type;
       $scope.sortItems = [];
+      $scope.user = AuthService.getUser();
       $scope.getDashboard = function () {
         DashboardService.getRange(true, $scope.type, {}).then(function (data) {
           if (!data.err) {

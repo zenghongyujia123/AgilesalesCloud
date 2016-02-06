@@ -8,10 +8,12 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
       templateUrl: 'directives/signin_panel/signin.client.view.html',
       replace: true,
       scope: {},
-      controller: function ($scope, $element) {
+      link: function ($scope, $element) {
         $scope.show = function () {
           $element.addClass('show');
         };
+
+        $scope.show();
 
         $scope.hide = function () {
           $element.removeClass('show');
@@ -26,13 +28,22 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
           password: '111111'
         };
 
-        function getPeopleUnderlings (){
+        function getPeopleUnderlings() {
           UserService.getPeopleUnderlings().then(function (data) {
             console.log(data);
-          },function(data){
+          }, function (data) {
             console.log(data);
           });
         }
+
+        $scope.clickSignin = function () {
+          if ($element.hasClass('do')) {
+            return $scope.goSignin();
+          }
+          else {
+            return $element.addClass('do');
+          }
+        };
 
         $scope.goSignin = function () {
           UserService.signin($scope.info.username, $scope.info.password).then(function (data) {

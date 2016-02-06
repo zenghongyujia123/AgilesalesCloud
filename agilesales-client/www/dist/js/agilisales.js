@@ -508,7 +508,7 @@ angular.module('agilisales').factory('CameraService', [
  */
 angular.module('agilisales').factory('ConfigService', ['$http', '$q', function ($http, $q) {
   return {
-    server: 'http://192.168.11.128:3002'
+    server: 'http://192.168.99.178:3002'
   };
 }]);
 
@@ -720,6 +720,31 @@ angular.module('agilisales').directive('agDailyCreatePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
+angular.module('agilisales').directive('agEventsSelectPanel', [function () {
+  return {
+    restrict: 'AE',
+    templateUrl: 'directives/events_panel/events_select.client.view.html',
+    replace: true,
+    scope: {},
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
+
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
+
+      $scope.$on('show.eventsSelectPanel', function () {
+        $scope.show();
+      });
+    }
+  };
+}]);
+
+/**
+ * Created by zenghong on 15/12/27.
+ */
 angular.module('agilisales').directive('agFiltratePanel', [function () {
   return {
     restrict: 'AE',
@@ -837,31 +862,6 @@ angular.module('agilisales').directive('agMapPanel', ['$cordovaGeolocation', '$i
         }
         geolocation.watchPosition();
       }
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
-angular.module('agilisales').directive('agEventsSelectPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/events_panel/events_select.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.eventsSelectPanel', function () {
-        $scope.show();
-      });
     }
   };
 }]);
@@ -1094,31 +1094,6 @@ angular.module('agilisales').directive('agShopCreatePanel', [function () {
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agStatisticsPanel', [function () {
-  return {
-    restrict: 'AE',
-    templateUrl: 'directives/statistics_panel/statistics.client.view.html',
-    replace: true,
-    scope: {},
-    controller: function ($scope, $element) {
-      $scope.show = function () {
-        $element.addClass('show');
-      };
-
-      $scope.hide = function () {
-        $element.removeClass('show');
-      };
-
-      $scope.$on('show.statisticsPanel', function () {
-        $scope.show();
-      });
-    }
-  };
-}]);
-
-/**
- * Created by zenghong on 15/12/27.
- */
 angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService', 'AuthService',
   function ($state, UserService, AuthService) {
     return {
@@ -1126,10 +1101,12 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
       templateUrl: 'directives/signin_panel/signin.client.view.html',
       replace: true,
       scope: {},
-      controller: function ($scope, $element) {
+      link: function ($scope, $element) {
         $scope.show = function () {
           $element.addClass('show');
         };
+
+        $scope.show();
 
         $scope.hide = function () {
           $element.removeClass('show');
@@ -1144,13 +1121,22 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
           password: '111111'
         };
 
-        function getPeopleUnderlings (){
+        function getPeopleUnderlings() {
           UserService.getPeopleUnderlings().then(function (data) {
             console.log(data);
-          },function(data){
+          }, function (data) {
             console.log(data);
           });
         }
+
+        $scope.clickSignin = function () {
+          if ($element.hasClass('do')) {
+            return $scope.goSignin();
+          }
+          else {
+            return $element.addClass('do');
+          }
+        };
 
         $scope.goSignin = function () {
           UserService.signin($scope.info.username, $scope.info.password).then(function (data) {
@@ -1185,10 +1171,10 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
 /**
  * Created by zenghong on 15/12/27.
  */
-angular.module('agilisales').directive('agMultiSelectPanel', [function () {
+angular.module('agilisales').directive('agStatisticsPanel', [function () {
   return {
     restrict: 'AE',
-    templateUrl: 'directives/questions/multi_select_panel/multi_select.client.view.html',
+    templateUrl: 'directives/statistics_panel/statistics.client.view.html',
     replace: true,
     scope: {},
     controller: function ($scope, $element) {
@@ -1200,8 +1186,27 @@ angular.module('agilisales').directive('agMultiSelectPanel', [function () {
         $element.removeClass('show');
       };
 
-      $scope.$on('show.multiSelectPanel', function () {
+      $scope.$on('show.statisticsPanel', function () {
         $scope.show();
+      });
+    }
+  };
+}]);
+
+angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-multi-select-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">填空题</div> \
+                    <div class="right">请选择</div>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+      $element.click(function () {
+        $rootScope.$broadcast('show.multiSelectPanel');
       });
     }
   };
@@ -1226,44 +1231,26 @@ angular.module('agilisales').directive('agBlankQuestion', [function () {
   };
 }]);
 
-angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
+/**
+ * Created by zenghong on 15/12/27.
+ */
+angular.module('agilisales').directive('agMultiSelectPanel', [function () {
   return {
     restrict: 'AE',
-    template: ' <div class="ag-row-container ag-true-false-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">是否符合标准</div> \
-                    <div class="right">\
-                    <label>\
-                    <input type="checkbox">\
-                    <div class="ag-track">\
-                        <div class="ag-handle"></div> \
-                      </div> \
-                    </div> \
-                    </label>\
-                  </div> \
-                </div>',
+    templateUrl: 'directives/questions/multi_select_panel/multi_select.client.view.html',
     replace: true,
     scope: {},
-    link: function ($scope, $element, $attrs) {
+    controller: function ($scope, $element) {
+      $scope.show = function () {
+        $element.addClass('show');
+      };
 
-    }
-  };
-}]);
+      $scope.hide = function () {
+        $element.removeClass('show');
+      };
 
-angular.module('agilisales').directive('agMultiSelectQuestion', ['$rootScope', function ($rootScope) {
-  return {
-    restrict: 'AE',
-    template: ' <div class="ag-row-container ag-multi-select-question"> \
-                  <div class="ag-row-item">\
-                    <div class="left">填空题</div> \
-                    <div class="right">请选择</div>\
-                  </div> \
-                </div>',
-    replace: true,
-    scope: {},
-    link: function ($scope, $element, $attrs) {
-      $element.click(function () {
-        $rootScope.$broadcast('show.multiSelectPanel');
+      $scope.$on('show.multiSelectPanel', function () {
+        $scope.show();
       });
     }
   };
@@ -1294,6 +1281,30 @@ angular.module('agilisales').directive('agSingleSelectQuestion', [function () {
   };
 }]);
 
+
+angular.module('agilisales').directive('agTrueFalseQuestion', [function () {
+  return {
+    restrict: 'AE',
+    template: ' <div class="ag-row-container ag-true-false-question"> \
+                  <div class="ag-row-item">\
+                    <div class="left">是否符合标准</div> \
+                    <div class="right">\
+                    <label>\
+                    <input type="checkbox">\
+                    <div class="ag-track">\
+                        <div class="ag-handle"></div> \
+                      </div> \
+                    </div> \
+                    </label>\
+                  </div> \
+                </div>',
+    replace: true,
+    scope: {},
+    link: function ($scope, $element, $attrs) {
+
+    }
+  };
+}]);
 
 /**
  * Created by zenghong on 15/12/27.
@@ -1389,7 +1400,7 @@ angular.module('agilisales')
 angular.module('agilisales')
   .controller('DashboardCtrl', ['$scope', '$state', function ($scope, $state) {
     $scope.goMuti = function(){
-      $state.go('menu.dashboard_multi');
+      $state.go('menu.dashboard_multi',{type:'dutytime'});
     }
   }]);
 
@@ -1397,10 +1408,11 @@ angular.module('agilisales')
  * Created by zenghong on 16/1/5.
  */
 angular.module('agilisales')
-  .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService',
-    function ($scope, $rootScope, $state, $stateParams, DashboardService) {
+  .controller('DashboardMultiCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'DashboardService', 'AuthService',
+    function ($scope, $rootScope, $state, $stateParams, DashboardService, AuthService) {
       $scope.type = $stateParams.type;
       $scope.sortItems = [];
+      $scope.user = AuthService.getUser();
       $scope.getDashboard = function () {
         DashboardService.getRange(true, $scope.type, {}).then(function (data) {
           if (!data.err) {
@@ -1487,7 +1499,7 @@ angular.module('agilisales')
 
       $scope.setDutyItemText = function (items) {
         items.forEach(function (item) {
-          item.sort_text = item.date + ' ' + item.onduty.done_time_format + ' - ' + item.offduty.done_time_format;
+          item.sort_text = item.date + ' ' + item.onduty.done_time_format + ' - ' + (item.offduty.done_time_format||'未知');
         });
         $scope.sortItems = items;
       };

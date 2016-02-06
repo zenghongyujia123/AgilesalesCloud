@@ -18,14 +18,15 @@
       <!--</div>-->
     <!--</div>-->
     <div class="ag-dashboard-result" ng-repeat="item in sortItems">
-      <div class="result-left-item">
-        <span class="name">{{item.sort_text}}</span>
+      <div class="result-left-item" style="width:80%">
+        <!--<span class="name"></span>-->
+        {{item.sort_text}}
       </div>
-      <div class="result-right-item">
-        <!--<div class="result-item" ng-style="{width:getItemWidth(item,$index)}">-->
-          <!--<span class="value"></span>-->
-        <!--</div>-->
-      </div>
+      <!--<div class="result-right-item">-->
+        <!--&lt;!&ndash;<div class="result-item" ng-style="{width:getItemWidth(item,$index)}">&ndash;&gt;-->
+          <!--&lt;!&ndash;<span class="value"></span>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</div>-->
     </div>
   </ion-content>
 </ion-view>
