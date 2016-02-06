@@ -566,20 +566,19 @@ a {
 }
 .menu .sm-menu-header {
   display: block;
-  height: 200px;
+  height: 220px;
   position: relative;
   background-color: #301e2e ;
 }
 .menu .sm-menu-header .photo {
   position: absolute;
-  height: 80px;
-  width: 80px;
+  height: 90px;
+  width: 90px;
   left: 50%;
   top: 50%;
-  margin-left: -40px;
-  margin-top: -40px;
+  margin-left: -45px;
+  margin-top: -55px;
   border-radius: 90px;
-  background-color: white;
 }
 .menu .sm-menu-header .name {
   line-height: 60px;
@@ -589,11 +588,30 @@ a {
   color: white;
   text-align: center;
   font-size: 20px;
+  margin-bottom: 20px;
 }
 .menu .sm-menu-item {
-  line-height: 50px;
+  line-height: 62px;
   display: block;
   padding: 0px 30px;
+  font-size: 16px;
+}
+.menu .sm-menu-item .fa {
+  text-align: center;
+  margin-right: 12px;
+  width: 16px;
+}
+.menu .sm-menu-item .fa.oringe {
+  color: #fc9e5e;
+}
+.menu .sm-menu-item .fa.blue {
+  color: #419cf4;
+}
+.menu .sm-menu-item .fa.green {
+  color: #74b44d;
+}
+.menu .sm-menu-item .fa.purple {
+  color: #a077d7;
 }
 .sm-home-page .theme-container {
   background-color: #f8f8f8;
