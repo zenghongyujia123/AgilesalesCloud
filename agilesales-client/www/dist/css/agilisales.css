@@ -194,16 +194,67 @@ a {
   background-color: #0a9dc7;
   z-index: 1;
 }
+.ag-signin-panel {
+  text-align: center;
+  background: url('../../img/signin_background.png') center center;
+  background-size: cover;
+}
+.ag-signin-panel .cloud-icon-container {
+  position: absolute;
+  left: 0px;
+  text-align: center;
+  width: 100%;
+  top: 25%;
+  transition: top .2s;
+  -moz-transition: top .2s;
+  -webkit-transition: top .2s;
+  -o-transition: top .2s;
+}
+.ag-signin-panel .cloud-icon-container .cloud-icon {
+  width: 108px;
+  top: 25%;
+  transition: width .2s;
+  -moz-transition: width .2s;
+  -webkit-transition: width .2s;
+  -o-transition: width .2s;
+}
+.ag-signin-panel .cloud-text-container {
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  top: 48%;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  text-align: center;
+}
+.ag-signin-panel .cloud-text-container .cloud-text {
+  margin: auto;
+  width: 128px;
+  top: 48%;
+  transition: opacity .2s;
+  -moz-transition: opacity .2s;
+  -webkit-transition: opacity .2s;
+  -o-transition: opacity .2s;
+}
+.ag-signin-panel .cloud-text-container .signin-tip {
+  color: white;
+  opacity: .7;
+  margin-top: 5px;
+  font-size: 13px;
+  transition: opacity .2s;
+  -moz-transition: opacity .2s;
+  -webkit-transition: opacity .2s;
+  -o-transition: opacity .2s;
+}
 .ag-signin-panel .input-container {
   position: absolute;
   left: -100%;
-  top: 50%;
-  margin-top: -200px;
+  top: 25%;
   width: 100%;
   height: 200px;
-  -webkit-transition: -webkit-transform 0.8s ease;
+  -webkit-transition: -webkit-transform 0.2s ease;
   -webkit-transform: translate3d(0, 0, 0);
-  padding: 20px;
+  padding: 0px 40px;
 }
 .ag-signin-panel .input-container .input {
   margin-bottom: 20px;
@@ -213,55 +264,96 @@ a {
   background-color: inherit;
   font-size: 16px;
   border-radius: 0px;
-  border-bottom: 1px solid #d7d7d7;
-  padding: 5px;
+  border-bottom: 1px solid #A7A6D4;
+  padding: 5px 0px;
+  color: white;
 }
 .ag-signin-panel .input-container .input:focus {
   outline: none;
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid white;
 }
 .ag-signin-panel .input-container .input::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #cdcdcd;
+  color: white;
+  opacity: .6;
 }
 .ag-signin-panel .input-container .input:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #cdcdcd;
+  color: white;
+  opacity: .6;
 }
 .ag-signin-panel .input-container .input::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #cdcdcd;
+  color: white;
+  opacity: .6;
 }
 .ag-signin-panel .input-container .input:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #cdcdcd;
+  color: white;
+  opacity: .6;
 }
 .ag-signin-panel .signin-btn-container {
   position: absolute;
   bottom: 0px;
   width: 100%;
   left: 0px;
-  height: 60px;
-  -webkit-transition: -webkit-transform 0.8s ease;
+  height: 56px;
+  -webkit-transition: -webkit-transform 0.2s ease;
   -webkit-transform: translate3d(0, 0, 0);
 }
 .ag-signin-panel .signin-btn-container .signin-btn {
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: 56px;
+  line-height: 56px;
   text-align: center;
   background-color: white;
+  color: #524EAC;
+  font-size: 16px;
+}
+.ag-signin-panel .submit-btn-container {
+  position: absolute;
+  top: 50%;
+  right: -100%;
+  width: 100%;
+  height: 50px;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  -webkit-transform: translate3d(0, 0, 0);
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.ag-signin-panel .submit-btn-container .submit-btn {
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 90px;
+  color: #524EAC;
+  font-size: 16px;
+}
+.ag-signin-panel.do .submit-btn-container {
+  -webkit-transform: translate3d(-100%, 0, 0);
+}
+.ag-signin-panel.do .cloud-icon-container {
+  top: 10%;
+}
+.ag-signin-panel.do .cloud-icon-container .cloud-icon {
+  width: 64px;
+}
+.ag-signin-panel.do .cloud-text-container {
+  -webkit-transform: translate3d(0, 200px, 0);
+}
+.ag-signin-panel.do .cloud-text-container .cloud-text {
+  opacity: 0;
+}
+.ag-signin-panel.do .cloud-text-container .signin-tip {
+  opacity: 0;
 }
 .ag-signin-panel.do .input-container {
   -webkit-transform: translate3d(100%, 0, 0);
 }
 .ag-signin-panel.do .signin-btn-container {
-  -webkit-transform: translate3d(0, -200px, 0);
-  padding-left: 50px;
-  padding-right: 50px;
-}
-.ag-signin-panel.do .signin-btn-container .signin-btn {
-  border-radius: 90px;
+  -webkit-transform: translate3d(0, 200px, 0);
 }
 .ag-photo-panel .photo-title {
   padding: 20px 10px;

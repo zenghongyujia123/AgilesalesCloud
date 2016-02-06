@@ -1130,13 +1130,9 @@ angular.module('agilisales').directive('agSigninPanel', ['$state', 'UserService'
         }
 
         $scope.clickSignin = function () {
-          if ($element.hasClass('do')) {
-            return $scope.goSignin();
-          }
-          else {
-            return $element.addClass('do');
-          }
+          return $element.addClass('do');
         };
+
 
         $scope.goSignin = function () {
           UserService.signin($scope.info.username, $scope.info.password).then(function (data) {
